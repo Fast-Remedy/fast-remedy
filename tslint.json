@@ -1,0 +1,29 @@
+{
+	"defaultSeverity": "error",
+	"extends": ["tslint:recommended"],
+	"jsRules": {},
+	"rules": {
+		"adjacent-overload-signatures": false,
+		"no-any": true,
+		"no-empty-interface": true,
+		"no-inferrable-types": true,
+		"no-import-side-effect": false,
+		"no-non-null-assertion": true,
+		"no-reference": true,
+		"only-arrow-functions": true,
+		"promise-function-async": true,
+		"no-duplicate-variable": true,
+		"no-empty": true,
+		"triple-equals": true,
+		"encoding": true,
+		"increment-decrement": true,
+		"newline-before-return": true,
+		"semicolon": [true, "always"],
+		"no-console": false,
+		"no-trailing-whitespace": false,
+		"object-literal-shorthand": false,
+		"no-shadowed-variable": false,
+		"radix": false
+	},
+	"rulesDirectory": []
+}
