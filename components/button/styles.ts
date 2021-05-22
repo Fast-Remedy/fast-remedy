@@ -3,6 +3,7 @@ import Styled from "styled-components";
 interface Props {
 	color?: string;
 	bg?: string;
+	width?: string;
 }
 
 export const Button = Styled.button<Props>`
@@ -14,6 +15,7 @@ export const Button = Styled.button<Props>`
 	margin: 10px 10px 0 10px;
 	border-radius: 10px;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	width: ${props => props.width || "0px"};
 	&:hover{
 		opacity: 0.8;
 	}

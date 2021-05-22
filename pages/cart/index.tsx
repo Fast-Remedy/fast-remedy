@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../../components/header";
 import Card from "../../components/card";
 import { Text, Title, Section, BoxCard, Price } from "./styles";
-import { Button } from "../../components/buttonOne/styles";
+import { Button } from "../../components/button/styles";
 import Theme from "../theme";
 
 const Cart: React.FC = () => {
@@ -12,10 +12,10 @@ const Cart: React.FC = () => {
 			<Section>
 				<Title>Drogaria Moderna</Title>
 				<div>
-					<Button color={Theme.colors.white} bg={Theme.colors.lightGreen}>
+					<Button width="95px" color={Theme.colors.white} bg={Theme.colors.lightGreen}>
 						Finalizar
 					</Button>
-					<Button color={Theme.colors.white} bg={Theme.colors.lightGreen}>
+					<Button width="80px" color={Theme.colors.white} bg={Theme.colors.lightGreen}>
 						Voltar
 					</Button>
 				</div>
@@ -28,10 +28,10 @@ const Cart: React.FC = () => {
 							<Price>R$ 6,50</Price>
 						</div>
 						<div>
-							<Button color={Theme.colors.white} bg={Theme.colors.red}>
+							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.red}>
 								Redirar
 							</Button>
-							<Button color={Theme.colors.white} bg={Theme.colors.yellow}>
+							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.yellow}>
 								Total: 4
 							</Button>
 						</div>
@@ -44,10 +44,10 @@ const Cart: React.FC = () => {
 							<Price>R$ 6,50</Price>
 						</div>
 						<div>
-							<Button color={Theme.colors.white} bg={Theme.colors.red}>
+							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.red}>
 								Redirar
 							</Button>
-							<Button color={Theme.colors.white} bg={Theme.colors.yellow}>
+							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.yellow}>
 								Total: 4
 							</Button>
 						</div>
@@ -60,10 +60,10 @@ const Cart: React.FC = () => {
 							<Price>R$ 6,50</Price>
 						</div>
 						<div>
-							<Button color={Theme.colors.white} bg={Theme.colors.red}>
+							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.red}>
 								Redirar
 							</Button>
-							<Button color={Theme.colors.white} bg={Theme.colors.yellow}>
+							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.yellow}>
 								Total: 4
 							</Button>
 						</div>
@@ -76,10 +76,10 @@ const Cart: React.FC = () => {
 							<Price>R$ 6,50</Price>
 						</div>
 						<div>
-							<Button color={Theme.colors.white} bg={Theme.colors.red}>
+							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.red}>
 								Redirar
 							</Button>
-							<Button color={Theme.colors.white} bg={Theme.colors.yellow}>
+							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.yellow}>
 								Total: 4
 							</Button>
 						</div>
@@ -92,10 +92,10 @@ const Cart: React.FC = () => {
 							<Price>R$ 6,50</Price>
 						</div>
 						<div>
-							<Button color={Theme.colors.white} bg={Theme.colors.red}>
+							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.red}>
 								Redirar
 							</Button>
-							<Button color={Theme.colors.white} bg={Theme.colors.yellow}>
+							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.yellow}>
 								Total: 4
 							</Button>
 						</div>
@@ -108,10 +108,10 @@ const Cart: React.FC = () => {
 							<Price>R$ 6,50</Price>
 						</div>
 						<div>
-							<Button color={Theme.colors.white} bg={Theme.colors.red}>
+							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.red}>
 								Redirar
 							</Button>
-							<Button color={Theme.colors.white} bg={Theme.colors.yellow}>
+							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.yellow}>
 								Total: 4
 							</Button>
 						</div>

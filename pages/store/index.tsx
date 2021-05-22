@@ -1,9 +1,9 @@
 import React from "react";
 import Header from "../../components/header";
 import Card from "../../components/card";
-import ButtonOne from "../../components/buttonOne";
+import ButtonOne from "../../components/button";
 import { Text, Title, Section, BoxCard, Price } from "./styles";
-import { Button } from "../../components/buttonOne/styles";
+import { Button } from "../../components/button/styles";
 import Theme from "../theme";
 
 const Store: React.FC = () => {

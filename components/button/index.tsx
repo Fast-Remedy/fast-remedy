@@ -6,10 +6,11 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	props?: React.ButtonHTMLAttributes<HTMLButtonElement>;
 	color?: string;
 	bg?: string;
+	width?: string;
 }
 
-const ButtonsOne: React.FC<Props> = ({ children, color, bg, ...props }) => (
-	<Button {...props} color={color} bg={bg}>
+const ButtonsOne: React.FC<Props> = ({ children, color, bg, width, ...props }) => (
+	<Button {...props} color={color} bg={bg} width={width}>
 		{children}
 	</Button>
 );

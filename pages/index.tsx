@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/header";
 import Card from "../components/card";
-import ButtonOne from "../components/buttonOne";
+import ButtonOne from "../components/button";
 import { Text, Title, Section, BoxCard } from "./styles";
 
 const Home: React.FC = () => {
