@@ -19,6 +19,46 @@ const Home: React.FC = () => {
 							<ButtonOne>Ver produtos</ButtonOne>
 						</div>
 					</Card>
+					<Card>
+						<div>
+							<Text>Drogaria Moderna</Text>
+						</div>
+						<div>
+							<ButtonOne>Ver produtos</ButtonOne>
+						</div>
+					</Card>
+					<Card>
+						<div>
+							<Text>Drogaria Moderna</Text>
+						</div>
+						<div>
+							<ButtonOne>Ver produtos</ButtonOne>
+						</div>
+					</Card>
+					<Card>
+						<div>
+							<Text>Drogaria Moderna</Text>
+						</div>
+						<div>
+							<ButtonOne>Ver produtos</ButtonOne>
+						</div>
+					</Card>
+					<Card>
+						<div>
+							<Text>Drogaria Moderna</Text>
+						</div>
+						<div>
+							<ButtonOne>Ver produtos</ButtonOne>
+						</div>
+					</Card>
+					<Card>
+						<div>
+							<Text>Drogaria Moderna</Text>
+						</div>
+						<div>
+							<ButtonOne>Ver produtos</ButtonOne>
+						</div>
+					</Card>
 				</BoxCard>
 			</Section>
 		</main>

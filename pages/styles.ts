@@ -18,4 +18,21 @@ export const Section = Styled.section`
 	margin: 40px 0 0 0;
 `;
 
-export const BoxCard = styled.div``;
+export const BoxCard = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 90%;
+	margin: 0 auto;
+
+	@media screen and (min-width: 630px){
+		display: grid;
+		grid-template-columns: 200px 200px;
+	}
+
+	@media screen and (min-width: 800px){
+		display: grid;
+		grid-template-columns: 250px 250px 250px;
+	}
+`;
