@@ -11,7 +11,7 @@ const Home: React.FC = () => {
 			<Section>
 				<Title>Lojas</Title>
 				<BoxCard>
-					<Card>
+					<Card src="/images/logos/drogaria-moderna.png">
 						<div>
 							<Text>Drogaria Moderna</Text>
 						</div>
@@ -19,7 +19,7 @@ const Home: React.FC = () => {
 							<ButtonOne>Ver produtos</ButtonOne>
 						</div>
 					</Card>
-					<Card>
+					<Card src="/images/logos/drogaria-moderna.png">
 						<div>
 							<Text>Drogaria Moderna</Text>
 						</div>
@@ -27,7 +27,7 @@ const Home: React.FC = () => {
 							<ButtonOne>Ver produtos</ButtonOne>
 						</div>
 					</Card>
-					<Card>
+					<Card src="/images/logos/drogaria-moderna.png">
 						<div>
 							<Text>Drogaria Moderna</Text>
 						</div>
@@ -35,7 +35,7 @@ const Home: React.FC = () => {
 							<ButtonOne>Ver produtos</ButtonOne>
 						</div>
 					</Card>
-					<Card>
+					<Card src="/images/logos/drogaria-moderna.png">
 						<div>
 							<Text>Drogaria Moderna</Text>
 						</div>
@@ -43,7 +43,7 @@ const Home: React.FC = () => {
 							<ButtonOne>Ver produtos</ButtonOne>
 						</div>
 					</Card>
-					<Card>
+					<Card src="/images/logos/drogaria-moderna.png">
 						<div>
 							<Text>Drogaria Moderna</Text>
 						</div>
@@ -51,7 +51,7 @@ const Home: React.FC = () => {
 							<ButtonOne>Ver produtos</ButtonOne>
 						</div>
 					</Card>
-					<Card>
+					<Card src="/images/logos/drogaria-moderna.png">
 						<div>
 							<Text>Drogaria Moderna</Text>
 						</div>

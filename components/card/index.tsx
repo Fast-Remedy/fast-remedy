@@ -3,16 +3,12 @@ import { BoxCard, Image } from "./styles";
 
 interface Props {
 	children: React.ReactNode;
+	src: string;
 }
 
-const Card: React.FC<Props> = ({ children }) => (
+const Card: React.FC<Props> = ({ children, src }) => (
 	<BoxCard>
-		<Image
-			src="/images/logos/drogaria-moderna.png"
-			alt="drogaria moderna"
-			width="100px"
-			height="100px"
-		/>
+		<Image src={src} alt="drogaria moderna" width="100px" height="100px" />
 		{children}
 	</BoxCard>
 );

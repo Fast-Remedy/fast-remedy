@@ -7,7 +7,7 @@ export const BoxCard = Styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background-color: ${(props) => props.theme.background.green};
+	background-color: ${(props) => props.theme.colors.green};
 	margin: 40px auto 0 auto;
 	border-radius: 10px;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
