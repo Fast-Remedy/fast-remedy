@@ -19,6 +19,7 @@ export const Form = Styled.form`
 	background-color: ${(props) => props.theme.colors.white};
 	width: 330px;
 	padding: 30px;
+	border-radius: 10px;
 `;
 
 export const BoxText = Styled.div`
@@ -31,15 +32,15 @@ export const BoxText = Styled.div`
 
 export const Title = Styled.span`
 	font-size: 30px;
-	color: ${props => props.theme.colors.black};
+	color: ${(props) => props.theme.colors.black};
 	font-weight: 700;
 `;
 
 export const Input = Styled.input<Props>`
 	width: 260px;
-	background-color: ${props => props.theme.colors.gray};
-	border-color: ${props => props.theme.colors.black};
-	border-radius: ${props => props.radius || '10px'};
+	background-color: ${(props) => props.theme.colors.gray};
+	border-color: ${(props) => props.theme.colors.black};
+	border-radius: ${(props) => props.radius || "10px"};
 	padding: 5px;
 	margin: 0 0 10px 0;
 	outline: none;

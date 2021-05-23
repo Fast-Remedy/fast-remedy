@@ -5,6 +5,7 @@ export const Text = Styled.span`
 	color: ${(props) => props.theme.colors.white};
 	font-size: 20px;
 	font-weight: 700;
+	border-radius: 10px;
 `;
 
 export const Title = Styled.span`

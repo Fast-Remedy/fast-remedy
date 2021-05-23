@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import Buttons from "../../components/button";
 import Theme from "../theme";
-import { Section, Text, BoxButton } from './styles';
+import { Section, Text, BoxButton } from "./styles";
 
 const SuccessfulTwo: React.FC = () => {
 	return (
@@ -9,9 +9,13 @@ const SuccessfulTwo: React.FC = () => {
 			<Section>
 				<Text>Cadastro concluído</Text>
 				<BoxButton>
-						<Buttons color={Theme.colors.white} bg={Theme.colors.lightGreen} width="260px">
-							Concluir
-						</Buttons>
+					<Buttons
+						color={Theme.colors.white}
+						bg={Theme.colors.lightGreen}
+						width="260px"
+					>
+						Concluir
+					</Buttons>
 				</BoxButton>
 			</Section>
 		</main>

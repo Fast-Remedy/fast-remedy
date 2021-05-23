@@ -12,10 +12,18 @@ const Cart: React.FC = () => {
 			<Section>
 				<Title>Drogaria Moderna</Title>
 				<div>
-					<Button width="95px" color={Theme.colors.white} bg={Theme.colors.lightGreen}>
+					<Button
+						width="95px"
+						color={Theme.colors.white}
+						bg={Theme.colors.lightGreen}
+					>
 						Finalizar
 					</Button>
-					<Button width="80px" color={Theme.colors.white} bg={Theme.colors.lightGreen}>
+					<Button
+						width="80px"
+						color={Theme.colors.white}
+						bg={Theme.colors.lightGreen}
+					>
 						Voltar
 					</Button>
 				</div>
@@ -28,10 +36,18 @@ const Cart: React.FC = () => {
 							<Price>R$ 6,50</Price>
 						</div>
 						<div>
-							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.red}>
+							<Button
+								width="80px"
+								color={Theme.colors.white}
+								bg={Theme.colors.red}
+							>
 								Redirar
 							</Button>
-							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.yellow}>
+							<Button
+								width="80px"
+								color={Theme.colors.white}
+								bg={Theme.colors.yellow}
+							>
 								Total: 4
 							</Button>
 						</div>
@@ -44,10 +60,18 @@ const Cart: React.FC = () => {
 							<Price>R$ 6,50</Price>
 						</div>
 						<div>
-							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.red}>
+							<Button
+								width="80px"
+								color={Theme.colors.white}
+								bg={Theme.colors.red}
+							>
 								Redirar
 							</Button>
-							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.yellow}>
+							<Button
+								width="80px"
+								color={Theme.colors.white}
+								bg={Theme.colors.yellow}
+							>
 								Total: 4
 							</Button>
 						</div>
@@ -60,10 +84,18 @@ const Cart: React.FC = () => {
 							<Price>R$ 6,50</Price>
 						</div>
 						<div>
-							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.red}>
+							<Button
+								width="80px"
+								color={Theme.colors.white}
+								bg={Theme.colors.red}
+							>
 								Redirar
 							</Button>
-							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.yellow}>
+							<Button
+								width="80px"
+								color={Theme.colors.white}
+								bg={Theme.colors.yellow}
+							>
 								Total: 4
 							</Button>
 						</div>
@@ -76,10 +108,18 @@ const Cart: React.FC = () => {
 							<Price>R$ 6,50</Price>
 						</div>
 						<div>
-							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.red}>
+							<Button
+								width="80px"
+								color={Theme.colors.white}
+								bg={Theme.colors.red}
+							>
 								Redirar
 							</Button>
-							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.yellow}>
+							<Button
+								width="80px"
+								color={Theme.colors.white}
+								bg={Theme.colors.yellow}
+							>
 								Total: 4
 							</Button>
 						</div>
@@ -92,10 +132,18 @@ const Cart: React.FC = () => {
 							<Price>R$ 6,50</Price>
 						</div>
 						<div>
-							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.red}>
+							<Button
+								width="80px"
+								color={Theme.colors.white}
+								bg={Theme.colors.red}
+							>
 								Redirar
 							</Button>
-							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.yellow}>
+							<Button
+								width="80px"
+								color={Theme.colors.white}
+								bg={Theme.colors.yellow}
+							>
 								Total: 4
 							</Button>
 						</div>
@@ -108,10 +156,18 @@ const Cart: React.FC = () => {
 							<Price>R$ 6,50</Price>
 						</div>
 						<div>
-							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.red}>
+							<Button
+								width="80px"
+								color={Theme.colors.white}
+								bg={Theme.colors.red}
+							>
 								Redirar
 							</Button>
-							<Button width="80px" color={Theme.colors.white} bg={Theme.colors.yellow}>
+							<Button
+								width="80px"
+								color={Theme.colors.white}
+								bg={Theme.colors.yellow}
+							>
 								Total: 4
 							</Button>
 						</div>

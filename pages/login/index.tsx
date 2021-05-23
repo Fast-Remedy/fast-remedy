@@ -13,13 +13,24 @@ const Login: React.FC = () => {
 						<Text>criar conta</Text>
 					</BoxText>
 					<div>
-						<Input type="email" radius="10px 10px 0 0" margin=" 0 0 -2px 0" placeholder="E-mail"/>
-						<Input type="password" radius="0 0 10px 10px" placeholder="Senha"/>
+						<Input
+							type="email"
+							radius="10px 10px 0 0"
+							margin=" 0 0 -2px 0"
+							placeholder="E-mail"
+						/>
+						<Input type="password" radius="0 0 10px 10px" placeholder="Senha" />
 					</div>
 					<BoxText2>
 						<Text>Esqueci minha senha</Text>
 					</BoxText2>
-					<Button color={Theme.colors.white} bg={Theme.colors.lightGreen} width="260px">Login</Button>
+					<Button
+						color={Theme.colors.white}
+						bg={Theme.colors.lightGreen}
+						width="260px"
+					>
+						Login
+					</Button>
 				</Form>
 			</Section>
 		</main>

@@ -1,4 +1,4 @@
-import Styled from 'styled-components';
+import Styled from "styled-components";
 
 export const Section = Styled.section`
 	background-color: ${(props) => props.theme.colors.green};
@@ -12,7 +12,7 @@ export const Section = Styled.section`
 
 export const Text = Styled.span`
 	font-size: 20px;
-	color: ${props => props.theme.colors.white};
+	color: ${(props) => props.theme.colors.white};
 `;
 
 export const BoxButton = Styled.div`
