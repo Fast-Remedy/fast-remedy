@@ -1,38 +1,42 @@
-import styled from "styled-components";
-import Styled from "styled-components";
+import styled from 'styled-components';
 
-export const Text = Styled.span`
-	color: ${(props) => props.theme.colors.white};
-	font-size: 18px;
-	font-weight: 700;
+export const Section = styled.section`
+	max-width: 800px;
+    padding: 1rem 2.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto;
 `;
 
-export const Title = Styled.span`
-	color: ${(props) => props.theme.colors.black};
-	font-size: 50px;
-	font-weight: 700;
+export const TitleBox = styled.span`
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
 `;
 
-export const Section = Styled.section`
-	text-align: center;
-	margin: 40px 0 0 0;
+export const Title = styled.span`
+	color: ${props => props.theme.colors.black};
+	font-size: 3rem;
+	font-weight: 400;
 `;
 
 export const BoxCard = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 90%;
-	margin: 0 auto;
+    max-width: 800px;
+    width: 100%;
+	margin: 1.1rem auto 8rem auto;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
 
-	@media screen and (min-width: 630px) {
-		display: grid;
-		grid-template-columns: 200px 200px;
-	}
-
-	@media screen and (min-width: 800px) {
-		display: grid;
-		grid-template-columns: 250px 250px 250px;
+	@media (max-width: 800px) {
+		display: flex;
+		flex-direction: column;
+        align-items: center;
+        justify-content: center;
 	}
 `;

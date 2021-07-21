@@ -1,67 +1,88 @@
-import React from "react";
-import Header from "../components/header";
-import Card from "../components/card";
-import ButtonOne from "../components/button";
-import { Text, Title, Section, BoxCard } from "./styles";
+import React from 'react';
+import Container from '../components/container';
+import Header from '../components/header';
+import CartIcon from '../components/cartIcon';
+import StoreCard from '../components/storeCard';
+import { Section, TitleBox, Title, BoxCard } from './styles';
 
 const Home: React.FC = () => {
 	return (
-		<main>
-			<Header />
-			<Section>
-				<Title>Lojas</Title>
-				<BoxCard>
-					<Card src="/images/logos/drogaria-moderna.png">
-						<div>
-							<Text>Drogaria Moderna</Text>
-						</div>
-						<div>
-							<ButtonOne>Ver produtos</ButtonOne>
-						</div>
-					</Card>
-					<Card src="/images/logos/drogaria-moderna.png">
-						<div>
-							<Text>Drogaria Moderna</Text>
-						</div>
-						<div>
-							<ButtonOne>Ver produtos</ButtonOne>
-						</div>
-					</Card>
-					<Card src="/images/logos/drogaria-moderna.png">
-						<div>
-							<Text>Drogaria Moderna</Text>
-						</div>
-						<div>
-							<ButtonOne>Ver produtos</ButtonOne>
-						</div>
-					</Card>
-					<Card src="/images/logos/drogaria-moderna.png">
-						<div>
-							<Text>Drogaria Moderna</Text>
-						</div>
-						<div>
-							<ButtonOne>Ver produtos</ButtonOne>
-						</div>
-					</Card>
-					<Card src="/images/logos/drogaria-moderna.png">
-						<div>
-							<Text>Drogaria Moderna</Text>
-						</div>
-						<div>
-							<ButtonOne>Ver produtos</ButtonOne>
-						</div>
-					</Card>
-					<Card src="/images/logos/drogaria-moderna.png">
-						<div>
-							<Text>Drogaria Moderna</Text>
-						</div>
-						<div>
-							<ButtonOne>Ver produtos</ButtonOne>
-						</div>
-					</Card>
-				</BoxCard>
-			</Section>
-		</main>
+		<Container>
+			<>
+				<Header />
+				<Section>
+					<TitleBox>
+						<Title>Lojas</Title>
+						<CartIcon />
+					</TitleBox>
+					<BoxCard>
+						<StoreCard
+							storeId='1'
+							name='Drogaria Moderna'
+							category='Farmácia'
+							src='/images/logos/drogaria-moderna.png'
+							alt='Drogaria Moderna'
+						/>
+						<StoreCard
+							storeId='1'
+							name='Drogaria Moderna'
+							category='Farmácia'
+							src='/images/logos/drogaria-moderna.png'
+							alt='Drogaria Moderna'
+						/>
+						<StoreCard
+							storeId='1'
+							name='Drogaria Moderna'
+							category='Farmácia'
+							src='/images/logos/drogaria-moderna.png'
+							alt='Drogaria Moderna'
+						/>
+						<StoreCard
+							storeId='1'
+							name='Drogaria Moderna'
+							category='Farmácia'
+							src='/images/logos/drogaria-moderna.png'
+							alt='Drogaria Moderna'
+						/>
+						<StoreCard
+							storeId='1'
+							name='Drogaria Moderna'
+							category='Farmácia'
+							src='/images/logos/drogaria-moderna.png'
+							alt='Drogaria Moderna'
+						/>
+						<StoreCard
+							storeId='1'
+							name='Drogaria Moderna'
+							category='Farmácia'
+							src='/images/logos/drogaria-moderna.png'
+							alt='Drogaria Moderna'
+						/>
+						<StoreCard
+							storeId='1'
+							name='Drogaria Moderna'
+							category='Farmácia'
+							src='/images/logos/drogaria-moderna.png'
+							alt='Drogaria Moderna'
+						/>
+						<StoreCard
+							storeId='1'
+							name='Drogaria Moderna'
+							category='Farmácia'
+							src='/images/logos/drogaria-moderna.png'
+							alt='Drogaria Moderna'
+						/>
+						<StoreCard
+							storeId='1'
+							name='Drogaria Moderna'
+							category='Farmácia'
+							src='/images/logos/drogaria-moderna.png'
+							alt='Drogaria Moderna'
+						/>
+					</BoxCard>
+				</Section>
+			</>
+		</Container>
 	);
 };
 

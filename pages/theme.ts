@@ -1,14 +1,15 @@
 const Theme = {
 	colors: {
-		blackRGBA: "rgba(3, 3, 3, 0.8)",
-		black: "#030303",
-		white: "#ffffff",
-		green: "#00C2B2",
-		blue: "#0A6FC2",
-		yellow: "#B7B00A",
-		lightGreen: "#15C106",
-		red: "#E70101",
-		gray: "#F0F0F0",
+		blackRGBA: 'rgba(3, 3, 3, 0.8)',
+		black: '#212121',
+		white: '#FFFFFF',
+		green: '#00C2B2',
+		blue: '#0A6FC2',
+		yellow: '#B7B00A',
+		lightGreen: '#15C106',
+		red: '#E70101',
+		gray: '#EEEEEE',
+		darkGray: '#DDDDDD',
 	},
 };
 

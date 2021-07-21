@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../../components/header";
-import Card from "../../components/card";
+import ProductCard from "../../components/productCard";
 import ButtonOne from "../../components/button";
 import { Text, Title, Section, BoxCard, Price } from "./styles";
 import { Button } from "../../components/button/styles";
@@ -18,7 +18,7 @@ const Store: React.FC = () => {
 					</Button>
 				</div>
 				<BoxCard>
-					<Card src="/images/logos/remedy.svg">
+					<ProductCard src="/images/logos/remedy.svg">
 						<div>
 							<Text>Dipirona Sódica 500mg Genérico Medley 10 Comprimidos</Text>
 						</div>
@@ -28,8 +28,8 @@ const Store: React.FC = () => {
 						<div>
 							<ButtonOne>Ver produtos</ButtonOne>
 						</div>
-					</Card>
-					<Card src="/images/logos/remedy.svg">
+					</ProductCard>
+					<ProductCard src="/images/logos/remedy.svg">
 						<div>
 							<Text>Dipirona Sódica 500mg Genérico Medley 10 Comprimidos</Text>
 						</div>
@@ -39,8 +39,8 @@ const Store: React.FC = () => {
 						<div>
 							<ButtonOne>Ver produtos</ButtonOne>
 						</div>
-					</Card>
-					<Card src="/images/logos/remedy.svg">
+					</ProductCard>
+					<ProductCard src="/images/logos/remedy.svg">
 						<div>
 							<Text>Dipirona Sódica 500mg Genérico Medley 10 Comprimidos</Text>
 						</div>
@@ -50,8 +50,8 @@ const Store: React.FC = () => {
 						<div>
 							<ButtonOne>Ver produtos</ButtonOne>
 						</div>
-					</Card>
-					<Card src="/images/logos/remedy.svg">
+					</ProductCard>
+					<ProductCard src="/images/logos/remedy.svg">
 						<div>
 							<Text>Dipirona Sódica 500mg Genérico Medley 10 Comprimidos</Text>
 						</div>
@@ -61,8 +61,8 @@ const Store: React.FC = () => {
 						<div>
 							<ButtonOne>Ver produtos</ButtonOne>
 						</div>
-					</Card>
-					<Card src="/images/logos/remedy.svg">
+					</ProductCard>
+					<ProductCard src="/images/logos/remedy.svg">
 						<div>
 							<Text>Dipirona Sódica 500mg Genérico Medley 10 Comprimidos</Text>
 						</div>
@@ -72,8 +72,8 @@ const Store: React.FC = () => {
 						<div>
 							<ButtonOne>Ver produtos</ButtonOne>
 						</div>
-					</Card>
-					<Card src="/images/logos/remedy.svg">
+					</ProductCard>
+					<ProductCard src="/images/logos/remedy.svg">
 						<div>
 							<Text>Dipirona Sódica 500mg Genérico Medley 10 Comprimidos</Text>
 						</div>
@@ -83,7 +83,7 @@ const Store: React.FC = () => {
 						<div>
 							<ButtonOne>Ver produtos</ButtonOne>
 						</div>
-					</Card>
+					</ProductCard>
 				</BoxCard>
 			</Section>
 		</main>

@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../../components/header";
-import Card from "../../components/card";
+import Card from "../../components/storeCard";
 import { Text, Title, Section, BoxCard, Price } from "./styles";
 import { Button } from "../../components/button/styles";
 import Theme from "../theme";
