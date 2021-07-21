@@ -1,43 +1,35 @@
-import styled from "styled-components";
-import Styled from "styled-components";
+import styled from 'styled-components';
 
-export const Text = Styled.span`
-	color: ${(props) => props.theme.colors.white};
-	font-size: 15px;
-`;
-
-export const Title = Styled.span`
-	color: ${(props) => props.theme.colors.black};
-	font-size: 50px;
-	font-weight: 700;
-`;
-
-export const Section = Styled.section`
-	text-align: center;
-	margin: 40px 0 0 0;
+export const Section = styled.section`
+	max-width: 800px;
+	width: 100%;
+	padding: 1rem 2.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto;
 `;
 
 export const BoxCard = styled.div`
+	max-width: 800px;
+	width: 100%;
+	margin: 1.1rem auto 8rem auto;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
-	width: 90%;
-	margin: 0 auto;
-
-	@media screen and (min-width: 630px) {
-		display: grid;
-		grid-template-columns: 200px 200px;
-	}
-
-	@media screen and (min-width: 800px) {
-		display: grid;
-		grid-template-columns: 250px 250px 250px;
-	}
+	justify-content: center;
+    background-color: ${props => props.theme.colors.white};
+    border-radius: 1rem;
 `;
 
-export const Price = Styled.span`
-	color: ${(props) => props.theme.colors.white};
+export const Text = styled.span`
+	color: ${props => props.theme.colors.white};
+	font-size: 15px;
+`;
+
+export const Price = styled.span`
+	color: ${props => props.theme.colors.white};
 	font-size: 30px;
 	font-weight: 700;
 `;

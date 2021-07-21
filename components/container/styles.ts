@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.main`
+export const ContainerBox = styled.main`
 	display: flex;
 	flex-direction: column;
 

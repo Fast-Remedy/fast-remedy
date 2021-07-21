@@ -1,9 +1,9 @@
 import React from 'react';
 import Container from '../components/container';
+import TitleBox from '../components/titleBox';
 import Header from '../components/header';
-import CartIcon from '../components/cartIcon';
 import StoreCard from '../components/storeCard';
-import { Section, TitleBox, Title, BoxCard } from './styles';
+import { Section, BoxCard } from './styles';
 
 const Home: React.FC = () => {
 	return (
@@ -11,10 +11,7 @@ const Home: React.FC = () => {
 			<>
 				<Header />
 				<Section>
-					<TitleBox>
-						<Title>Lojas</Title>
-						<CartIcon />
-					</TitleBox>
+					<TitleBox title='Lojas' />
 					<BoxCard>
 						<StoreCard
 							storeId='1'

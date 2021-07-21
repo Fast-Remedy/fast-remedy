@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { FiChevronRight } from 'react-icons/fi';
-import { BoxCard, Image, Text, Title, Category, Arrow } from './styles';
+import { BoxCard, Image, Text, Title, Category } from './styles';
 
 interface Props {
 	storeId: string;
@@ -12,18 +12,16 @@ interface Props {
 }
 
 const StoreCard: React.FC<Props> = ({ storeId, name, category, src, alt }) => (
-	<BoxCard>
-		<Image src={src} alt={alt} />
-		<Text>
-			<Title>{name}</Title>
-			<Category>{category}</Category>
-		</Text>
-		<Link href={`/store/${storeId}`}>
-			<Arrow>
-				<FiChevronRight size={30} style={{ color: '#fff' }} />
-			</Arrow>
-		</Link>
-	</BoxCard>
+	<Link href={`/store/${storeId}`}>
+		<BoxCard>
+			<Image src={src} alt={alt} />
+			<Text>
+				<Title>{name}</Title>
+				<Category>{category}</Category>
+			</Text>
+			<FiChevronRight size={30} style={{ color: '#fff' }} />
+		</BoxCard>
+	</Link>
 );
 
 export default StoreCard;

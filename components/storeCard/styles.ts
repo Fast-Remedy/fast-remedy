@@ -11,6 +11,13 @@ export const BoxCard = styled.div`
 	border-radius: 1rem;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     gap: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+        filter: brightness(0.85);
+        transform: translateY(-10px);
+    }
 
     @media (max-width: 800px) {
 		flex-direction: row;
@@ -56,10 +63,5 @@ export const Category = styled.span`
 `;
 
 export const Arrow = styled.div`
-    cursor: pointer;
-    transition: filter 0.2s;
 
-    &:hover {
-        filter: brightness(0.85);
-    }
 `;

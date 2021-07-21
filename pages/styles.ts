@@ -2,27 +2,13 @@ import styled from 'styled-components';
 
 export const Section = styled.section`
 	max-width: 800px;
+    width: 100%;
     padding: 1rem 2.5rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	margin: 0 auto;
-`;
-
-export const TitleBox = styled.span`
-    max-width: 800px;
-    width: 100%;
-    display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-`;
-
-export const Title = styled.span`
-	color: ${props => props.theme.colors.black};
-	font-size: 3rem;
-	font-weight: 400;
 `;
 
 export const BoxCard = styled.div`

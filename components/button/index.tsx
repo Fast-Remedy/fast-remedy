@@ -1,35 +1,33 @@
-import React from "react";
-import { Button } from "./styles";
+import React from 'react';
+import { Btn } from './styles';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	children: React.ReactNode;
 	props?: React.ButtonHTMLAttributes<HTMLButtonElement>;
 	color?: string;
-	bg?: string;
+	backgroundColor?: string;
 	width?: string;
 	radius?: string;
-	size?: string;
+	fontSize?: string;
 }
 
-const ButtonsOne: React.FC<Props> = ({
+const Button: React.FC<Props> = ({
 	children,
 	color,
-	bg,
+	backgroundColor,
 	width,
-	radius,
-	size,
+	fontSize,
 	...props
 }) => (
-	<Button
+	<Btn
 		{...props}
 		color={color}
-		bg={bg}
+		backgroundColor={backgroundColor}
 		width={width}
-		radius={radius}
-		size={size}
+		fontSize={fontSize}
 	>
 		{children}
-	</Button>
+	</Btn>
 );
 
-export default ButtonsOne;
+export default Button;

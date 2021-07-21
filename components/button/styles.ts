@@ -1,25 +1,30 @@
-import Styled from "styled-components";
+import styled from 'styled-components';
 
 interface Props {
 	color?: string;
-	bg?: string;
+	backgroundColor?: string;
 	width?: string;
 	radius?: string;
-	size?: string;
+	fontSize?: string;
 }
 
-export const Button = Styled.button<Props>`
+export const Btn = styled.button<Props>`
 	border: 0;
-	background-color: ${(props) => props.bg || props.theme.colors.white};
-	color: ${(props) => props.color || props.theme.colors.black};
-	font-weight: 700;
-	padding: 10px;
-	margin: 10px 10px 0 10px;
-	border-radius: ${(props) => props.radius || "10px"};
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	width: ${(props) => props.width || "0px"};
-	font-size: ${(props) => props.size || "15px"};
+    font-weight: 600;
+	padding: 1rem;
+	border-radius: 1rem;
+    cursor: pointer;
+    transition: filter 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+	background-color: ${props => props.backgroundColor || props.theme.colors.white};
+	color: ${props => props.color || props.theme.colors.black};
+	width: ${props => props.width || '0px'};
+	font-size: ${props => props.fontSize || '1rem'};
+
 	&:hover{
-		opacity: 0.8;
+		filter: brightness(0.85);
 	}
 `;
