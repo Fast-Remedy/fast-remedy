@@ -1,90 +1,26 @@
 import React from 'react';
-import Container from '../components/Container';
-import TitleBox from '../components/TitleBox';
-import Header from '../components/Header';
-import StoreCard from '../components/StoreCard';
-import { Section, BoxCard } from './styles';
-import CartIcon from '../components/CartIcon';
+import Button from '../components/Button';
+import { Section, LogoImage } from './styles';
 
-const Home: React.FC = () => {
+const Login: React.FC = () => {
+    const handleLogin = async () => {
+        try {
+            // authentication
+            window.location.href = '/home';
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
 	return (
-		<Container>
-			<>
-				<Header />
-				<Section>
-                    <div className='title'>
-					    <TitleBox title='Lojas' />
-                        <CartIcon />
-                    </div>
-					<BoxCard>
-						<StoreCard
-							storeId='1'
-							name='Drogaria Moderna'
-							category='Farmácia'
-							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
-						/>
-						<StoreCard
-							storeId='1'
-							name='Drogaria Moderna'
-							category='Farmácia'
-							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
-						/>
-						<StoreCard
-							storeId='1'
-							name='Drogaria Moderna'
-							category='Farmácia'
-							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
-						/>
-						<StoreCard
-							storeId='1'
-							name='Drogaria Moderna'
-							category='Farmácia'
-							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
-						/>
-						<StoreCard
-							storeId='1'
-							name='Drogaria Moderna'
-							category='Farmácia'
-							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
-						/>
-						<StoreCard
-							storeId='1'
-							name='Drogaria Moderna'
-							category='Farmácia'
-							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
-						/>
-						<StoreCard
-							storeId='1'
-							name='Drogaria Moderna'
-							category='Farmácia'
-							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
-						/>
-						<StoreCard
-							storeId='1'
-							name='Drogaria Moderna'
-							category='Farmácia'
-							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
-						/>
-						<StoreCard
-							storeId='1'
-							name='Drogaria Moderna'
-							category='Farmácia'
-							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
-						/>
-					</BoxCard>
-				</Section>
-			</>
-		</Container>
+		<Section>
+			<LogoImage src='/images/logos/fastremedy-logo.png' alt='FastRemedy' />
+			<Button width='22rem' onClick={handleLogin}>
+				<img src='/images/logos/google-icon.png' alt='Google' width='25px' />
+				<span>Faça seu login com o Google</span>
+			</Button>
+		</Section>
 	);
 };
 
-export default Home;
+export default Login;

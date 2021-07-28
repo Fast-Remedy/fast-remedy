@@ -1,36 +1,17 @@
 import styled from 'styled-components';
 
 export const Section = styled.section`
-	max-width: 800px;
-    width: 100%;
-    padding: 1rem 2.5rem;
+	background-color: ${props => props.theme.colors.green};
+	width: 100vw;
+	height: 100vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	margin: 0 auto;
-
-    .title {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
+    gap: 3rem;
 `;
 
-export const BoxCard = styled.div`
-    max-width: 800px;
-    width: 100%;
-	margin: 1.1rem auto 8rem auto;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-    gap: 2rem;
-
-	@media (max-width: 800px) {
-		display: flex;
-		flex-direction: column;
-        align-items: center;
-        justify-content: center;
-	}
+export const LogoImage = styled.img`
+	max-width: 300px;
+	height: 15rem;
 `;

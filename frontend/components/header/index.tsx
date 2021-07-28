@@ -14,10 +14,12 @@ import {
 const Header: React.FC = () => (
 	<HeaderContainer>
 		<Content>
-			<TitleImage src='/images/logos/fastremedy-logo.png' alt='FastRemedy' />
+			<Link href='/home'>
+				<TitleImage src='/images/logos/fastremedy-logo.png' alt='FastRemedy' />
+			</Link>
 			<Separator />
 			<Nav>
-				<Link href='/'>
+				<Link href='/home'>
 					<Picture>
 						<Image src='/images/icons/home.png' alt='Home' />
 						<Text>Home</Text>
