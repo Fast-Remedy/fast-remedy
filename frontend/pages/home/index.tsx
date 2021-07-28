@@ -13,11 +13,12 @@ const Home: React.FC = () => {
 			<>
 				<Header />
 				<Section>
-                    <div className='title'>
-					    <TitleBox title='Lojas' />
-                        <CartIcon />
-                    </div>
-                    <SearchField />
+					<span>Parei na rota /address ao clicar no botao adicionar</span>
+					<div className='title'>
+						<TitleBox title='Lojas' />
+						<CartIcon />
+					</div>
+					<SearchField />
 					<BoxCard>
 						<StoreCard
 							storeId='1'
