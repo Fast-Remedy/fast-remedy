@@ -22,14 +22,3 @@ export const BoxCard = styled.div`
     background-color: ${props => props.theme.colors.white};
     border-radius: 1rem;
 `;
-
-export const Text = styled.span`
-	color: ${props => props.theme.colors.white};
-	font-size: 15px;
-`;
-
-export const Price = styled.span`
-	color: ${props => props.theme.colors.white};
-	font-size: 30px;
-	font-weight: 700;
-`;

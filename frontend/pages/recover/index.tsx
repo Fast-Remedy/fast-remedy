@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../../components/button";
+import Button from "../../components/Button";
 import Theme from "../theme";
 import { Section, Title, Input, Form, BoxText, BoxInput } from "./styles";
 

@@ -1,9 +1,10 @@
 import React from 'react';
-import Container from '../components/container';
-import TitleBox from '../components/titleBox';
-import Header from '../components/header';
-import StoreCard from '../components/storeCard';
+import Container from '../components/Container';
+import TitleBox from '../components/TitleBox';
+import Header from '../components/Header';
+import StoreCard from '../components/StoreCard';
 import { Section, BoxCard } from './styles';
+import CartIcon from '../components/CartIcon';
 
 const Home: React.FC = () => {
 	return (
@@ -11,7 +12,10 @@ const Home: React.FC = () => {
 			<>
 				<Header />
 				<Section>
-					<TitleBox title='Lojas' />
+                    <div className='title'>
+					    <TitleBox title='Lojas' />
+                        <CartIcon />
+                    </div>
 					<BoxCard>
 						<StoreCard
 							storeId='1'

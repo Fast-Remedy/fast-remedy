@@ -9,6 +9,14 @@ export const Section = styled.section`
 	align-items: center;
 	justify-content: center;
 	margin: 0 auto;
+
+    .title {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
 `;
 
 export const BoxCard = styled.div`

@@ -9,12 +9,7 @@ export const BoxCard = styled.div`
 	justify-content: space-between;
 	background-color: ${props => props.theme.colors.white};
 	border-top: 1px solid ${props => props.theme.colors.darkGray};
-	cursor: pointer;
 	transition: 0.2s;
-
-	&:hover {
-		filter: brightness(0.85);
-	}
 
 	&:first-child {
 		border-radius: 1rem 1rem 0 0;
@@ -50,6 +45,11 @@ export const Text = styled.span`
 export const Quantity = styled.span`
 	color: ${props => props.theme.colors.green};
 	font-size: 1.2rem;
+	font-weight: 400;
+`;
+
+export const Store = styled.span`
+	font-size: 0.85rem;
 	font-weight: 400;
 `;
 

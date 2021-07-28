@@ -1,6 +1,6 @@
 import React from "react";
 import Theme from "../../pages/theme";
-import Button from "../button";
+import Button from "../Button";
 import { Alert, Section, Text, Input, BoxCount } from "./styles";
 
 const AlertOne: React.FC = () => {

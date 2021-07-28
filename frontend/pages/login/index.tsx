@@ -1,6 +1,6 @@
 import React from 'react';
 import Theme from '../theme';
-import Button from '../../components/button';
+import Button from '../../components/Button';
 import { Section, LogoImage } from './styles';
 
 const Login: React.FC = () => {

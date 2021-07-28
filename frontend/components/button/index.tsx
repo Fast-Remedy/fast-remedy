@@ -7,6 +7,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	color?: string;
 	backgroundColor?: string;
 	width?: string;
+	height?: string;
 	radius?: string;
 	fontSize?: string;
 }
@@ -16,6 +17,7 @@ const Button: React.FC<Props> = ({
 	color,
 	backgroundColor,
 	width,
+    height,
 	fontSize,
 	...props
 }) => (
@@ -24,6 +26,7 @@ const Button: React.FC<Props> = ({
 		color={color}
 		backgroundColor={backgroundColor}
 		width={width}
+        height={height}
 		fontSize={fontSize}
 	>
 		{children}

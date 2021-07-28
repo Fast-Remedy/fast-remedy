@@ -1,6 +1,4 @@
-import React, { ReactNode } from 'react';
-import { ReactElement } from 'react';
-import CartIcon from '../cartIcon';
+import React from 'react';
 import { ContainerBox, Title } from './styles';
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -13,7 +11,6 @@ const TitleBox: React.FC<Props> = ({ title, fontSize }) => {
 	return (
 		<ContainerBox>
 			<Title fontSize={fontSize}>{title}</Title>
-			<CartIcon />
 		</ContainerBox>
 	);
 };

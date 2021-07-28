@@ -1,8 +1,8 @@
 import React from "react";
-import Header from "../../components/header";
-import Card from "../../components/storeCard";
+import Header from "../../components/Header";
+import Card from "../../components/StoreCard";
 import { Text, Title, Section, BoxCard, Price } from "./styles";
-import { Button } from "../../components/button/styles";
+import { Button } from "../../components/Button/styles";
 import Theme from "../theme";
 
 const Payment: React.FC = () => {
