@@ -6,7 +6,9 @@ export const BoxCard = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-    border-top: 1px solid ${props => props.theme.colors.darkGray};
+    background-color: ${props => props.theme.colors.white};
+    border-bottom: 1px solid ${props => props.theme.colors.darkGray};
+    border-radius: 1rem;
     cursor: pointer;
     transition: 0.2s;
 
@@ -14,7 +16,7 @@ export const BoxCard = styled.div`
         filter: brightness(0.85);
     }
 
-    &:first-child {
+    &:last-child {
         border: 0;
     }
 `;
