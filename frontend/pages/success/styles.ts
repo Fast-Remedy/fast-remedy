@@ -8,6 +8,7 @@ export const Section = Styled.section`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+    gap: 2rem;
 `;
 
 export const Text = Styled.span`

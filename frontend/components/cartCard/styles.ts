@@ -7,17 +7,11 @@ export const BoxCard = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
-	background-color: ${props => props.theme.colors.white};
 	border-top: 1px solid ${props => props.theme.colors.darkGray};
 	transition: 0.2s;
 
 	&:first-child {
-		border-radius: 1rem 1rem 0 0;
 		border: 0;
-	}
-
-	&:last-child {
-		border-radius: 0 0 1rem 1rem;
 	}
 `;
 

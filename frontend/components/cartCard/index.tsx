@@ -33,19 +33,19 @@ const CartCard: React.FC<Props> = ({ quantity, store, description, price, src })
 			<Image src={src} alt={description} />
 		</Line>
 		<Line>
-			<ButtonsContainer width='20%'>
+			<ButtonsContainer width='25%'>
 				<>
 					<Button
-						width='2rem'
-						height='2rem'
+						width='2.5rem'
+						height='2.5rem'
 						color={Theme.colors.white}
 						backgroundColor={Theme.colors.green}
 					>
 						-
 					</Button>
 					<Button
-						width='2rem'
-						height='2rem'
+						width='2.5rem'
+						height='2.5rem'
 						color={Theme.colors.white}
 						backgroundColor={Theme.colors.green}
 					>
@@ -53,7 +53,7 @@ const CartCard: React.FC<Props> = ({ quantity, store, description, price, src })
 					</Button>
 				</>
 			</ButtonsContainer>
-			<ButtonsContainer width='80%' justify='flex-end'>
+			<ButtonsContainer width='75%' justify='flex-end'>
 				<Button
 					width='6rem'
                     height='3rem'

@@ -9,6 +9,12 @@ export const Section = styled.section`
 	align-items: center;
 	justify-content: center;
     gap: 3rem;
+
+    .separator {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: ${props => props.theme.colors.white};
+    }
 `;
 
 export const LogoImage = styled.img`

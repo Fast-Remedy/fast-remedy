@@ -4,6 +4,7 @@ export const HeaderContainer = styled.header`
 	width: 100%;
 	background-color: ${props => props.theme.colors.green};
     margin-bottom: 1rem;
+    z-index: 999;
 
 	@media (max-width: 800px) {
 		background-color: ${props => props.theme.colors.white};

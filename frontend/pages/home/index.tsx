@@ -3,8 +3,9 @@ import Container from '../../components/Container';
 import TitleBox from '../../components/TitleBox';
 import Header from '../../components/Header';
 import StoreCard from '../../components/StoreCard';
-import { Section, BoxCard } from './styles';
+import SearchField from '../../components/SearchField';
 import CartIcon from '../../components/CartIcon';
+import { Section, BoxCard } from './styles';
 
 const Home: React.FC = () => {
 	return (
@@ -16,6 +17,7 @@ const Home: React.FC = () => {
 					    <TitleBox title='Lojas' />
                         <CartIcon />
                     </div>
+                    <SearchField />
 					<BoxCard>
 						<StoreCard
 							storeId='1'

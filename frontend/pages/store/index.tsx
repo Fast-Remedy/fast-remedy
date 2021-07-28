@@ -6,6 +6,7 @@ import Header from '../../components/Header';
 import ProductCard from '../../components/ProductCard';
 import ButtonsContainer from '../../components/ButtonsContainer';
 import Button from '../../components/Button';
+import SearchField from '../../components/SearchField';
 import { Section, BoxCard } from './styles';
 import Theme from '../theme';
 
@@ -32,6 +33,7 @@ const Store: React.FC = () => {
 							<CartIcon />
 						</>
 					</ButtonsContainer>
+                    <SearchField />
 					<BoxCard>
 						<ProductCard
 							productId='1'
