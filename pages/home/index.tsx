@@ -13,7 +13,7 @@ const Home: React.FC = () => {
 			<>
 				<Header />
 				<Section>
-					<span>Parei na rota /address ao clicar no botao adicionar</span>
+					<span>Parei na rota /address ao clicar no botão adicionar</span>
 					<div className='title'>
 						<TitleBox title='Lojas' />
 						<CartIcon />
@@ -88,6 +88,19 @@ const Home: React.FC = () => {
 			</>
 		</Container>
 	);
+};
+
+export const getStaticProps = async () => {
+	// request to api
+	// const response = await api.get(...)
+	// const data = response.json();
+
+	return {
+		props: {
+			// stores: data,
+			stores: [],
+		},
+	};
 };
 
 export default Home;
