@@ -8,7 +8,7 @@ import StoreCard from '../../components/StoreCard';
 import SearchField from '../../components/SearchField';
 import CartIcon from '../../components/CartIcon';
 
-import { Section, BoxCard } from './styles';
+import { Section, BoxCard } from '../../styles/home';
 
 const Home: React.FC = () => {
 	return (

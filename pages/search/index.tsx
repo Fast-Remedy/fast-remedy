@@ -4,7 +4,7 @@ import TitleBox from '../../components/TitleBox';
 import Header from '../../components/Header';
 import StoreCard from '../../components/StoreCard';
 import SearchField from '../../components/SearchField';
-import { Section, BoxCard, BoxCard2 } from './styles';
+import { Section, BoxCard, BoxCard2 } from '../../styles/search';
 import ProductCard from '../../components/ProductCard';
 
 const Search: React.FC = () => {

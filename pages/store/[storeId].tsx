@@ -12,8 +12,8 @@ import Button from '../../components/Button';
 import SearchField from '../../components/SearchField';
 import LoadingMessage from '../../components/LoadingMessage';
 
-import { Section, BoxCard } from './styles';
-import Theme from '../theme';
+import { Section, BoxCard } from '../../styles/store';
+import Theme from '../../styles/theme';
 
 const Store: React.FC = () => {
 	// return url param to show directly on interface

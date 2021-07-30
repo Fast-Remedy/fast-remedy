@@ -5,8 +5,8 @@ import Header from '../../components/Header';
 import AddressCard from '../../components/AddressCard';
 import ButtonsContainer from '../../components/ButtonsContainer';
 import Button from '../../components/Button';
-import { Section, BoxCard } from './styles';
-import Theme from '../theme';
+import { Section, BoxCard } from '../../styles/address';
+import Theme from '../../styles/theme';
 
 const Address: React.FC = () => {
 	const [newAddressVisible, setNewAddressVisible] = useState(false);

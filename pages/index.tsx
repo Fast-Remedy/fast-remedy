@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '../components/Button';
-import { Section, LogoImage } from './styles';
+import { Section, LogoImage } from '../styles/index';
 
 const Login: React.FC = () => {
 	const handleLoginUser = async () => {

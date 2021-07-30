@@ -5,8 +5,8 @@ import Header from '../../components/Header';
 import CartCard from '../../components/CartCard';
 import ButtonsContainer from '../../components/ButtonsContainer';
 import Button from '../../components/Button';
-import { Section, BoxCard, FinishCard } from './styles';
-import Theme from '../theme';
+import { Section, BoxCard, FinishCard } from '../../styles/cart';
+import Theme from '../../styles/theme';
 
 const Cart: React.FC = () => {
 	const goBack = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import Theme from '../../pages/theme';
+import Theme from '../../styles/theme';
 import Button from '../Button';
 import { Alert, Section, Text, Input, BoxCount } from './styles';
 

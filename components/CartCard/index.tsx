@@ -11,7 +11,7 @@ import {
 	Description,
 	Price,
 } from './styles';
-import Theme from '../../pages/theme';
+import Theme from '../../styles/theme';
 
 interface Props {
 	quantity: number;
