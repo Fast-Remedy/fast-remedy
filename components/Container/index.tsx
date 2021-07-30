@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { ReactElement } from 'react';
 import { ContainerBox } from './styles';
 

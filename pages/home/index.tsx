@@ -1,10 +1,13 @@
 import React from 'react';
+import { GetStaticProps } from 'next';
+
 import Container from '../../components/Container';
 import TitleBox from '../../components/TitleBox';
 import Header from '../../components/Header';
 import StoreCard from '../../components/StoreCard';
 import SearchField from '../../components/SearchField';
 import CartIcon from '../../components/CartIcon';
+
 import { Section, BoxCard } from './styles';
 
 const Home: React.FC = () => {
@@ -90,16 +93,19 @@ const Home: React.FC = () => {
 	);
 };
 
-export const getStaticProps = async () => {
+// make page static
+
+export const getStaticProps: GetStaticProps = async () => {
 	// request to api
-	// const response = await api.get(...)
-	// const data = response.json();
+	// const response = await api.get('/stores')
+	// const data = await response.json();
 
 	return {
 		props: {
 			// stores: data,
 			stores: [],
 		},
+        revalidate: 10, // time in seconds
 	};
 };
 
