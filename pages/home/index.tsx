@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GetStaticProps } from 'next';
 
 import Container from '../../components/Container';
@@ -10,6 +10,8 @@ import CartIcon from '../../components/CartIcon';
 import { Section, BoxCard } from '../../styles/home';
 
 const Home: React.FC = () => {
+	const [selectedId, setSelectedId] = useState(null);
+
 	return (
 		<Container>
 			<>
@@ -20,34 +22,6 @@ const Home: React.FC = () => {
 						<CartIcon />
 					</div>
 					<BoxCard>
-						<StoreCard
-							storeId='1'
-							name='Drogaria Moderna'
-							category='Farmácia'
-							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
-						/>
-						<StoreCard
-							storeId='1'
-							name='Drogaria Moderna'
-							category='Farmácia'
-							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
-						/>
-						<StoreCard
-							storeId='1'
-							name='Drogaria Moderna'
-							category='Farmácia'
-							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
-						/>
-						<StoreCard
-							storeId='1'
-							name='Drogaria Moderna'
-							category='Farmácia'
-							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
-						/>
 						<StoreCard
 							storeId='1'
 							name='Drogaria Moderna'
@@ -102,7 +76,7 @@ export const getStaticProps: GetStaticProps = async () => {
 			// stores: data,
 			stores: [],
 		},
-        revalidate: 10, // time in seconds
+		revalidate: 10, // time in seconds
 	};
 };
 

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Button from '../components/Button';
 import { Section, LogoImage } from '../styles/index';
 
@@ -12,7 +13,7 @@ const Login: React.FC = () => {
 		}
 	};
 
-    const handleLoginStore= async () => {
+	const handleLoginStore = async () => {
 		try {
 			// authentication
 			window.location.href = '/store-home';
@@ -21,7 +22,7 @@ const Login: React.FC = () => {
 		}
 	};
 
-    const handleLoginDeliveryman = async () => {
+	const handleLoginDeliveryman = async () => {
 		try {
 			// authentication
 			window.location.href = '/deliveryman-home';
