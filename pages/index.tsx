@@ -4,6 +4,11 @@ import Button from '../components/Button';
 import { Section, LogoImage } from '../styles/index';
 
 const Login: React.FC = () => {
+	if (process.browser) {
+		const platform = window.navigator.platform;
+		console.log(platform);
+	}
+
 	const handleLoginUser = async () => {
 		try {
 			// authentication
