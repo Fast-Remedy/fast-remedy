@@ -1,20 +1,23 @@
 import React, { ReactNode } from 'react';
-import { ContainerBox, SelectBox, Label } from './styles';
+import { ContainerBox, SelectBox, Label, Span } from './styles';
 
-interface Props  {
-    children: ReactNode;
+interface Props {
+	children: ReactNode;
 	label: string;
 	value: string;
-    onChange(e: any): void;
+	onChange(e: any): void;
 }
 
 const InputField: React.FC<Props> = ({ children, label, value, onChange }) => {
 	return (
 		<ContainerBox>
-            <Label>{label}</Label>
+			<Label>{label}</Label>
 			<SelectBox required value={value} onChange={onChange}>
-                {children}
-            </SelectBox>
+				{children}
+			</SelectBox>
+            <Span>
+                <img src="/images/icons/down-arrow.png" alt="Expandir opções" />
+            </Span>
 		</ContainerBox>
 	);
 };

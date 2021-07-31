@@ -29,7 +29,7 @@ const Address: React.FC = () => {
 			.then(response => response.json())
 			.then(data => {
 				data.sort((a, b) => a.nome.localeCompare(b.nome));
-				setListUf([{}, ...data]);
+				setListUf([{ sigla: 'Selecione uma opção' }, ...data]);
 			});
 	};
 
@@ -44,7 +44,7 @@ const Address: React.FC = () => {
 			.then(response => response.json())
 			.then(data => {
 				data.sort((a, b) => a.nome.localeCompare(b.nome));
-				setListCity([{}, ...data]);
+				setListCity([{ nome: 'Selecione uma opção' }, ...data]);
 			});
 	};
 
@@ -52,9 +52,9 @@ const Address: React.FC = () => {
 		loadCity(state);
 	}, [state]);
 
-    const handleSaveAddress = (e: FormEvent) => {
-        setNewAddressVisible(!newAddressVisible);
-    }
+	const handleSaveAddress = (e: FormEvent) => {
+		setNewAddressVisible(!newAddressVisible);
+	};
 
 	return (
 		<Container>
