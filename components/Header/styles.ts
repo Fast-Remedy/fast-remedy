@@ -63,6 +63,7 @@ export const Nav = styled.nav`
 	padding: 1rem 0;
 
 	@media (max-width: 800px) {
+        padding-bottom: 2.5rem;
 		justify-content: space-around;
 	}
 `;
