@@ -42,4 +42,10 @@ export const Btn = styled.button<Props>`
             font-weight: 400;
         }
 	}
+
+    @media (max-width: 800px) {
+        &:hover {
+            filter: none;
+        }
+    }
 `;

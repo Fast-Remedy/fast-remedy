@@ -22,6 +22,8 @@ export const BoxCard = styled.div`
     @media (max-width: 800px) {
 		flex-direction: row;
         justify-content: space-between;
+        filter: none;
+        transform: none;
 	}
 `;
 

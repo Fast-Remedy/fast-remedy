@@ -19,6 +19,12 @@ export const BoxCard = styled.div`
     &:last-child {
         border: 0;
     }
+
+    @media (max-width: 800px) {
+        &:hover {
+            filter: none;
+        }
+    }
 `;
 
 export const Image = styled.img`

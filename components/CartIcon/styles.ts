@@ -9,4 +9,10 @@ export const Image = styled.img`
     &:hover {
         filter: brightness(0.85);
     }
+
+    @media (max-width: 800px) {
+        &:hover {
+            filter: none;
+        }
+    }
 `;

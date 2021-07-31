@@ -20,6 +20,16 @@ export const BoxCard = styled.div`
     &.active {
         border: 2px solid ${props => props.theme.colors.green};
     }
+
+    &:hover {
+        filter: brightness(0.85);
+    }
+
+    @media (max-width: 800px) {
+        &:hover {
+            filter: none;
+        }
+    }
 `;
 
 export const Text = styled.span`

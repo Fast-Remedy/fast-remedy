@@ -80,6 +80,12 @@ export const Picture = styled.picture`
 	&:hover {
 		filter: brightness(0.85);
 	}
+
+    @media (max-width: 800px) {
+        &:hover {
+            filter: none;
+        }
+    }
 `;
 
 export const Image = styled.img`
