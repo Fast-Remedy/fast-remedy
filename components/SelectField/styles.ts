@@ -35,6 +35,7 @@ export const SelectBox = styled.select`
     border-radius: 1rem;
     padding: 1rem;
     outline: 0;
+    -webkit-appearance: none;
 
     &:focus {
         border: 1.5px solid ${props => props.theme.colors.green}
