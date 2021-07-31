@@ -1,9 +1,12 @@
 import React from 'react';
+
 import Container from '../../components/Container';
 import TitleBox from '../../components/TitleBox';
+import CartIcon from '../../components/CartIcon';
 import Header from '../../components/Header';
 import StoreCard from '../../components/StoreCard';
 import SearchField from '../../components/SearchField';
+
 import { Section, BoxCard, BoxCard2 } from '../../styles/search';
 import ProductCard from '../../components/ProductCard';
 
@@ -15,6 +18,7 @@ const Search: React.FC = () => {
 				<Section>
 					<div className='title'>
 						<TitleBox title='Buscar' />
+                        <CartIcon />
 					</div>
 					<SearchField />
 					<BoxCard>

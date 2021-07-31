@@ -5,7 +5,6 @@ import Container from '../../components/Container';
 import TitleBox from '../../components/TitleBox';
 import Header from '../../components/Header';
 import StoreCard from '../../components/StoreCard';
-import SearchField from '../../components/SearchField';
 import CartIcon from '../../components/CartIcon';
 
 import { Section, BoxCard } from '../../styles/home';
@@ -16,12 +15,10 @@ const Home: React.FC = () => {
 			<>
 				<Header />
 				<Section>
-					<span>Parei na rota /address ao clicar no botão adicionar</span>
 					<div className='title'>
 						<TitleBox title='Lojas' />
 						<CartIcon />
 					</div>
-					<SearchField />
 					<BoxCard>
 						<StoreCard
 							storeId='1'

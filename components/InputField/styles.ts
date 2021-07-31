@@ -40,4 +40,8 @@ export const InputBox = styled.input`
     &:focus {
         border: 1.5px solid ${props => props.theme.colors.green}
     }
+
+    &::placeholder {
+        color: ${props => props.theme.colors.darkerGray};
+    }
 `;

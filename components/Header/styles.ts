@@ -32,6 +32,12 @@ export const TitleImage = styled.img`
 	max-width: 300px;
 	height: 5rem;
 	margin: 1rem 0;
+    cursor: pointer;
+	transition: filter 0.2s;
+
+	&:hover {
+		filter: brightness(0.85);
+	}
 
 	@media (max-width: 800px) {
 		visibility: hidden;

@@ -16,6 +16,7 @@ import Theme from '../../styles/theme';
 const Address: React.FC = () => {
 	const [newAddressVisible, setNewAddressVisible] = useState(false);
 	const [listUf, setListUf] = useState([]);
+	const [isCityFieldDisabled, setIsCityFieldDisabled] = useState(true);
 	const [listCity, setListCity] = useState([]);
 	const [state, setState] = useState('');
 	const [city, setCity] = useState('');
@@ -38,14 +39,22 @@ const Address: React.FC = () => {
 	}, []);
 
 	const loadCity = async id => {
-		await fetch(
-			`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${id}/municipios`
-		)
-			.then(response => response.json())
-			.then(data => {
-				data.sort((a, b) => a.nome.localeCompare(b.nome));
-				setListCity([{ nome: 'Selecione uma opção' }, ...data]);
-			});
+		if (id.length > 2) {
+			setIsCityFieldDisabled(true);
+		} else {
+			await fetch(
+				`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${id}/municipios`
+			)
+				.then(response => response.json())
+				.then(data => {
+					data.sort((a, b) => a.nome.localeCompare(b.nome));
+					setListCity([{ nome: 'Selecione uma opção' }, ...data]);
+				});
+
+			if (state !== '') {
+				setIsCityFieldDisabled(false);
+			}
+		}
 	};
 
 	useEffect(() => {
@@ -105,7 +114,6 @@ const Address: React.FC = () => {
 						<BoxCard>
 							<Form onSubmit={handleSaveAddress}>
 								<>
-									<InputField label='CEP' placeholder='Ex. 27200-300' />
 									<InputField
 										label='Logradouro'
 										placeholder='Ex. Rua Trinta e Três'
@@ -128,6 +136,7 @@ const Address: React.FC = () => {
 										))}
 									</SelectField>
 									<SelectField
+										disabled={isCityFieldDisabled}
 										label='Cidade'
 										value={city}
 										onChange={e => setCity(e.target.value)}
@@ -144,8 +153,8 @@ const Address: React.FC = () => {
 										<>
 											<Button
 												type='submit'
-												color={Theme.colors.black}
-												backgroundColor={Theme.colors.white}
+												color={Theme.colors.white}
+												backgroundColor={Theme.colors.green}
 											>
 												Salvar
 											</Button>

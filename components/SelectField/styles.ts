@@ -42,6 +42,11 @@ export const SelectBox = styled.select`
 	&:focus {
 		border: 1.5px solid ${props => props.theme.colors.green};
 	}
+
+    &:disabled {
+        filter: brightness(0.85);
+        cursor: not-allowed;
+    }
 `;
 
 export const Span = styled.span`

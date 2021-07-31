@@ -2,16 +2,17 @@ import React from 'react';
 import { ContainerBox, InputBox, Label } from './styles';
 
 interface Props {
+    type?: string | 'text';
+    required?: boolean | true;
 	label: string;
     placeholder: string;
-    required?: boolean | true;
 }
 
-const InputField: React.FC<Props> = ({ label, placeholder, required }) => {
+const InputField: React.FC<Props> = ({ type, required, label, placeholder}) => {
 	return (
 		<ContainerBox>
             <Label>{label}</Label>
-			<InputBox required={required} type='text' placeholder={placeholder} />
+			<InputBox type={type} required={required} placeholder={placeholder} />
 		</ContainerBox>
 	);
 };

@@ -10,27 +10,30 @@ export const BoxCard = styled.div`
 	background-color: ${props => props.theme.colors.green};
 	border-radius: 1rem;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    gap: 1rem;
-    cursor: pointer;
-    transition: 0.2s;
+	gap: 1rem;
+	cursor: pointer;
+	transition: 0.2s;
 
-    &:hover {
-        filter: brightness(0.85);
-        transform: translateY(-10px);
-    }
+	&:hover {
+		filter: brightness(0.85);
+		transform: translateY(-10px);
+	}
 
-    @media (max-width: 800px) {
+	@media (max-width: 800px) {
 		flex-direction: row;
-        justify-content: space-between;
-        filter: none;
-        transform: none;
+		justify-content: space-between;
+
+		&:hover {
+			filter: none;
+			transform: none;
+		}
 	}
 `;
 
 export const Image = styled.img`
 	width: 6rem;
 	height: 6rem;
-    border-radius: 50%;
+	border-radius: 50%;
 `;
 
 export const Text = styled.span`
@@ -39,8 +42,8 @@ export const Text = styled.span`
 	align-items: center;
 	justify-content: center;
 
-    @media (max-width: 800px) {
-        align-items: flex-start;
+	@media (max-width: 800px) {
+		align-items: flex-start;
 	}
 `;
 
@@ -62,8 +65,4 @@ export const Category = styled.span`
 	@media (max-width: 800px) {
 		font-size: 1.1rem;
 	}
-`;
-
-export const Arrow = styled.div`
-
 `;

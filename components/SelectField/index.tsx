@@ -1,18 +1,19 @@
 import React, { ReactNode } from 'react';
 import { ContainerBox, SelectBox, Label, Span } from './styles';
 
-interface Props {
+interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
+    props?: React.SelectHTMLAttributes<HTMLSelectElement>;
 	children: ReactNode;
 	label: string;
 	value: string;
 	onChange(e: any): void;
 }
 
-const InputField: React.FC<Props> = ({ children, label, value, onChange }) => {
+const InputField: React.FC<Props> = ({ children, label, value, onChange, ...props }) => {
 	return (
 		<ContainerBox>
 			<Label>{label}</Label>
-			<SelectBox required value={value} onChange={onChange}>
+			<SelectBox {...props} required value={value} onChange={onChange}>
 				{children}
 			</SelectBox>
             <Span>
