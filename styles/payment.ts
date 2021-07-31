@@ -19,8 +19,12 @@ export const BoxCard = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-    border-radius: 1rem;
-    gap: 1rem;
+	border-radius: 1rem;
+	gap: 1rem;
+
+	div {
+		width: 100%;
+	}
 `;
 
 export const Line = styled.div`
@@ -29,5 +33,5 @@ export const Line = styled.div`
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-    gap: 1.5rem;
+	gap: 1.5rem;
 `;

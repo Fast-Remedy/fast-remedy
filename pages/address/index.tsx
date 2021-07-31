@@ -1,4 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import Container from '../../components/Container';
 import TitleBox from '../../components/TitleBox';
@@ -91,77 +92,101 @@ const Address: React.FC = () => {
 					</ButtonsContainer>
 					{!newAddressVisible ? (
 						<BoxCard>
-							<AddressCard
-								className='active'
-								postalCode='27250-620'
-								street='Rua Trinta e Três'
-								houseNumber='46'
-								complement='Ap. 101'
-								neighborhood='Vila Santa Cecília'
-								city='Volta Redonda'
-								state='RJ'
-							/>
-							<AddressCard
-								postalCode='27250-620'
-								street='Rua Soldado Francisco Alves Rocha'
-								houseNumber='46'
-								neighborhood='Santo Agostinho'
-								city='Volta Redonda'
-								state='RJ'
-							/>
+							<motion.div
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								transition={{ duration: 0.5 }}
+							>
+								<BoxCard>
+									<AddressCard
+										className='active'
+										postalCode='27250-620'
+										street='Rua Trinta e Três'
+										houseNumber='46'
+										complement='Ap. 101'
+										neighborhood='Vila Santa Cecília'
+										city='Volta Redonda'
+										state='RJ'
+									/>
+									<AddressCard
+										postalCode='27250-620'
+										street='Rua Soldado Francisco Alves Rocha'
+										houseNumber='46'
+										neighborhood='Santo Agostinho'
+										city='Volta Redonda'
+										state='RJ'
+									/>
+								</BoxCard>
+							</motion.div>
 						</BoxCard>
 					) : (
 						<BoxCard>
-							<Form onSubmit={handleSaveAddress}>
-								<>
-									<InputField
-										label='Logradouro'
-										placeholder='Ex. Rua Trinta e Três'
-									/>
-									<InputField label='Número' placeholder='Ex. 42' />
-									<InputField label='Complemento' placeholder='Ex. Ap. 101' />
-									<InputField
-										label='Bairro'
-										placeholder='Ex. Vila Santa Cecília'
-									/>
-									<SelectField
-										label='Estado'
-										value={state}
-										onChange={e => setState(e.target.value)}
-									>
-										{listUf.map((a, index) => (
-											<option key={index} value={a.sigla}>
-												{a.sigla}
-											</option>
-										))}
-									</SelectField>
-									<SelectField
-										disabled={isCityFieldDisabled}
-										label='Cidade'
-										value={city}
-										onChange={e => setCity(e.target.value)}
-									>
-										{listCity.map((a, index) => (
-											<option key={index} value={a.nome}>
-												{a.nome}
-											</option>
-										))}
-									</SelectField>
-									<ButtonsContainer
-										style={{ marginTop: '1rem', justifyContent: 'flex-end' }}
-									>
-										<>
-											<Button
-												type='submit'
-												color={Theme.colors.white}
-												backgroundColor={Theme.colors.green}
-											>
-												Salvar
-											</Button>
-										</>
-									</ButtonsContainer>
-								</>
-							</Form>
+							<AnimatePresence>
+								<motion.div
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									transition={{ duration: 0.5 }}
+								>
+									<BoxCard>
+										<Form onSubmit={handleSaveAddress}>
+											<>
+												<InputField
+													label='Logradouro'
+													placeholder='Ex. Rua Trinta e Três'
+												/>
+												<InputField label='Número' placeholder='Ex. 42' />
+												<InputField
+													label='Complemento'
+													placeholder='Ex. Ap. 101'
+												/>
+												<InputField
+													label='Bairro'
+													placeholder='Ex. Vila Santa Cecília'
+												/>
+												<SelectField
+													label='Estado'
+													value={state}
+													onChange={e => setState(e.target.value)}
+												>
+													{listUf.map((a, index) => (
+														<option key={index} value={a.sigla}>
+															{a.sigla}
+														</option>
+													))}
+												</SelectField>
+												<SelectField
+													disabled={isCityFieldDisabled}
+													label='Cidade'
+													value={city}
+													onChange={e => setCity(e.target.value)}
+												>
+													{listCity.map((a, index) => (
+														<option key={index} value={a.nome}>
+															{a.nome}
+														</option>
+													))}
+												</SelectField>
+												<ButtonsContainer
+													style={{
+														marginTop: '1rem',
+														justifyContent: 'flex-end',
+													}}
+												>
+													<>
+														<Button
+															type='submit'
+															color={Theme.colors.white}
+															backgroundColor={Theme.colors.green}
+														>
+															Salvar
+														</Button>
+													</>
+												</ButtonsContainer>
+											</>
+										</Form>
+									</BoxCard>
+								</motion.div>
+							</AnimatePresence>
 						</BoxCard>
 					)}
 				</Section>

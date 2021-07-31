@@ -19,6 +19,10 @@ export const BoxCard = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-    border-radius: 1rem;
-    gap: 1rem;
+	border-radius: 1rem;
+	gap: 1rem;
+
+	div {
+		width: 100%;
+	}
 `;
