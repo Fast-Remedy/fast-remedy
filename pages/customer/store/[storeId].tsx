@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
 import CartIcon from '../../../components/CartIcon';
-import Header from '../../../components/Header';
+import CustomerHeader from '../../../components/CustomerHeader';
 import ProductCard from '../../../components/ProductCard';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
@@ -30,7 +30,7 @@ const Store: React.FC = () => {
 	return (
 		<Container>
 			<>
-				<Header />
+				<CustomerHeader />
 				<Section>
 					<TitleBox
 						title={`Drogaria Ultra Popular - ${query.storeId}`}

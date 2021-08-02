@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
-import Header from '../../../components/Header';
+import CustomerHeader from '../../../components/CustomerHeader';
 import AddressCard from '../../../components/AddressCard';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
@@ -69,7 +69,7 @@ const Address: React.FC = () => {
 	return (
 		<Container>
 			<>
-				<Header />
+				<CustomerHeader />
 				<Section>
 					<TitleBox title='Entrega' />
 					<ButtonsContainer>
@@ -95,7 +95,7 @@ const Address: React.FC = () => {
 							<motion.div
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
-								transition={{ duration: 0.5 }}
+								transition={{ duration: 0.3 }}
 							>
 								<BoxCard>
 									<AddressCard
@@ -125,7 +125,7 @@ const Address: React.FC = () => {
 								<motion.div
 									initial={{ opacity: 0 }}
 									animate={{ opacity: 1 }}
-									transition={{ duration: 0.5 }}
+									transition={{ duration: 0.3 }}
 								>
 									<BoxCard>
 										<Form onSubmit={handleSaveAddress}>

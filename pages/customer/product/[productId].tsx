@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
 import CartIcon from '../../../components/CartIcon';
-import Header from '../../../components/Header';
+import CustomerHeader from '../../../components/CustomerHeader';
 import ProductDetailsCard from '../../../components/ProductDetailsCard';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
@@ -26,10 +26,14 @@ const Product: React.FC = () => {
 		window.history.back();
 	};
 
+	const handleAddToCart = () => {
+		window.location.href = '/customer/cart';
+	};
+
 	return (
 		<Container>
 			<>
-				<Header />
+				<CustomerHeader />
 				<Section>
 					<TitleBox title='Drogaria Ultra Popular' fontSize='2rem' />
 					<ButtonsContainer>
@@ -93,6 +97,7 @@ const Product: React.FC = () => {
 										height='80px'
 										color={Theme.colors.white}
 										backgroundColor={Theme.colors.green}
+										onClick={handleAddToCart}
 									>
 										<div>
 											<span>Adicionar ao carrinho</span>

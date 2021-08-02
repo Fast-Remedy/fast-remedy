@@ -7,12 +7,12 @@ const Success: React.FC = () => {
 	return (
 		<Section>
 			<Text>Compra concluída!</Text>
-			<Link href='/orders'>
+			<Link href='/customer/orders'>
 				<Button width='22rem'>
 					<span>Ver pedidos</span>
 				</Button>
 			</Link>
-			<Link href='/home'>
+			<Link href='/customer/home'>
 				<Button width='22rem'>
 					<span>Voltar</span>
 				</Button>

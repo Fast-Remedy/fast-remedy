@@ -3,7 +3,7 @@ import React from 'react';
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
 import CartIcon from '../../../components/CartIcon';
-import Header from '../../../components/Header';
+import CustomerHeader from '../../../components/CustomerHeader';
 import StoreCard from '../../../components/StoreCard';
 import SearchField from '../../../components/SearchField';
 
@@ -14,7 +14,7 @@ const Search: React.FC = () => {
 	return (
 		<Container>
 			<>
-				<Header />
+				<CustomerHeader />
 				<Section>
 					<div className='title'>
 						<TitleBox title='Buscar' />

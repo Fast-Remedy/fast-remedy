@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
-import Header from '../../../components/Header';
+import CustomerHeader from '../../../components/CustomerHeader';
 import PaymentCard from '../../../components/PaymentCard';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
@@ -29,7 +29,7 @@ const Payment: React.FC = () => {
 	return (
 		<Container>
 			<>
-				<Header />
+				<CustomerHeader />
 				<Section>
 					<TitleBox title='Pagamento' />
 					<ButtonsContainer>
@@ -55,7 +55,7 @@ const Payment: React.FC = () => {
 							<motion.div
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
-								transition={{ duration: 0.5 }}
+								transition={{ duration: 0.3 }}
 							>
 								<BoxCard>
 									<PaymentCard
@@ -78,7 +78,7 @@ const Payment: React.FC = () => {
 								<motion.div
 									initial={{ opacity: 0 }}
 									animate={{ opacity: 1 }}
-									transition={{ duration: 0.5 }}
+									transition={{ duration: 0.3 }}
 								>
 									<BoxCard>
 										<Form onSubmit={handleSavePayment}>

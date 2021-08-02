@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
-import Header from '../../../components/Header';
+import CustomerHeader from '../../../components/CustomerHeader';
 import CartCard from '../../../components/CartCard';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
@@ -16,10 +16,14 @@ const Cart: React.FC = () => {
 		window.history.back();
 	};
 
+	const handleBuy = () => {
+		window.location.href = '/customer/success';
+	};
+
 	return (
 		<Container>
 			<>
-				<Header />
+				<CustomerHeader />
 				<Section>
 					<TitleBox title='Carrinho' />
 					<ButtonsContainer>
@@ -82,7 +86,7 @@ const Cart: React.FC = () => {
 							</div>
 						</FinishCard>
 						<FinishCard>
-							<Link href='/address' passHref>
+							<Link href='/customer/address' passHref>
 								<a>
 									<Button
 										width='100%'
@@ -102,7 +106,7 @@ const Cart: React.FC = () => {
 							</Link>
 						</FinishCard>
 						<FinishCard>
-							<Link href='/payment' passHref>
+							<Link href='/customer/payment' passHref>
 								<a>
 									<Button
 										width='100%'
@@ -121,21 +125,18 @@ const Cart: React.FC = () => {
 							</Link>
 						</FinishCard>
 						<FinishCard>
-							<Link href='/success' passHref>
-								<a>
-									<Button
-										width='100%'
-										height='80px'
-										color={Theme.colors.white}
-										backgroundColor={Theme.colors.green}
-									>
-										<div>
-											<span>Finalizar compra</span>
-											<span className='info'>Total: R$ 11,50</span>
-										</div>
-									</Button>
-								</a>
-							</Link>
+							<Button
+								width='100%'
+								height='80px'
+								color={Theme.colors.white}
+								backgroundColor={Theme.colors.green}
+								onClick={handleBuy}
+							>
+								<div>
+									<span>Finalizar compra</span>
+									<span className='info'>Total: R$ 11,50</span>
+								</div>
+							</Button>
 						</FinishCard>
 					</BoxCard>
 				</Section>
