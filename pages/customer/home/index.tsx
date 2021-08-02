@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { GetStaticProps } from 'next';
 
-import Container from '../../components/Container';
-import TitleBox from '../../components/TitleBox';
-import Header from '../../components/Header';
-import StoreCard from '../../components/StoreCard';
-import CartIcon from '../../components/CartIcon';
+import Container from '../../../components/Container';
+import TitleBox from '../../../components/TitleBox';
+import Header from '../../../components/Header';
+import StoreCard from '../../../components/StoreCard';
+import CartIcon from '../../../components/CartIcon';
 
-import { Section, BoxCard } from '../../styles/home';
+import { Section, BoxCard } from '../../../styles/home';
 
 const Home: React.FC = () => {
-	const [selectedId, setSelectedId] = useState(null);
-
 	return (
 		<Container>
 			<>

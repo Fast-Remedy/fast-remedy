@@ -12,7 +12,7 @@ interface Props {
 }
 
 const StoreCard: React.FC<Props> = ({ storeId, name, category, src, alt }) => (
-	<Link href={`/store/${storeId}`}>
+	<Link href={`/customer/store/${storeId}`}>
 		<BoxCard>
 			<Image src={src} alt={alt} />
 			<Text>

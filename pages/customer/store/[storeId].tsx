@@ -2,18 +2,18 @@ import React from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
-import Container from '../../components/Container';
-import TitleBox from '../../components/TitleBox';
-import CartIcon from '../../components/CartIcon';
-import Header from '../../components/Header';
-import ProductCard from '../../components/ProductCard';
-import ButtonsContainer from '../../components/ButtonsContainer';
-import Button from '../../components/Button';
-import SearchField from '../../components/SearchField';
-import LoadingMessage from '../../components/LoadingMessage';
+import Container from '../../../components/Container';
+import TitleBox from '../../../components/TitleBox';
+import CartIcon from '../../../components/CartIcon';
+import Header from '../../../components/Header';
+import ProductCard from '../../../components/ProductCard';
+import ButtonsContainer from '../../../components/ButtonsContainer';
+import Button from '../../../components/Button';
+import SearchField from '../../../components/SearchField';
+import LoadingMessage from '../../../components/LoadingMessage';
 
-import { Section, BoxCard } from '../../styles/store';
-import Theme from '../../styles/theme';
+import { Section, BoxCard } from '../../../styles/store';
+import Theme from '../../../styles/theme';
 
 const Store: React.FC = () => {
 	// return url param to show directly on interface

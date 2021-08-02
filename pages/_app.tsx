@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import { ThemeProvider } from 'styled-components';
 
-import GlobalStyle from './global';
+import GlobalStyle from '../styles/global';
 import Theme from '../styles/theme';
 
 const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
@@ -20,7 +20,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 						key={router.route}
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
-						transition={{ duration: 0.5 }}
+						transition={{ duration: 0.3 }}
 					>
 						<Component {...pageProps} />
 					</motion.div>

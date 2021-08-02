@@ -4,15 +4,10 @@ import Button from '../components/Button';
 import { Section, LogoImage } from '../styles/index';
 
 const Login: React.FC = () => {
-	if (process.browser) {
-		const platform = window.navigator.platform;
-		console.log(platform);
-	}
-
 	const handleLoginUser = async () => {
 		try {
 			// authentication
-			window.location.href = '/home';
+			window.location.href = '/customer/home';
 		} catch (err) {
 			console.log(err);
 		}
@@ -21,7 +16,7 @@ const Login: React.FC = () => {
 	const handleLoginStore = async () => {
 		try {
 			// authentication
-			window.location.href = '/store-home';
+			window.location.href = '/store/home';
 		} catch (err) {
 			console.log(err);
 		}
@@ -30,7 +25,7 @@ const Login: React.FC = () => {
 	const handleLoginDeliveryman = async () => {
 		try {
 			// authentication
-			window.location.href = '/deliveryman-home';
+			window.location.href = '/delivery/home';
 		} catch (err) {
 			console.log(err);
 		}

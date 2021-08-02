@@ -1,18 +1,18 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import Container from '../../components/Container';
-import TitleBox from '../../components/TitleBox';
-import Header from '../../components/Header';
-import AddressCard from '../../components/AddressCard';
-import ButtonsContainer from '../../components/ButtonsContainer';
-import Button from '../../components/Button';
-import Form from '../../components/Form';
-import InputField from '../../components/InputField';
-import SelectField from '../../components/SelectField';
+import Container from '../../../components/Container';
+import TitleBox from '../../../components/TitleBox';
+import Header from '../../../components/Header';
+import AddressCard from '../../../components/AddressCard';
+import ButtonsContainer from '../../../components/ButtonsContainer';
+import Button from '../../../components/Button';
+import Form from '../../../components/Form';
+import InputField from '../../../components/InputField';
+import SelectField from '../../../components/SelectField';
 
-import { Section, BoxCard } from '../../styles/address';
-import Theme from '../../styles/theme';
+import { Section, BoxCard } from '../../../styles/address';
+import Theme from '../../../styles/theme';
 
 const Address: React.FC = () => {
 	const [newAddressVisible, setNewAddressVisible] = useState(false);

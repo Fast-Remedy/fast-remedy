@@ -15,7 +15,7 @@ const ProductCard: React.FC<Props> = ({
 	price,
 	src,
 }) => (
-	<Link href={`/product/${productId}`}>
+	<Link href={`/customer/product/${productId}`}>
 		<BoxCard>
 			<Text>
 				<Description>{description}</Description>

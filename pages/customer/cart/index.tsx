@@ -1,12 +1,15 @@
 import React from 'react';
-import Container from '../../components/Container';
-import TitleBox from '../../components/TitleBox';
-import Header from '../../components/Header';
-import CartCard from '../../components/CartCard';
-import ButtonsContainer from '../../components/ButtonsContainer';
-import Button from '../../components/Button';
-import { Section, BoxCard, FinishCard } from '../../styles/cart';
-import Theme from '../../styles/theme';
+import Link from 'next/link';
+
+import Container from '../../../components/Container';
+import TitleBox from '../../../components/TitleBox';
+import Header from '../../../components/Header';
+import CartCard from '../../../components/CartCard';
+import ButtonsContainer from '../../../components/ButtonsContainer';
+import Button from '../../../components/Button';
+
+import { Section, BoxCard, FinishCard } from '../../../styles/cart';
+import Theme from '../../../styles/theme';
 
 const Cart: React.FC = () => {
 	const goBack = () => {
@@ -79,47 +82,60 @@ const Cart: React.FC = () => {
 							</div>
 						</FinishCard>
 						<FinishCard>
-							<Button
-								width='100%'
-								height='auto'
-								color={Theme.colors.black}
-								backgroundColor={Theme.colors.white}
-							>
-								<div>
-									<span>Entregar em:</span>
-									<span className='info'>
-										Avenida Amaral Peixoto, Nº 45, Centro, Volta Redonda - RJ
-									</span>
-								</div>
-							</Button>
+							<Link href='/address' passHref>
+								<a>
+									<Button
+										width='100%'
+										height='auto'
+										color={Theme.colors.black}
+										backgroundColor={Theme.colors.white}
+									>
+										<div>
+											<span>Entregar em:</span>
+											<span className='info'>
+												Avenida Amaral Peixoto, Nº 45, Centro, Volta Redonda -
+												RJ
+											</span>
+										</div>
+									</Button>
+								</a>
+							</Link>
 						</FinishCard>
 						<FinishCard>
-							<Button
-								width='100%'
-								height='auto'
-								color={Theme.colors.black}
-								backgroundColor={Theme.colors.white}
-							>
-								<div>
-									<span>Forma de Pagamento:</span>
-									<span className='info'>
-										Crédito - Mastercard (final 9115)
-									</span>
-								</div>
-							</Button>
+							<Link href='/payment' passHref>
+								<a>
+									<Button
+										width='100%'
+										height='auto'
+										color={Theme.colors.black}
+										backgroundColor={Theme.colors.white}
+									>
+										<div>
+											<span>Forma de Pagamento:</span>
+											<span className='info'>
+												Crédito - Mastercard (final 9115)
+											</span>
+										</div>
+									</Button>
+								</a>
+							</Link>
 						</FinishCard>
 						<FinishCard>
-							<Button
-								width='100%'
-								height='80px'
-								color={Theme.colors.white}
-								backgroundColor={Theme.colors.green}
-							>
-								<div>
-									<span>Finalizar compra</span>
-									<span className='info'>Total: R$ 11,50</span>
-								</div>
-							</Button>
+							<Link href='/success' passHref>
+								<a>
+									<Button
+										width='100%'
+										height='80px'
+										color={Theme.colors.white}
+										backgroundColor={Theme.colors.green}
+									>
+										<div>
+											<span>Finalizar compra</span>
+											<span className='info'>Total: R$ 11,50</span>
+										</div>
+									</Button>
+								</a>
+							</Link>
 						</FinishCard>
 					</BoxCard>
 				</Section>

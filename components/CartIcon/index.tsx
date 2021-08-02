@@ -4,7 +4,7 @@ import { Image } from './styles';
 
 const CartIcon = () => {
 	return (
-		<Link href='/cart'>
+		<Link href='/customer/cart'>
 			<Image src='/images/icons/shopping-cart.png' alt='FastRemedy'></Image>
 		</Link>
 	);

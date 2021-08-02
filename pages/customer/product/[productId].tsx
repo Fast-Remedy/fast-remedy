@@ -2,17 +2,17 @@ import React from 'react';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
-import Container from '../../components/Container';
-import TitleBox from '../../components/TitleBox';
-import CartIcon from '../../components/CartIcon';
-import Header from '../../components/Header';
-import ProductDetailsCard from '../../components/ProductDetailsCard';
-import ButtonsContainer from '../../components/ButtonsContainer';
-import Button from '../../components/Button';
-import LoadingMessage from '../../components/LoadingMessage';
+import Container from '../../../components/Container';
+import TitleBox from '../../../components/TitleBox';
+import CartIcon from '../../../components/CartIcon';
+import Header from '../../../components/Header';
+import ProductDetailsCard from '../../../components/ProductDetailsCard';
+import ButtonsContainer from '../../../components/ButtonsContainer';
+import Button from '../../../components/Button';
+import LoadingMessage from '../../../components/LoadingMessage';
 
-import { Section, BoxCard, FinishCard } from '../../styles/product';
-import Theme from '../../styles/theme';
+import { Section, BoxCard, FinishCard } from '../../../styles/product';
+import Theme from '../../../styles/theme';
 
 const Product: React.FC = () => {
 	// return url param to show directly on interface

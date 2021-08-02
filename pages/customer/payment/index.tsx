@@ -1,18 +1,18 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import Container from '../../components/Container';
-import TitleBox from '../../components/TitleBox';
-import Header from '../../components/Header';
-import PaymentCard from '../../components/PaymentCard';
-import ButtonsContainer from '../../components/ButtonsContainer';
-import Button from '../../components/Button';
-import Form from '../../components/Form';
-import InputField from '../../components/InputField';
-import SelectField from '../../components/SelectField';
+import Container from '../../../components/Container';
+import TitleBox from '../../../components/TitleBox';
+import Header from '../../../components/Header';
+import PaymentCard from '../../../components/PaymentCard';
+import ButtonsContainer from '../../../components/ButtonsContainer';
+import Button from '../../../components/Button';
+import Form from '../../../components/Form';
+import InputField from '../../../components/InputField';
+import SelectField from '../../../components/SelectField';
 
-import { Section, BoxCard, Line } from '../../styles/payment';
-import Theme from '../../styles/theme';
+import { Section, BoxCard, Line } from '../../../styles/payment';
+import Theme from '../../../styles/theme';
 
 const Payment: React.FC = () => {
 	const [newPaymentVisible, setNewPaymentVisible] = useState(false);

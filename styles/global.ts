@@ -4,11 +4,17 @@ const GlobalStyle = createGlobalStyle`
     * {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
     }
 
-    body{
+    body {
         font-family: Arial, Helvetica, sans-serif;
         background-color: #EEEEEE;
+    }
+
+    a {
+        width: 100%;
+        text-decoration: none;
     }
 
     @media (max-width: 1080px) {
