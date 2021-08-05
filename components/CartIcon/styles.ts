@@ -1,18 +1,61 @@
 import styled from 'styled-components';
 
-export const Image = styled.img`
+export const Box = styled.a`
 	height: 2.5rem;
-	width: 2.5rem;
-    cursor: pointer;
-    transition: filter 0.2s;
+	width: 9.5rem;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+`;
 
-    &:hover {
-        filter: brightness(0.85);
-    }
+export const BoxEnd = styled.a`
+	height: 2.5rem;
+	width: 9.5rem;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 0.5rem;
+`;
 
-    @media (max-width: 800px) {
-        &:hover {
-            filter: none;
-        }
-    }
+export const Image = styled.svg`
+	height: 3rem;
+	width: 3rem;
+	transition: filter 0.2s;
+
+	&:hover {
+		filter: brightness(0.85);
+	}
+
+	@media (max-width: 800px) {
+		&:hover {
+			filter: none;
+		}
+	}
+`;
+
+export const Items = styled.div`
+	height: 1.8rem;
+	width: 6rem;
+	font-size: 1rem;
+	font-weight: 600;
+	color: ${props => props.theme.colors.white};
+	background-color: ${props => props.theme.colors.green};
+	border-radius: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: filter 0.2s;
+
+	&:hover {
+		filter: brightness(0.85);
+	}
+
+	@media (max-width: 800px) {
+		&:hover {
+			filter: none;
+		}
+	}
 `;

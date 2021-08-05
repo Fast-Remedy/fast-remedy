@@ -12,7 +12,7 @@ interface Props {
 export const Btn = styled.button<Props>`
 	border: 0;
 	font-weight: 600;
-	padding: 1rem;
+	/* padding: 1rem; */
 	border-radius: 1rem;
 	cursor: pointer;
 	transition: filter 0.2s;
@@ -26,7 +26,8 @@ export const Btn = styled.button<Props>`
 	width: ${props => props.width || '8rem'};
 	height: ${props => props.height || '3.5rem'};
 	font-size: ${props => props.fontSize || '1rem'};
-    overflow: hidden;
+	font-weight: 500;
+	overflow: hidden;
 
 	&:hover {
 		filter: brightness(0.85);
@@ -34,18 +35,23 @@ export const Btn = styled.button<Props>`
 
 	div {
 		display: flex;
-        flex-direction: column;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 
-        .info {
-            font-weight: 400;
-        }
+		.info {
+			font-weight: 400;
+		}
 	}
 
-    @media (max-width: 800px) {
-        &:hover {
-            filter: none;
-        }
-    }
+	@media (max-width: 800px) {
+		&:hover {
+			filter: none;
+		}
+	}
+
+	svg {
+		width: 1.1rem;
+		height: 1.1rem;
+	}
 `;
