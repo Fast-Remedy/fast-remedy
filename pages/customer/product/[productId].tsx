@@ -11,7 +11,7 @@ import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
 import LoadingMessage from '../../../components/LoadingMessage';
 
-import { Section, BoxCard, FinishCard } from '../../../styles/product';
+import { Section, BoxCard, FinishCard } from '../../../styles/customer/product';
 import Theme from '../../../styles/theme';
 
 const Product: React.FC = () => {

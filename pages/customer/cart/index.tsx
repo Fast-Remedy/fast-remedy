@@ -8,7 +8,7 @@ import CartCard from '../../../components/CartCard';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
 
-import { Section, BoxCard, FinishCard } from '../../../styles/cart';
+import { Section, BoxCard, FinishCard } from '../../../styles/customer/cart';
 import Theme from '../../../styles/theme';
 
 const Cart: React.FC = () => {

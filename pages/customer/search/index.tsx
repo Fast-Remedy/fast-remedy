@@ -7,7 +7,7 @@ import CustomerHeader from '../../../components/CustomerHeader';
 import StoreCard from '../../../components/StoreCard';
 import SearchField from '../../../components/SearchField';
 
-import { Section, BoxCard, BoxCard2 } from '../../../styles/search';
+import { Section, BoxCard, BoxCard2 } from '../../../styles/customer/search';
 import ProductCard from '../../../components/ProductCard';
 
 const Search: React.FC = () => {

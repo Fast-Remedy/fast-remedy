@@ -7,7 +7,7 @@ import CustomerHeader from '../../../components/CustomerHeader';
 import StoreCard from '../../../components/StoreCard';
 import CartIcon from '../../../components/CartIcon';
 
-import { Section, BoxCard } from '../../../styles/home';
+import { Section, BoxCard } from '../../../styles/customer/home';
 
 const Home: React.FC = () => {
 	return (

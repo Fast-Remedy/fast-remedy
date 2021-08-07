@@ -3,11 +3,11 @@ import React from 'react';
 import Button from '../components/Button';
 import { Section, LogoImage } from '../styles/index';
 
-const Login: React.FC = () => {
+const Index: React.FC = () => {
 	const handleLoginUser = async () => {
 		try {
 			// authentication
-			window.location.href = '/customer/home';
+			window.location.href = '/customer/login';
 		} catch (err) {
 			console.log(err);
 		}
@@ -16,7 +16,7 @@ const Login: React.FC = () => {
 	const handleLoginStore = async () => {
 		try {
 			// authentication
-			window.location.href = '/store/home';
+			window.location.href = '/store/login';
 		} catch (err) {
 			console.log(err);
 		}
@@ -25,7 +25,7 @@ const Login: React.FC = () => {
 	const handleLoginDeliveryman = async () => {
 		try {
 			// authentication
-			window.location.href = '/delivery/home';
+			window.location.href = '/delivery/login';
 		} catch (err) {
 			console.log(err);
 		}
@@ -35,8 +35,7 @@ const Login: React.FC = () => {
 		<Section>
 			<LogoImage src='/images/logos/fastremedy-logo.png' alt='FastRemedy' />
 			<Button width='22rem' height='5rem' onClick={handleLoginUser}>
-				<img src='/images/logos/google-icon.png' alt='Google' width='25px' />
-				<span>Faça seu login com o Google</span>
+				<span>Entrar como Comprador</span>
 			</Button>
 			<span className='separator'>ou</span>
 			<Button width='22rem' height='3rem' onClick={handleLoginStore}>
@@ -49,4 +48,4 @@ const Login: React.FC = () => {
 	);
 };
 
-export default Login;
+export default Index;

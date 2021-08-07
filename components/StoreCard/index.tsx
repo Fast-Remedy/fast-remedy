@@ -11,17 +11,19 @@ interface Props {
 	alt: string;
 }
 
-const StoreCard: React.FC<Props> = ({ storeId, name, category, src, alt }) => (
-	<Link href={`/customer/store/${storeId}`}>
-		<BoxCard>
-			<Image src={src} alt={alt} />
-			<Text>
-				<Title>{name}</Title>
-				<Category>{category}</Category>
-			</Text>
-			<FiChevronRight size={30} style={{ color: '#fff' }} />
-		</BoxCard>
-	</Link>
-);
+const StoreCard: React.FC<Props> = ({ storeId, name, category, src, alt }) => {
+	return (
+		<Link href={`/customer/store/${storeId}`}>
+			<BoxCard>
+				<Image src={src} alt={alt} />
+				<Text>
+					<Title>{name}</Title>
+					<Category>{category}</Category>
+				</Text>
+				<FiChevronRight size={30} style={{ color: '#fff' }} />
+			</BoxCard>
+		</Link>
+	);
+};
 
 export default StoreCard;

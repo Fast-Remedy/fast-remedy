@@ -11,7 +11,7 @@ import Form from '../../../components/Form';
 import InputField from '../../../components/InputField';
 import SelectField from '../../../components/SelectField';
 
-import { Section, BoxCard } from '../../../styles/address';
+import { Section, BoxCard } from '../../../styles/customer/address';
 import Theme from '../../../styles/theme';
 
 const Address: React.FC = () => {

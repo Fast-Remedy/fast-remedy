@@ -11,7 +11,7 @@ import Form from '../../../components/Form';
 import InputField from '../../../components/InputField';
 import SelectField from '../../../components/SelectField';
 
-import { Section, BoxCard, Line } from '../../../styles/payment';
+import { Section, BoxCard, Line } from '../../../styles/customer/payment';
 import Theme from '../../../styles/theme';
 
 const Payment: React.FC = () => {

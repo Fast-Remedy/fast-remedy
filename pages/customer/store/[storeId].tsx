@@ -12,7 +12,7 @@ import Button from '../../../components/Button';
 import SearchField from '../../../components/SearchField';
 import LoadingMessage from '../../../components/LoadingMessage';
 
-import { Section, BoxCard } from '../../../styles/store';
+import { Section, BoxCard } from '../../../styles/customer/store';
 import Theme from '../../../styles/theme';
 
 const Store: React.FC = () => {

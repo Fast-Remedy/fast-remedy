@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Button from '../../../components/Button';
-import { Section, Text } from '../../../styles/success';
+import { Section, Text } from '../../../styles/customer/success';
 
 const Success: React.FC = () => {
 	return (
