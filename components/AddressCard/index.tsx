@@ -3,7 +3,7 @@ import Button from '../Button';
 import { BoxCard, Text, Description } from './styles';
 
 interface Props {
-    className?: string;
+	isActive?: boolean;
 	postalCode: string;
 	street: string;
 	houseNumber: string;
@@ -14,25 +14,29 @@ interface Props {
 }
 
 const AddressCard: React.FC<Props> = ({
-    className,
+	isActive,
 	street,
 	houseNumber,
 	complement,
-    neighborhood,
+	neighborhood,
 	city,
 	state,
 }) => (
-	<BoxCard className={className}>
-        <img src="/images/icons/location.png" alt="Endereço" />
+	<BoxCard className={isActive && 'active'}>
+		<img src='/images/icons/location.png' alt='Endereço' />
 		<Text>
-			<Description>{street}, {houseNumber}</Description>
+			<Description>
+				{street}, {houseNumber}
+			</Description>
 			<Description>{complement}</Description>
 			<Description>{neighborhood}</Description>
-			<Description>{city} - {state}</Description>
+			<Description>
+				{city} - {state}
+			</Description>
 		</Text>
-        <Button width='3rem'>
-        <img src="/images/icons/trash.png" alt="Apagar" />
-        </Button>
+		<Button width='3rem'>
+			<img src='/images/icons/trash.png' alt='Apagar' />
+		</Button>
 	</BoxCard>
 );
 

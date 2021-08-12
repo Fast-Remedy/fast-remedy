@@ -99,7 +99,7 @@ const Address: React.FC = () => {
 							>
 								<BoxCard>
 									<AddressCard
-										className='active'
+										isActive={true}
 										postalCode='27250-620'
 										street='Rua Trinta e Três'
 										houseNumber='46'

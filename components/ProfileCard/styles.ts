@@ -18,6 +18,12 @@ export const BoxCard = styled.div`
 	&:hover {
 		filter: brightness(0.85);
 	}
+
+	@media (max-width: 800px) {
+		&:hover {
+			filter: none;
+		}
+	}
 `;
 
 export const Text = styled.span`
