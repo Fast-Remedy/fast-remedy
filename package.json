@@ -5,8 +5,9 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
-		"start": "next start",
-		"format": "prettier --write ."
+		"start": "next start -p $PORT",
+		"format": "prettier --write .",
+		"heroku-postbuild": "yarn run build"
 	},
 	"dependencies": {
 		"@babel/plugin-proposal-do-expressions": "^7.14.0",
