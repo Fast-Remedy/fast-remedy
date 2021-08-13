@@ -2,129 +2,57 @@ import styled from 'styled-components';
 
 export const BoxCard = styled.div`
 	width: 100%;
-	padding: 1rem 2rem;
+	padding: 2rem;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
-	border: 2px solid ${props => props.theme.colors.white};
-	background-color: ${props => props.theme.colors.white};
-	border-radius: 1rem;
+	border-top: 1px solid ${props => props.theme.colors.darkGray};
 	transition: 0.2s;
-	gap: 1.5rem;
-	cursor: pointer;
 
-	img {
-		height: 2rem;
-		width: 2rem;
+	&:first-child {
+		border: 0;
 	}
+`;
 
-	&:hover {
-		filter: brightness(0.85);
-	}
+export const Line = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+`;
 
-	@media (max-width: 800px) {
-		&:hover {
-			filter: none;
-		}
-	}
+export const Image = styled.img`
+	width: 6rem;
+	height: 6rem;
 `;
 
 export const Text = styled.span`
-	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	justify-content: flex-start;
-	gap: 0.2rem;
-`;
-
-export const Store = styled.span`
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-start;
-	gap: 0.5rem;
-	margin-bottom: 1rem;
-
-	img {
-		border: 1px solid ${props => props.theme.colors.darkGray};
-		border-radius: 50%;
-	}
-`;
-
-export const Name = styled.span`
-	font-size: 1.3rem;
-	font-weight: 400;
-	display: flex;
-	gap: 0.5rem;
-	overflow: hidden;
-`;
-
-export const Item = styled.span`
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-start;
+	justify-content: center;
 	gap: 0.5rem;
 `;
 
 export const Quantity = styled.span`
-	min-width: 1.2rem;
+	color: ${props => props.theme.colors.green};
+	font-size: 1.2rem;
+	font-weight: 400;
+`;
+
+export const Store = styled.span`
+	font-size: 0.85rem;
+	font-weight: 400;
+`;
+
+export const Description = styled.span`
 	font-size: 1.1rem;
 	font-weight: 400;
 `;
 
-export const Status = styled.span`
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	align-items: flex-end;
-	justify-content: flex-start;
-	gap: 0.5rem;
-	margin-top: 1rem;
-`;
-
-export const Description = styled.span`
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	font-size: 1rem;
-	font-weight: 400;
-	display: flex;
-	gap: 0.2rem;
-	overflow: hidden;
-`;
-
-export const Span = styled.span`
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-	gap: 0.3rem;
-
-	svg {
-		height: 1.5rem;
-		width: 1.5rem;
-	}
-
-	&.in-progress {
-		color: ${props => props.theme.colors.black};
-	}
-
-	&.finished {
-		color: ${props => props.theme.colors.green};
-	}
-
-	&.canceled {
-		color: ${props => props.theme.colors.red};
-	}
-`;
-
-export const Date = styled.span`
-	display: flex;
-	flex-direction: column;
-	font-size: 0.9rem;
-	font-weight: 400;
-	margin-top: 1rem;
+export const Price = styled.span`
+	font-size: 1.4rem;
+	font-weight: 600;
 `;

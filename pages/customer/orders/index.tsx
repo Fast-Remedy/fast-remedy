@@ -3,8 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
+import CartIcon from '../../../components/CartIcon';
 import CustomerHeader from '../../../components/CustomerHeader';
-import OrderCard from '../../../components/OrderCard';
+import OrdersCard from '../../../components/OrdersCard';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
 
@@ -21,7 +22,10 @@ const Orders: React.FC = () => {
 			<>
 				<CustomerHeader />
 				<Section>
-					<TitleBox title='Pedidos' />
+					<div className='title'>
+						<TitleBox title='Pedidos' />
+						<CartIcon />
+					</div>
 					<ButtonsContainer>
 						<>
 							<Button
@@ -34,7 +38,7 @@ const Orders: React.FC = () => {
 						</>
 					</ButtonsContainer>
 					<BoxCard>
-						<OrderCard
+						<OrdersCard
 							orderId='1'
 							imageSrc='/images/logos/drogaria-moderna.png'
 							storeName='Drogaria Moderna'
@@ -52,7 +56,7 @@ const Orders: React.FC = () => {
 								},
 							]}
 						/>
-						<OrderCard
+						<OrdersCard
 							orderId='2'
 							imageSrc='/images/logos/drogaria-moderna.png'
 							storeName='Drogaria Moderna'
@@ -78,7 +82,7 @@ const Orders: React.FC = () => {
 								},
 							]}
 						/>
-						<OrderCard
+						<OrdersCard
 							orderId='3'
 							imageSrc='/images/logos/drogaria-moderna.png'
 							storeName='Drogaria Moderna'
