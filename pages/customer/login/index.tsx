@@ -56,11 +56,23 @@ const Login: React.FC = () => {
 						<div className='title'>
 							<TitleBox title='Login' />
 							<Button
+								className='icon margin'
 								width='12rem'
 								height='2.5rem'
 								onClick={() => setIsLoginPageVisible(!isLoginPageVisible)}
 								style={{ textAlign: 'right' }}
 							>
+								<svg
+									fill='currentColor'
+									viewBox='0 0 20 20'
+									xmlns='http://www.w3.org/2000/svg'
+								>
+									<path
+										fillRule='evenodd'
+										d='M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z'
+										clipRule='evenodd'
+									/>
+								</svg>
 								Criar conta
 							</Button>
 						</div>
@@ -74,11 +86,25 @@ const Login: React.FC = () => {
 								/>
 								<ButtonsContainer style={{ marginTop: '1rem' }}>
 									<Button
+										className='icon right'
 										width='100%'
 										type='submit'
 										color={Theme.colors.white}
 										backgroundColor={Theme.colors.green}
 									>
+										<svg
+											xmlns='http://www.w3.org/2000/svg'
+											fill='none'
+											stroke='#fff'
+											viewBox='0 0 24 24'
+										>
+											<path
+												strokeLinecap='round'
+												strokeLinejoin='round'
+												strokeWidth={2}
+												d='M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1'
+											/>
+										</svg>
 										Entrar
 									</Button>
 								</ButtonsContainer>
@@ -90,7 +116,7 @@ const Login: React.FC = () => {
 					</motion.div>
 				</Section>
 			) : (
-				<Section>
+				<Section style={{ marginBottom: '4rem' }} >
 					<AnimatePresence>
 						<motion.div
 							initial={{ opacity: 0 }}
@@ -100,12 +126,24 @@ const Login: React.FC = () => {
 							<div className='title'>
 								<TitleBox title='Cadastro' />
 								<Button
+									className='icon margin'
 									width='12rem'
 									height='2.5rem'
 									onClick={() => setIsLoginPageVisible(!isLoginPageVisible)}
-									style={{ textAlign: 'right' }}
 								>
-									Voltar
+									<svg
+										fill='currentColor'
+										viewBox='0 0 20 20'
+										xmlns='http://www.w3.org/2000/svg'
+										style={{ marginRight: '0.2rem' }}
+									>
+										<path
+											fillRule='evenodd'
+											d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
+											clipRule='evenodd'
+										/>
+									</svg>
+									Cancelar
 								</Button>
 							</div>
 							<Form onSubmit={handleRegister}>
@@ -129,11 +167,25 @@ const Login: React.FC = () => {
 									/>
 									<ButtonsContainer style={{ marginTop: '1rem' }}>
 										<Button
+											className='icon right'
 											width='100%'
 											type='submit'
 											color={Theme.colors.white}
 											backgroundColor={Theme.colors.green}
 										>
+											<svg
+												xmlns='http://www.w3.org/2000/svg'
+												fill='none'
+												stroke='#fff'
+												viewBox='0 0 24 24'
+											>
+												<path
+													strokeLinecap='round'
+													strokeLinejoin='round'
+													strokeWidth={2}
+													d='M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1'
+												/>
+											</svg>
 											Cadastrar
 										</Button>
 									</ButtonsContainer>

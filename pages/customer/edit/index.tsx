@@ -2,6 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiChevronRight } from 'react-icons/fi';
 
+import CustomerHeader from '../../../components/CustomerHeader';
 import TitleBox from '../../../components/TitleBox';
 import Form from '../../../components/Form';
 import InputField from '../../../components/InputField';
@@ -10,9 +11,7 @@ import Button from '../../../components/Button';
 
 import {
 	Container,
-	Header,
 	Section,
-	LogoImage,
 	BoxCard,
 	Text,
 	Title,
@@ -75,9 +74,7 @@ const Edit: React.FC = () => {
 
 	return (
 		<Container>
-			<Header>
-				<LogoImage src='/images/logos/fastremedy-logo.png' alt='FastRemedy' />
-			</Header>
+			<CustomerHeader />
 			{!personalData && !contactData && !password && (
 				<Section>
 					<motion.div
@@ -87,15 +84,29 @@ const Edit: React.FC = () => {
 					>
 						<div className='title'>
 							<TitleBox title='Dados' />
+						</div>
+						<ButtonsContainer>
 							<Button
-								width='12rem'
-								height='2.5rem'
+								className='icon back'
+								color={Theme.colors.black}
+								backgroundColor={Theme.colors.white}
 								onClick={goBack}
-								style={{ textAlign: 'right' }}
 							>
+								<svg
+									className='icon'
+									fill='currentColor'
+									viewBox='0 0 20 20'
+									xmlns='http://www.w3.org/2000/svg'
+								>
+									<path
+										fillRule='evenodd'
+										d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
+										clipRule='evenodd'
+									/>
+								</svg>
 								Voltar
 							</Button>
-						</div>
+						</ButtonsContainer>
 						<BoxCard onClick={() => setPersonalData(!personalData)}>
 							<Text>
 								<Title>Dados Pessoais</Title>
@@ -127,15 +138,29 @@ const Edit: React.FC = () => {
 						>
 							<div className='title'>
 								<TitleBox title='Dados Pessoais' />
+							</div>
+							<ButtonsContainer>
 								<Button
-									width='12rem'
-									height='2.5rem'
+									className='icon back'
+									color={Theme.colors.black}
+									backgroundColor={Theme.colors.white}
 									onClick={() => setPersonalData(!personalData)}
-									style={{ textAlign: 'right' }}
 								>
+									<svg
+										className='icon'
+										fill='currentColor'
+										viewBox='0 0 20 20'
+										xmlns='http://www.w3.org/2000/svg'
+									>
+										<path
+											fillRule='evenodd'
+											d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
+											clipRule='evenodd'
+										/>
+									</svg>
 									Voltar
 								</Button>
-							</div>
+							</ButtonsContainer>
 							<Form onSubmit={handlePersonalData}>
 								<>
 									<InputField
@@ -143,14 +168,16 @@ const Edit: React.FC = () => {
 										placeholder='Antônio da Silva'
 									/>
 									<InputField label='CPF' placeholder='123.456.789-10' />
-									<ButtonsContainer style={{ marginTop: '1rem' }}>
+									<ButtonsContainer style={{ marginTop: '2rem' }}>
 										<Button
 											width='100%'
+											className='icon moreRight margin white'
 											type='submit'
 											color={Theme.colors.white}
 											backgroundColor={Theme.colors.green}
 										>
-											Atualizar
+											<img src='/images/icons/save.svg' alt='Loja' />
+											Salvar
 										</Button>
 									</ButtonsContainer>
 									{isMessageVisible && (
@@ -180,28 +207,44 @@ const Edit: React.FC = () => {
 						>
 							<div className='title'>
 								<TitleBox title='Contato' />
+							</div>
+							<ButtonsContainer>
 								<Button
-									width='12rem'
-									height='2.5rem'
+									className='icon back'
+									color={Theme.colors.black}
+									backgroundColor={Theme.colors.white}
 									onClick={() => setContactData(!contactData)}
-									style={{ textAlign: 'right' }}
 								>
+									<svg
+										className='icon'
+										fill='currentColor'
+										viewBox='0 0 20 20'
+										xmlns='http://www.w3.org/2000/svg'
+									>
+										<path
+											fillRule='evenodd'
+											d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
+											clipRule='evenodd'
+										/>
+									</svg>
 									Voltar
 								</Button>
-							</div>
+							</ButtonsContainer>
 							<Form onSubmit={handleContactData}>
 								<>
 									<InputField label='Celular' placeholder='(24) 99999-8888' />
 									<InputField label='Email' placeholder='antonio@email.com' />
 
-									<ButtonsContainer style={{ marginTop: '1rem' }}>
+									<ButtonsContainer style={{ marginTop: '2rem' }}>
 										<Button
 											width='100%'
+											className='icon moreRight margin white'
 											type='submit'
 											color={Theme.colors.white}
 											backgroundColor={Theme.colors.green}
 										>
-											Atualizar
+											<img src='/images/icons/save.svg' alt='Loja' />
+											Salvar
 										</Button>
 									</ButtonsContainer>
 									{isMessageVisible && (
@@ -231,15 +274,29 @@ const Edit: React.FC = () => {
 						>
 							<div className='title'>
 								<TitleBox title='Senha' />
+							</div>
+							<ButtonsContainer>
 								<Button
-									width='12rem'
-									height='2.5rem'
+									className='icon back'
+									color={Theme.colors.black}
+									backgroundColor={Theme.colors.white}
 									onClick={() => setPassword(!password)}
-									style={{ textAlign: 'right' }}
 								>
+									<svg
+										className='icon'
+										fill='currentColor'
+										viewBox='0 0 20 20'
+										xmlns='http://www.w3.org/2000/svg'
+									>
+										<path
+											fillRule='evenodd'
+											d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
+											clipRule='evenodd'
+										/>
+									</svg>
 									Voltar
 								</Button>
-							</div>
+							</ButtonsContainer>
 							<Form onSubmit={handlePassword}>
 								<>
 									<InputField
@@ -252,14 +309,16 @@ const Edit: React.FC = () => {
 										placeholder='xxxxxxxx'
 										type='password'
 									/>
-									<ButtonsContainer style={{ marginTop: '1rem' }}>
+									<ButtonsContainer style={{ marginTop: '2rem' }}>
 										<Button
 											width='100%'
+											className='icon moreRight margin white'
 											type='submit'
 											color={Theme.colors.white}
 											backgroundColor={Theme.colors.green}
 										>
-											Atualizar
+											<img src='/images/icons/save.svg' alt='Loja' />
+											Salvar
 										</Button>
 									</ButtonsContainer>
 									{isMessageVisible && (

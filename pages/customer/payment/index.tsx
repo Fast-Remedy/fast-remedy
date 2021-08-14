@@ -30,28 +30,53 @@ const Payment: React.FC = () => {
 		<Container>
 			<>
 				<CustomerHeader />
-				<Section>
-					<TitleBox title='Pagamento' />
-					<ButtonsContainer>
-						<>
-							<Button
-								color={Theme.colors.black}
-								backgroundColor={Theme.colors.white}
-								onClick={goBack}
-							>
-								Voltar
-							</Button>
-							<Button
-								color={Theme.colors.black}
-								backgroundColor={Theme.colors.white}
-								onClick={() => setNewPaymentVisible(!newPaymentVisible)}
-							>
-								{!newPaymentVisible ? 'Adicionar' : 'Cancelar'}
-							</Button>
-						</>
-					</ButtonsContainer>
-					{!newPaymentVisible ? (
-						<BoxCard>
+				{!newPaymentVisible ? (
+					<Section>
+						<TitleBox title='Pagamento' />
+						<ButtonsContainer>
+							<>
+								<Button
+									className='icon back'
+									color={Theme.colors.black}
+									backgroundColor={Theme.colors.white}
+									onClick={goBack}
+								>
+									<svg
+										className='icon'
+										fill='currentColor'
+										viewBox='0 0 20 20'
+										xmlns='http://www.w3.org/2000/svg'
+									>
+										<path
+											fillRule='evenodd'
+											d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
+											clipRule='evenodd'
+										/>
+									</svg>
+									Voltar
+								</Button>
+								<Button
+									className='icon margin'
+									color={Theme.colors.black}
+									backgroundColor={Theme.colors.white}
+									onClick={() => setNewPaymentVisible(!newPaymentVisible)}
+								>
+									<svg
+										fill='currentColor'
+										viewBox='0 0 20 20'
+										xmlns='http://www.w3.org/2000/svg'
+									>
+										<path
+											fillRule='evenodd'
+											d='M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z'
+											clipRule='evenodd'
+										/>
+									</svg>
+									Novo
+								</Button>
+							</>
+						</ButtonsContainer>
+						<BoxCard style={{ marginTop: '0' }}>
 							<motion.div
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
@@ -72,75 +97,103 @@ const Payment: React.FC = () => {
 								</BoxCard>
 							</motion.div>
 						</BoxCard>
-					) : (
-						<BoxCard>
+					</Section>
+				) : (
+					<Section>
+						<TitleBox title='Pagamento' />
+						<ButtonsContainer>
+							<>
+								<Button
+									className='icon back'
+									color={Theme.colors.black}
+									backgroundColor={Theme.colors.white}
+									onClick={() => setNewPaymentVisible(!newPaymentVisible)}
+								>
+									<svg
+										className='icon'
+										fill='currentColor'
+										viewBox='0 0 20 20'
+										xmlns='http://www.w3.org/2000/svg'
+									>
+										<path
+											fillRule='evenodd'
+											d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
+											clipRule='evenodd'
+										/>
+									</svg>
+									Voltar
+								</Button>
+							</>
+						</ButtonsContainer>
+						<BoxCard style={{ marginTop: '0' }}>
 							<AnimatePresence>
 								<motion.div
 									initial={{ opacity: 0 }}
 									animate={{ opacity: 1 }}
 									transition={{ duration: 0.3 }}
 								>
-									<BoxCard>
-										<Form onSubmit={handleSavePayment}>
-											<>
-												<SelectField
-													label='Estado'
-													value={paymentType}
-													onChange={e => setPaymentType(e.target.value)}
-												>
-													<option value='Crédito'>Crédito</option>
-													<option value='Débito'>Débito</option>
-												</SelectField>
+									<Form onSubmit={handleSavePayment}>
+										<>
+											<SelectField
+												label='Tipo'
+												value={paymentType}
+												onChange={e => setPaymentType(e.target.value)}
+											>
+												<option value='Crédito'>Crédito</option>
+												<option value='Débito'>Débito</option>
+											</SelectField>
+											<InputField
+												label='Número do Cartão'
+												placeholder='Ex. 9999-9999-9999-9999'
+											/>
+											<Line>
 												<InputField
-													label='Número do Cartão'
-													placeholder='Ex. 9999-9999-9999-9999'
+													label='Mês de Validade'
+													placeholder='Ex. 12'
 												/>
-												<Line>
-													<InputField
-														label='Mês de Validade'
-														placeholder='Ex. 12'
-													/>
-													<InputField
-														label='Ano de Validade'
-														placeholder='Ex. 22'
-													/>
-												</Line>
 												<InputField
-													label='Código de Segurança'
+													label='Ano de Validade'
 													placeholder='Ex. 22'
 												/>
-												<InputField
-													label='Nome do Titular'
-													placeholder='Ex. Antônio Rocha'
-												/>
-												<InputField
-													label='CPF do Titular'
-													placeholder='Ex. 123.456.789-10'
-												/>
-												<ButtonsContainer
-													style={{
-														marginTop: '1rem',
-														justifyContent: 'flex-end',
-													}}
-												>
-													<>
-														<Button
-															type='submit'
-															color={Theme.colors.white}
-															backgroundColor={Theme.colors.green}
-														>
-															Salvar
-														</Button>
-													</>
-												</ButtonsContainer>
-											</>
-										</Form>
-									</BoxCard>
+											</Line>
+											<InputField
+												label='Código de Segurança'
+												placeholder='Ex. 22'
+											/>
+											<InputField
+												label='Nome do Titular'
+												placeholder='Ex. Antônio Rocha'
+											/>
+											<InputField
+												label='CPF do Titular'
+												placeholder='Ex. 123.456.789-10'
+											/>
+											<ButtonsContainer
+												style={{
+													marginTop: '2rem',
+													justifyContent: 'flex-end',
+												}}
+											>
+												<>
+													<Button
+														width='100%'
+														className='icon moreRight margin white'
+														type='submit'
+														color={Theme.colors.white}
+														backgroundColor={Theme.colors.green}
+													>
+														<img src='/images/icons/save.svg' alt='Loja' />
+														Salvar
+													</Button>
+												</>
+											</ButtonsContainer>
+										</>
+									</Form>
 								</motion.div>
 							</AnimatePresence>
 						</BoxCard>
-					)}
-				</Section>
+					</Section>
+				)}
 			</>
 		</Container>
 	);

@@ -70,28 +70,53 @@ const Address: React.FC = () => {
 		<Container>
 			<>
 				<CustomerHeader />
-				<Section>
-					<TitleBox title='Entrega' />
-					<ButtonsContainer>
-						<>
-							<Button
-								color={Theme.colors.black}
-								backgroundColor={Theme.colors.white}
-								onClick={goBack}
-							>
-								Voltar
-							</Button>
-							<Button
-								color={Theme.colors.black}
-								backgroundColor={Theme.colors.white}
-								onClick={() => setNewAddressVisible(!newAddressVisible)}
-							>
-								{!newAddressVisible ? 'Adicionar' : 'Cancelar'}
-							</Button>
-						</>
-					</ButtonsContainer>
-					{!newAddressVisible ? (
-						<BoxCard>
+				{!newAddressVisible ? (
+					<Section>
+						<TitleBox title='Entrega' />
+						<ButtonsContainer>
+							<>
+								<Button
+									className='icon back'
+									color={Theme.colors.black}
+									backgroundColor={Theme.colors.white}
+									onClick={goBack}
+								>
+									<svg
+										className='icon'
+										fill='currentColor'
+										viewBox='0 0 20 20'
+										xmlns='http://www.w3.org/2000/svg'
+									>
+										<path
+											fillRule='evenodd'
+											d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
+											clipRule='evenodd'
+										/>
+									</svg>
+									Voltar
+								</Button>
+								<Button
+									className='icon margin'
+									color={Theme.colors.black}
+									backgroundColor={Theme.colors.white}
+									onClick={() => setNewAddressVisible(!newAddressVisible)}
+								>
+									<svg
+										fill='currentColor'
+										viewBox='0 0 20 20'
+										xmlns='http://www.w3.org/2000/svg'
+									>
+										<path
+											fillRule='evenodd'
+											d='M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z'
+											clipRule='evenodd'
+										/>
+									</svg>
+									Novo
+								</Button>
+							</>
+						</ButtonsContainer>
+						<BoxCard style={{ marginTop: '0' }}>
 							<motion.div
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
@@ -119,77 +144,105 @@ const Address: React.FC = () => {
 								</BoxCard>
 							</motion.div>
 						</BoxCard>
-					) : (
-						<BoxCard>
+					</Section>
+				) : (
+					<Section>
+						<TitleBox title='Entrega' />
+						<ButtonsContainer>
+							<>
+								<Button
+									className='icon back'
+									color={Theme.colors.black}
+									backgroundColor={Theme.colors.white}
+									onClick={() => setNewAddressVisible(!newAddressVisible)}
+								>
+									<svg
+										className='icon'
+										fill='currentColor'
+										viewBox='0 0 20 20'
+										xmlns='http://www.w3.org/2000/svg'
+									>
+										<path
+											fillRule='evenodd'
+											d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
+											clipRule='evenodd'
+										/>
+									</svg>
+									Voltar
+								</Button>
+							</>
+						</ButtonsContainer>
+						<BoxCard style={{ marginTop: '0' }}>
 							<AnimatePresence>
 								<motion.div
 									initial={{ opacity: 0 }}
 									animate={{ opacity: 1 }}
 									transition={{ duration: 0.3 }}
 								>
-									<BoxCard>
-										<Form onSubmit={handleSaveAddress}>
-											<>
-												<InputField
-													label='Logradouro'
-													placeholder='Ex. Rua Trinta e Três'
-												/>
-												<InputField label='Número' placeholder='Ex. 42' />
-												<InputField
-													label='Complemento'
-													placeholder='Ex. Ap. 101'
-												/>
-												<InputField
-													label='Bairro'
-													placeholder='Ex. Vila Santa Cecília'
-												/>
-												<SelectField
-													label='Estado'
-													value={state}
-													onChange={e => setState(e.target.value)}
-												>
-													{listUf.map((a, index) => (
-														<option key={index} value={a.sigla}>
-															{a.sigla}
-														</option>
-													))}
-												</SelectField>
-												<SelectField
-													disabled={isCityFieldDisabled}
-													label='Cidade'
-													value={city}
-													onChange={e => setCity(e.target.value)}
-												>
-													{listCity.map((a, index) => (
-														<option key={index} value={a.nome}>
-															{a.nome}
-														</option>
-													))}
-												</SelectField>
-												<ButtonsContainer
-													style={{
-														marginTop: '1rem',
-														justifyContent: 'flex-end',
-													}}
-												>
-													<>
-														<Button
-															type='submit'
-															color={Theme.colors.white}
-															backgroundColor={Theme.colors.green}
-														>
-															Salvar
-														</Button>
-													</>
-												</ButtonsContainer>
-											</>
-										</Form>
-									</BoxCard>
+									<Form onSubmit={handleSaveAddress}>
+										<>
+											<InputField
+												label='Logradouro'
+												placeholder='Ex. Rua Trinta e Três'
+											/>
+											<InputField label='Número' placeholder='Ex. 42' />
+											<InputField
+												label='Complemento'
+												placeholder='Ex. Ap. 101'
+											/>
+											<InputField
+												label='Bairro'
+												placeholder='Ex. Vila Santa Cecília'
+											/>
+											<SelectField
+												label='Estado'
+												value={state}
+												onChange={e => setState(e.target.value)}
+											>
+												{listUf.map((a, index) => (
+													<option key={index} value={a.sigla}>
+														{a.sigla}
+													</option>
+												))}
+											</SelectField>
+											<SelectField
+												disabled={isCityFieldDisabled}
+												label='Cidade'
+												value={city}
+												onChange={e => setCity(e.target.value)}
+											>
+												{listCity.map((a, index) => (
+													<option key={index} value={a.nome}>
+														{a.nome}
+													</option>
+												))}
+											</SelectField>
+											<ButtonsContainer
+												style={{
+													marginTop: '2rem',
+													justifyContent: 'flex-end',
+												}}
+											>
+												<>
+													<Button
+                                                        width='100%'
+                                                        className='icon moreRight margin white'
+														type='submit'
+														color={Theme.colors.white}
+														backgroundColor={Theme.colors.green}
+													>
+                                                        <img src='/images/icons/save.svg' alt='Loja' />
+														Salvar
+													</Button>
+												</>
+											</ButtonsContainer>
+										</>
+									</Form>
 								</motion.div>
 							</AnimatePresence>
 						</BoxCard>
-					)}
-				</Section>
+					</Section>
+				)}
 			</>
 		</Container>
 	);

@@ -7,17 +7,6 @@ export const Container = styled.main`
 	justify-content: center;
 `;
 
-export const Header = styled.header`
-	width: 100%;
-	height: 20vh;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	background-color: ${props => props.theme.colors.green};
-	padding: 1rem;
-`;
-
 export const Section = styled.section`
 	max-width: 800px;
 	width: 100%;
@@ -36,11 +25,6 @@ export const Section = styled.section`
 		justify-content: space-between;
 		margin-bottom: 0.6rem;
 	}
-`;
-
-export const LogoImage = styled.img`
-	max-width: 300px;
-	height: 100%;
 `;
 
 export const BoxCard = styled.div`

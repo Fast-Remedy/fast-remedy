@@ -29,17 +29,6 @@ const Profile: React.FC = () => {
 						<TitleBox title='Perfil' />
 						<CartIcon />
 					</div>
-					<ButtonsContainer>
-						<>
-							<Button
-								color={Theme.colors.black}
-								backgroundColor={Theme.colors.white}
-								onClick={goBack}
-							>
-								Voltar
-							</Button>
-						</>
-					</ButtonsContainer>
 					<BoxCard>
 						<ProfileCard href='customer/address' menu='Endereços' />
 					</BoxCard>

@@ -26,17 +26,6 @@ const Orders: React.FC = () => {
 						<TitleBox title='Pedidos' />
 						<CartIcon />
 					</div>
-					<ButtonsContainer>
-						<>
-							<Button
-								color={Theme.colors.black}
-								backgroundColor={Theme.colors.white}
-								onClick={goBack}
-							>
-								Voltar
-							</Button>
-						</>
-					</ButtonsContainer>
 					<BoxCard>
 						<OrdersCard
 							orderId='1'

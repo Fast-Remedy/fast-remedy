@@ -54,4 +54,48 @@ export const Btn = styled.button<Props>`
 		width: 1.1rem;
 		height: 1.1rem;
 	}
+
+	&.icon {
+        gap: 0.2rem;
+
+		img,
+		svg {
+			width: 1.5rem;
+			height: 1.5rem;
+		}
+	}
+
+    &.back {
+        @media (max-width: 800px) {
+            gap: 0.1rem;
+        }
+        @media (min-width: 801px) {
+            img,
+            svg {
+                margin-bottom: 0.05rem;
+            }
+        }
+    }
+
+    &.right {
+        gap: 0.6rem;
+    }
+
+    &.moreRight {
+        gap: 1rem;
+    }
+
+	&.margin {
+        img,
+		svg {
+            margin-bottom: 0.1rem;
+		}
+	}
+
+    &.white {
+        img,
+		svg {
+            filter: brightness(0) invert(1);
+		}
+	}
 `;
