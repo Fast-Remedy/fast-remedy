@@ -3,7 +3,7 @@ import { GetStaticProps } from 'next';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
-import CustomerHeader from '../../../components/CustomerHeader';
+
 import StoreCard from '../../../components/StoreCard';
 import CartIcon from '../../../components/CartIcon';
 
@@ -13,7 +13,6 @@ const Home: React.FC = () => {
 	return (
 		<Container>
 			<>
-				<CustomerHeader />
 				<Section>
 					<div className='title'>
 						<TitleBox title='Lojas' />

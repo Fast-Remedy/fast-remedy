@@ -2,7 +2,6 @@ import React, { FormEvent, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiChevronRight } from 'react-icons/fi';
 
-import CustomerHeader from '../../../components/CustomerHeader';
 import TitleBox from '../../../components/TitleBox';
 import Form from '../../../components/Form';
 import InputField from '../../../components/InputField';
@@ -74,7 +73,6 @@ const Edit: React.FC = () => {
 
 	return (
 		<Container>
-			<CustomerHeader />
 			{!personalData && !contactData && !password && (
 				<Section>
 					<motion.div

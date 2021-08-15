@@ -1,13 +1,9 @@
-import React, { FormEvent, useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
 import CartIcon from '../../../components/CartIcon';
-import CustomerHeader from '../../../components/CustomerHeader';
 import OrdersCard from '../../../components/OrdersCard';
-import ButtonsContainer from '../../../components/ButtonsContainer';
-import Button from '../../../components/Button';
 
 import { Section, BoxCard } from '../../../styles/customer/orders';
 import Theme from '../../../styles/theme';
@@ -20,7 +16,6 @@ const Orders: React.FC = () => {
 	return (
 		<Container>
 			<>
-				<CustomerHeader />
 				<Section>
 					<div className='title'>
 						<TitleBox title='Pedidos' />

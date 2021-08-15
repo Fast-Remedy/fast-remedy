@@ -12,10 +12,6 @@ const GlobalStyle = createGlobalStyle`
         background-color: #EEEEEE;
     }
 
-    html, body {
-        overscroll-behavior-x: none;
-    }
-
     a {
         width: 100%;
         text-decoration: none;

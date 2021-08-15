@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
-import CustomerHeader from '../../../components/CustomerHeader';
 import OrderCard from '../../../components/OrderCard';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
@@ -51,7 +50,6 @@ const Order: React.FC = () => {
 	return (
 		<Container>
 			<>
-				<CustomerHeader />
 				{!isCancelMenuVisible ? (
 					<motion.div
 						initial={{ opacity: 0 }}

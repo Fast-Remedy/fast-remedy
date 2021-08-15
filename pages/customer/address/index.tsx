@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
-import CustomerHeader from '../../../components/CustomerHeader';
 import AddressCard from '../../../components/AddressCard';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
@@ -69,7 +68,6 @@ const Address: React.FC = () => {
 	return (
 		<Container>
 			<>
-				<CustomerHeader />
 				{!newAddressVisible ? (
 					<Section>
 						<TitleBox title='Entrega' />

@@ -1,9 +1,8 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
-import CustomerHeader from '../../../components/CustomerHeader';
 import PaymentCard from '../../../components/PaymentCard';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
@@ -29,7 +28,6 @@ const Payment: React.FC = () => {
 	return (
 		<Container>
 			<>
-				<CustomerHeader />
 				{!newPaymentVisible ? (
 					<Section>
 						<TitleBox title='Pagamento' />

@@ -3,7 +3,6 @@ import Link from 'next/link';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
-import CustomerHeader from '../../../components/CustomerHeader';
 import CartCard from '../../../components/CartCard';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
@@ -23,7 +22,6 @@ const Cart: React.FC = () => {
 	return (
 		<Container>
 			<>
-				<CustomerHeader />
 				<Section>
 					<TitleBox title='Carrinho' />
 					<ButtonsContainer>
