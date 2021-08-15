@@ -13,7 +13,22 @@ import SelectField from '../../../components/SelectField';
 import { Section, BoxCard } from '../../../styles/customer/address';
 import Theme from '../../../styles/theme';
 
+import { useNavigation } from '../../../contexts/NavigationContext';
+
 const Address: React.FC = () => {
+    const { setNavigationState } = useNavigation();
+
+	useEffect(
+		() =>
+			setNavigationState({
+				home: false,
+				search: false,
+				orders: false,
+				profile: true,
+			}),
+		[]
+	);
+
 	const [newAddressVisible, setNewAddressVisible] = useState(false);
 	const [listUf, setListUf] = useState([]);
 	const [isCityFieldDisabled, setIsCityFieldDisabled] = useState(true);
@@ -229,7 +244,7 @@ const Address: React.FC = () => {
 														color={Theme.colors.white}
 														backgroundColor={Theme.colors.green}
 													>
-                                                        <img src='/images/icons/save.svg' alt='Loja' />
+                                                        <img src='/images/icons/save.svg' alt='Salvar' />
 														Salvar
 													</Button>
 												</>

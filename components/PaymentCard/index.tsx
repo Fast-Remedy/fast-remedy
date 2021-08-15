@@ -24,7 +24,7 @@ const PaymentCard: React.FC<Props> = ({
 			</Description>
 		</Text>
 		<Button width='3rem'>
-			<img src='/images/icons/trash.png' alt='Apagar' />
+			<img src='/images/icons/trash.png' alt='Excluir' />
 		</Button>
 	</BoxCard>
 );

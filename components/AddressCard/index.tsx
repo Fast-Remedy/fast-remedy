@@ -28,14 +28,16 @@ const AddressCard: React.FC<Props> = ({
 			<Description>
 				{street}, {houseNumber}
 			</Description>
-			<Description>{complement}</Description>
+			{complement && (
+                <Description>{complement}</Description>
+            )}
 			<Description>{neighborhood}</Description>
 			<Description>
 				{city} - {state}
 			</Description>
 		</Text>
 		<Button width='3rem'>
-			<img src='/images/icons/trash.png' alt='Apagar' />
+			<img src='/images/icons/trash.png' alt='Excluir' />
 		</Button>
 	</BoxCard>
 );

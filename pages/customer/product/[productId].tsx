@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 
@@ -13,7 +13,22 @@ import LoadingMessage from '../../../components/LoadingMessage';
 import { Section, BoxCard, FinishCard } from '../../../styles/customer/product';
 import Theme from '../../../styles/theme';
 
+import { useNavigation } from '../../../contexts/NavigationContext';
+
 const Product: React.FC = () => {
+    const { setNavigationState } = useNavigation();
+
+	useEffect(
+		() =>
+			setNavigationState({
+				home: true,
+				search: false,
+				orders: false,
+				profile: false,
+			}),
+		[]
+	);
+    
 	// return url param to show directly on interface
 	// it's not required to use with SSG
 	const { query } = useRouter();

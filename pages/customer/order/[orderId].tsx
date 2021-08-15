@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -26,7 +26,22 @@ import {
 } from '../../../styles/customer/order';
 import Theme from '../../../styles/theme';
 
+import { useNavigation } from '../../../contexts/NavigationContext';
+
 const Order: React.FC = () => {
+	const { setNavigationState } = useNavigation();
+
+	useEffect(
+		() =>
+			setNavigationState({
+				home: false,
+				search: false,
+				orders: true,
+				profile: false,
+			}),
+		[]
+	);
+
 	const { query } = useRouter();
 
 	const [status] = useState('inProgress');
@@ -224,7 +239,7 @@ const Order: React.FC = () => {
 								{status === 'inProgress' && (
 									<FinishCard>
 										<Button
-                                            className='icon margin right'
+											className='icon margin right'
 											width='100%'
 											height='50px'
 											color={Theme.colors.white}
@@ -237,7 +252,10 @@ const Order: React.FC = () => {
 														fill='currentColor'
 														viewBox='0 0 20 20'
 														xmlns='http://www.w3.org/2000/svg'
-														style={{ marginRight: '0.2rem', marginBottom: '0.1rem' }}
+														style={{
+															marginRight: '0.2rem',
+															marginBottom: '0.1rem',
+														}}
 													>
 														<path
 															fillRule='evenodd'
@@ -267,17 +285,48 @@ const Order: React.FC = () => {
 									<span>Deseja realmente cancelar o pedido?</span>
 									<div className='buttons'>
 										<Button
+											className='icon back'
+                                            width='10rem'
 											color={Theme.colors.black}
 											backgroundColor={Theme.colors.gray}
 											onClick={() => setIsCancelMenuVisible(false)}
 										>
+											<svg
+												className='icon'
+												fill='currentColor'
+												viewBox='0 0 20 20'
+												xmlns='http://www.w3.org/2000/svg'
+											>
+												<path
+													fillRule='evenodd'
+													d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
+													clipRule='evenodd'
+												/>
+											</svg>
 											Voltar
 										</Button>
 										<Button
+											className='icon margin'
+                                            width='10rem'
 											color={Theme.colors.white}
 											backgroundColor={Theme.colors.red}
 											onClick={handleCancel}
 										>
+											<svg
+												fill='currentColor'
+												viewBox='0 0 20 20'
+												xmlns='http://www.w3.org/2000/svg'
+												style={{
+													marginRight: '0.2rem',
+													marginBottom: '0.1rem',
+												}}
+											>
+												<path
+													fillRule='evenodd'
+													d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
+													clipRule='evenodd'
+												/>
+											</svg>
 											Cancelar
 										</Button>
 									</div>

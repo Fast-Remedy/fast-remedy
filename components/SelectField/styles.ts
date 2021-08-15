@@ -52,10 +52,10 @@ export const SelectBox = styled.select`
 export const Span = styled.span`
     position: absolute;
     top: 4.3rem;
-    right: 1.3rem;
+    right: 1rem;
 
-    img {
-        height: 0.8rem;
-        width: 0.8rem;
+    svg {
+        height: 1.3rem;
+        width: 1.3rem;
     }
 `;

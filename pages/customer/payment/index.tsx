@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import Container from '../../../components/Container';
@@ -13,7 +13,22 @@ import SelectField from '../../../components/SelectField';
 import { Section, BoxCard, Line } from '../../../styles/customer/payment';
 import Theme from '../../../styles/theme';
 
+import { useNavigation } from '../../../contexts/NavigationContext';
+
 const Payment: React.FC = () => {
+    const { setNavigationState } = useNavigation();
+
+	useEffect(
+		() =>
+			setNavigationState({
+				home: false,
+				search: false,
+				orders: false,
+				profile: true,
+			}),
+		[]
+	);
+
 	const [newPaymentVisible, setNewPaymentVisible] = useState(false);
 	const [paymentType, setPaymentType] = useState('');
 
@@ -180,7 +195,7 @@ const Payment: React.FC = () => {
 														color={Theme.colors.white}
 														backgroundColor={Theme.colors.green}
 													>
-														<img src='/images/icons/save.svg' alt='Loja' />
+														<img src='/images/icons/save.svg' alt='Salvar' />
 														Salvar
 													</Button>
 												</>

@@ -1,15 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { GetStaticProps } from 'next';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
-
 import StoreCard from '../../../components/StoreCard';
 import CartIcon from '../../../components/CartIcon';
 
 import { Section, BoxCard } from '../../../styles/customer/home';
 
+import { useNavigation } from '../../../contexts/NavigationContext';
+
 const Home: React.FC = () => {
+	const { setNavigationState } = useNavigation();
+
+	useEffect(
+		() =>
+			setNavigationState({
+				home: true,
+				search: false,
+				orders: false,
+				profile: false,
+			}),
+		[]
+	);
+
 	return (
 		<Container>
 			<>
@@ -24,35 +38,30 @@ const Home: React.FC = () => {
 							name='Drogaria Moderna'
 							category='Farmácia'
 							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
 						/>
 						<StoreCard
 							storeId='1'
 							name='Drogaria Moderna'
 							category='Farmácia'
 							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
 						/>
 						<StoreCard
 							storeId='1'
 							name='Drogaria Moderna'
 							category='Farmácia'
 							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
 						/>
 						<StoreCard
 							storeId='1'
 							name='Drogaria Moderna'
 							category='Farmácia'
 							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
 						/>
 						<StoreCard
 							storeId='1'
 							name='Drogaria Moderna'
 							category='Farmácia'
 							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
 						/>
 					</BoxCard>
 				</Section>

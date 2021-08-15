@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiChevronRight } from 'react-icons/fi';
 
@@ -16,10 +16,24 @@ import {
 	Title,
 	Message,
 } from '../../../styles/customer/edit';
-
 import Theme from '../../../styles/theme';
 
+import { useNavigation } from '../../../contexts/NavigationContext';
+
 const Edit: React.FC = () => {
+    const { setNavigationState } = useNavigation();
+
+	useEffect(
+		() =>
+			setNavigationState({
+				home: false,
+				search: false,
+				orders: false,
+				profile: true,
+			}),
+		[]
+	);
+
 	const [personalData, setPersonalData] = useState(false);
 	const [contactData, setContactData] = useState(false);
 	const [password, setPassword] = useState(false);
@@ -174,7 +188,7 @@ const Edit: React.FC = () => {
 											color={Theme.colors.white}
 											backgroundColor={Theme.colors.green}
 										>
-											<img src='/images/icons/save.svg' alt='Loja' />
+											<img src='/images/icons/save.svg' alt='Salvar' />
 											Salvar
 										</Button>
 									</ButtonsContainer>
@@ -241,7 +255,7 @@ const Edit: React.FC = () => {
 											color={Theme.colors.white}
 											backgroundColor={Theme.colors.green}
 										>
-											<img src='/images/icons/save.svg' alt='Loja' />
+											<img src='/images/icons/save.svg' alt='Salvar' />
 											Salvar
 										</Button>
 									</ButtonsContainer>
@@ -315,7 +329,7 @@ const Edit: React.FC = () => {
 											color={Theme.colors.white}
 											backgroundColor={Theme.colors.green}
 										>
-											<img src='/images/icons/save.svg' alt='Loja' />
+											<img src='/images/icons/save.svg' alt='Salvar' />
 											Salvar
 										</Button>
 									</ButtonsContainer>

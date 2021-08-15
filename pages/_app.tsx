@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import { ThemeProvider } from 'styled-components';
 
+import { NavigationContextProvider } from '../contexts/NavigationContext';
 import CustomerHeader from '../components/CustomerHeader';
 
 import GlobalStyle from '../styles/global';
@@ -11,7 +12,7 @@ import Theme from '../styles/theme';
 
 const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 	return (
-		<>
+		<NavigationContextProvider>
 			<Head>
 				<title>FastRemedy</title>
 			</Head>
@@ -20,7 +21,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 				{router.route !== '/' &&
 					router.route !== '/customer/login' &&
 					router.route !== '/customer/recover' &&
-                    router.route !== '/customer/success' &&<CustomerHeader />}
+                    router.route !== '/customer/success' && <CustomerHeader />}
 				<AnimatePresence>
 					<motion.div
 						key={router.route}
@@ -32,7 +33,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 					</motion.div>
 				</AnimatePresence>
 			</ThemeProvider>
-		</>
+		</NavigationContextProvider>
 	);
 };
 

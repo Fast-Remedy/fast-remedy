@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
@@ -9,7 +9,22 @@ import SearchField from '../../../components/SearchField';
 import { Section, BoxCard, BoxCard2 } from '../../../styles/customer/search';
 import ProductCard from '../../../components/ProductCard';
 
+import { useNavigation } from '../../../contexts/NavigationContext';
+
 const Search: React.FC = () => {
+	const { setNavigationState } = useNavigation();
+
+	useEffect(
+		() =>
+			setNavigationState({
+				home: false,
+				search: true,
+				orders: false,
+				profile: false,
+			}),
+		[]
+	);
+
 	return (
 		<Container>
 			<>
@@ -25,35 +40,30 @@ const Search: React.FC = () => {
 							name='Drogaria Moderna'
 							category='Farmácia'
 							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
 						/>
 						<StoreCard
 							storeId='1'
 							name='Drogaria Moderna'
 							category='Farmácia'
 							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
 						/>
 						<StoreCard
 							storeId='1'
 							name='Drogaria Moderna'
 							category='Farmácia'
 							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
 						/>
 						<StoreCard
 							storeId='1'
 							name='Drogaria Moderna'
 							category='Farmácia'
 							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
 						/>
 						<StoreCard
 							storeId='1'
 							name='Drogaria Moderna'
 							category='Farmácia'
 							src='/images/logos/drogaria-moderna.png'
-							alt='Drogaria Moderna'
 						/>
 					</BoxCard>
 					<BoxCard2>

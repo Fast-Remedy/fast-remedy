@@ -8,14 +8,13 @@ interface Props {
 	name: string;
 	category: string;
 	src: string;
-	alt: string;
 }
 
-const StoreCard: React.FC<Props> = ({ storeId, name, category, src, alt }) => {
+const StoreCard: React.FC<Props> = ({ storeId, name, category, src }) => {
 	return (
 		<Link href={`/customer/store/${storeId}`}>
 			<BoxCard>
-				<Image src={src} alt={alt} />
+				<Image src={src} alt={name} />
 				<Text>
 					<Title>{name}</Title>
 					<Category>{category}</Category>

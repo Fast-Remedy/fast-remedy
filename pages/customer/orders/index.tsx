@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
@@ -6,9 +6,23 @@ import CartIcon from '../../../components/CartIcon';
 import OrdersCard from '../../../components/OrdersCard';
 
 import { Section, BoxCard } from '../../../styles/customer/orders';
-import Theme from '../../../styles/theme';
+
+import { useNavigation } from '../../../contexts/NavigationContext';
 
 const Orders: React.FC = () => {
+	const { setNavigationState } = useNavigation();
+
+	useEffect(
+		() =>
+			setNavigationState({
+				home: false,
+				search: false,
+				orders: true,
+				profile: false,
+			}),
+		[]
+	);
+
 	const goBack = () => {
 		window.history.back();
 	};
