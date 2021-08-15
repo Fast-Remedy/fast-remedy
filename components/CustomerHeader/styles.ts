@@ -88,7 +88,12 @@ export const Picture = styled.picture`
 	}
 
 	&.active:hover {
-		filter: brightness(0.85);
+		filter: none;
+	}
+
+	&:active {
+		transition: 0.1s;
+		transform: scale(1.1);
 	}
 
 	@media (max-width: 800px) {

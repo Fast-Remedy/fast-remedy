@@ -29,8 +29,10 @@ export const Btn = styled.button<Props>`
 	font-weight: 500;
 	overflow: hidden;
 
-	&:hover {
+	&:hover,
+    &:focus {
 		filter: brightness(0.85);
+        outline: none;
 	}
 
 	div {
@@ -45,7 +47,8 @@ export const Btn = styled.button<Props>`
 	}
 
 	@media (max-width: 800px) {
-		&:hover {
+		&:hover,
+        &:focus {
 			filter: none;
 		}
 	}

@@ -8,6 +8,17 @@ export const Box = styled.a`
 	align-items: center;
 	justify-content: space-between;
 	gap: 0.5rem;
+
+    &:focus {
+        outline: none;
+        filter: brightness(0.85);
+    }
+
+    @media (max-width: 800px) {
+		&:focus {
+			filter: none;
+		}
+	}
 `;
 
 export const BoxEnd = styled.a`

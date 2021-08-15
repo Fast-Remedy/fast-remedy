@@ -15,6 +15,7 @@ const GlobalStyle = createGlobalStyle`
     a {
         width: 100%;
         text-decoration: none;
+        outline: none;
     }
 
     @media (max-width: 1080px) {
