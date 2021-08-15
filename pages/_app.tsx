@@ -8,22 +8,6 @@ import GlobalStyle from '../styles/global';
 import Theme from '../styles/theme';
 
 const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
-	if (process.browser) {
-		const isSafari =
-			navigator.vendor &&
-			navigator.vendor.indexOf('Apple') > -1 &&
-			navigator.userAgent &&
-			navigator.userAgent.indexOf('CriOS') == -1 &&
-			navigator.userAgent.indexOf('FxiOS') == -1;
-
-		if (isSafari) {
-			history.pushState(null, null, location.href);
-			window.onpopstate = () => {
-				history.go(1);
-			};
-		}
-	}
-
 	return (
 		<>
 			<Head>
