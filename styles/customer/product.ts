@@ -58,3 +58,14 @@ export const FinishCard = styled.div`
 	}
 `;
 
+export const Message = styled.span`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	color: ${props => props.theme.colors.green};
+	margin-top: 1.5rem;
+    margin-bottom: 8rem;
+`;
+

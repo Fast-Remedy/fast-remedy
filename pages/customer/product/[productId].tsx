@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 // import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
+import { motion, AnimatePresence } from 'framer-motion';
+import { animateScroll as scroll } from 'react-scroll';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
@@ -10,13 +12,18 @@ import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
 import LoadingMessage from '../../../components/LoadingMessage';
 
-import { Section, BoxCard, FinishCard } from '../../../styles/customer/product';
+import {
+	Section,
+	BoxCard,
+	FinishCard,
+	Message,
+} from '../../../styles/customer/product';
 import Theme from '../../../styles/theme';
 
 import { useNavigation } from '../../../contexts/NavigationContext';
 
 const Product: React.FC = () => {
-    const { setNavigationState } = useNavigation();
+	const { setNavigationState } = useNavigation();
 
 	useEffect(
 		() =>
@@ -28,7 +35,7 @@ const Product: React.FC = () => {
 			}),
 		[]
 	);
-    
+
 	// return url param to show directly on interface
 	// it's not required to use with SSG
 	const { query } = useRouter();
@@ -40,8 +47,16 @@ const Product: React.FC = () => {
 		window.history.back();
 	};
 
+	const [isMessageVisible, setIsMessageVisible] = useState(false);
+
 	const handleAddToCart = () => {
-		window.location.href = '/customer/cart';
+		scroll.scrollToBottom();
+
+		setIsMessageVisible(!isMessageVisible);
+
+		setTimeout(() => {
+			goBack();
+		}, 2000);
 	};
 
 	return (
@@ -144,6 +159,17 @@ const Product: React.FC = () => {
 									</Button>
 								</FinishCard>
 							</BoxCard>
+							{isMessageVisible && (
+								<AnimatePresence>
+									<motion.div
+										initial={{ opacity: 0 }}
+										animate={{ opacity: 1 }}
+										transition={{ duration: 0.3 }}
+									>
+										<Message>Produto adicionado ao carrinho!</Message>
+									</motion.div>
+								</AnimatePresence>
+							)}
 						</>
 					)}
 				</Section>
