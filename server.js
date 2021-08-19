@@ -1,6 +1,6 @@
-const next = require('next');
-const express = require('express');
-const sslRedirect = require('heroku-ssl-redirect').default; // to make it work with 'require' keyword.
+import next from 'next';
+import express from 'express';
+import sslRedirect from 'heroku-ssl-redirect'; // to make it work with 'require' keyword.
 
 const PORT = process.env.PORT || 3000;
 const dev = process.env.NODE_ENV !== 'production';
