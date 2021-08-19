@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import { ThemeProvider } from 'styled-components';
+import { isSafari, isChrome } from 'react-device-detect';
 
 import { NavigationContextProvider } from '../contexts/NavigationContext';
 import CustomerHeader from '../components/CustomerHeader';
@@ -12,7 +13,9 @@ import Theme from '../styles/theme';
 
 const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 	if (process.browser) {
-		screen.orientation.lock('portrait');
+        if (!isSafari) {
+            screen.orientation.lock('portrait');
+        }
 	}
 
 	return (
