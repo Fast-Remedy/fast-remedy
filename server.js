@@ -1,25 +1,12 @@
-import next from 'next';
+import sslRedirect from 'heroku-ssl-redirect';
 import express from 'express';
-import sslRedirect from 'heroku-ssl-redirect'; // to make it work with 'require' keyword.
+const app = express();
 
-const PORT = process.env.PORT || 3000;
-const dev = process.env.NODE_ENV !== 'production';
-const app = next({ dev });
-const handle = app.getRequestHandler();
+// enable ssl redirect
+app.use(sslRedirect());
 
-app.prepare().then(() => {
-	const server = express();
-
-	// Express's middleware to automatically redirect to 'https'.
-	server.use(sslRedirect());
-
-	server.all('*', (req, res) => {
-		return handle(req, res);
-	});
-
-	server.listen(port, err => {
-		if (err) throw err;
-
-		console.log(`Server starts on ${PORT}.`);
-	});
+app.get('/', (req, res) => {
+	res.send('hello world');
 });
+
+app.listen(process.env.PORT || 3000);
