@@ -13,8 +13,8 @@ import Theme from '../styles/theme';
 
 const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 	if (process.browser) {
-        if (!isSafari) {
-            screen.orientation.lock('portrait');
+        if (isSafari) {
+            console.log('Infelizmente nem todos os recursos de PWA são suportados pelo seu browser (Safari). Para uma melhor experiência, por favor utilize Chrome, Edge ou Firefox.');
         }
 	}
 

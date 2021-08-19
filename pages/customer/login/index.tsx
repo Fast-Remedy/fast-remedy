@@ -47,7 +47,7 @@ const Login: React.FC = () => {
 				<LogoImage src='/images/logos/fastremedy-logo.png' alt='FastRemedy' />
 			</Header>
 			{isLoginPageVisible ? (
-				<Section>
+				<Section style={{ marginBottom: '4rem' }}>
 					<motion.div
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
@@ -57,10 +57,10 @@ const Login: React.FC = () => {
 							<TitleBox title='Login' />
 							<Button
 								className='icon margin'
-								width='12rem'
+								width='13rem'
 								height='2.5rem'
 								onClick={() => setIsLoginPageVisible(!isLoginPageVisible)}
-								style={{ textAlign: 'right' }}
+								style={{ textAlign: 'right', paddingRight: '0.2rem' }}
 							>
 								<svg
 									fill='currentColor'
@@ -127,7 +127,7 @@ const Login: React.FC = () => {
 								<TitleBox title='Cadastro' />
 								<Button
 									className='icon margin'
-									width='12rem'
+									width='13rem'
 									height='2.5rem'
 									onClick={() => setIsLoginPageVisible(!isLoginPageVisible)}
 								>

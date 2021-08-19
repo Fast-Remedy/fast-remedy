@@ -3,12 +3,14 @@ import styled from 'styled-components';
 export const Section = styled.section`
 	background-color: ${props => props.theme.colors.green};
 	width: 100vw;
-	height: 100vh;
+	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
     gap: 3rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
 
     .separator {
         font-size: 1.2rem;
