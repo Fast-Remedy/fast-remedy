@@ -23,7 +23,6 @@ const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 					name='viewport'
 					content='width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no'
 				/>
-				<meta http-equiv='ScreenOrientation' content='autoRotate:disabled' />
 			</Head>
 			<GlobalStyle />
 			<ThemeProvider theme={Theme}>
