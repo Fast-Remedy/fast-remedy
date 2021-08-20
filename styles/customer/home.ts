@@ -35,3 +35,10 @@ export const BoxCard = styled.div`
         justify-content: center;
 	}
 `;
+
+export const Greeting = styled.div`
+    width: 100%;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+`;

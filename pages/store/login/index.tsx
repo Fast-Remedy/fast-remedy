@@ -14,7 +14,7 @@ import {
 	Section,
 	LogoImage,
 	PasswordRecover,
-} from '../../../styles/customer/login';
+} from '../../../styles/store/login';
 
 import Theme from '../../../styles/theme';
 
@@ -25,7 +25,7 @@ const Login: React.FC = () => {
 		e.preventDefault();
 		try {
 			// authentication
-			window.location.href = '/customer/home';
+			window.location.href = '/store/home';
 		} catch (err) {
 			console.log(err);
 		}
@@ -35,7 +35,7 @@ const Login: React.FC = () => {
 		e.preventDefault();
 		try {
 			// authentication
-			window.location.href = '/customer/home';
+			window.location.href = '/store/home';
 		} catch (err) {
 			console.log(err);
 		}
@@ -78,7 +78,7 @@ const Login: React.FC = () => {
 						</div>
 						<Form onSubmit={handleLogin}>
 							<>
-								<InputField label='Email' placeholder='antonio@email.com' />
+								<InputField label='Email' placeholder='loja@email.com' />
 								<InputField
 									label='Senha'
 									placeholder='**********'
@@ -108,7 +108,7 @@ const Login: React.FC = () => {
 										Entrar
 									</Button>
 								</ButtonsContainer>
-								<Link href='/customer/recover'>
+								<Link href='/store/recover'>
 									<PasswordRecover>Esqueci minha senha</PasswordRecover>
 								</Link>
 							</>
@@ -149,12 +149,16 @@ const Login: React.FC = () => {
 							<Form onSubmit={handleRegister}>
 								<>
 									<InputField
-										label='Nome Completo'
-										placeholder='Antônio da Silva'
+										label='Razão Social'
+										placeholder='LOJA X LTDA - ME'
 									/>
-									<InputField label='CPF' placeholder='123.456.789-10' />
-									<InputField label='Celular' placeholder='(24) 99999-8888' />
-									<InputField label='Email' placeholder='antonio@email.com' />
+									<InputField
+										label='Nome Fantasia'
+										placeholder='Loja X'
+									/>
+									<InputField label='CNPJ' placeholder='12.345.678/0009-10' />
+									<InputField label='Telefone' placeholder='(24) 3333-4444' />
+									<InputField label='Email' placeholder='loja@email.com' />
 									<InputField
 										label='Senha'
 										placeholder='xxxxxxxx'

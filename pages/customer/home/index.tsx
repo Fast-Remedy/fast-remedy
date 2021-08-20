@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GetStaticProps } from 'next';
 
 import Container from '../../../components/Container';
@@ -6,12 +6,14 @@ import TitleBox from '../../../components/TitleBox';
 import StoreCard from '../../../components/StoreCard';
 import CartIcon from '../../../components/CartIcon';
 
-import { Section, BoxCard } from '../../../styles/customer/home';
+import { Section, BoxCard, Greeting } from '../../../styles/customer/home';
 
 import { useNavigation } from '../../../contexts/NavigationContext';
 
 const Home: React.FC = () => {
 	const { setNavigationState } = useNavigation();
+
+    const [timeNow, setTimeNow] = useState(new Date().getHours());
 
 	useEffect(
 		() =>
@@ -24,6 +26,14 @@ const Home: React.FC = () => {
 		[]
 	);
 
+    useEffect(() => {
+		const interval = setInterval(() => {
+			setTimeNow(new Date().getHours());
+			console.log(timeNow);
+		}, 60000);
+		return () => clearInterval(interval);
+	}, []);
+
 	return (
 		<Container>
 			<>
@@ -32,6 +42,12 @@ const Home: React.FC = () => {
 						<TitleBox title='Lojas' />
 						<CartIcon />
 					</div>
+                    <Greeting>
+                        {timeNow >= 0 && timeNow <= 4 && 'Boa noite'}
+                        {timeNow >= 5 && timeNow <= 11 && 'Bom dia'}
+                        {timeNow >= 12 && timeNow <= 17 && 'Boa tarde'}
+                        {timeNow >= 18 && timeNow <= 24 && 'Boa noite'}, Antônio!
+                    </Greeting>
 					<BoxCard>
 						<StoreCard
 							storeId='1'

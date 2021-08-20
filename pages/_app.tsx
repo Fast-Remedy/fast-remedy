@@ -3,19 +3,22 @@ import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import { ThemeProvider } from 'styled-components';
-import { isSafari, isChrome } from 'react-device-detect';
+import { isSafari } from 'react-device-detect';
 
 import { NavigationContextProvider } from '../contexts/NavigationContext';
 import CustomerHeader from '../components/CustomerHeader';
+import StoreHeader from '../components/StoreHeader';
 
 import GlobalStyle from '../styles/global';
 import Theme from '../styles/theme';
 
 const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 	if (process.browser) {
-        if (isSafari) {
-            console.log('Infelizmente nem todos os recursos de PWA são suportados pelo seu browser (Safari). Para uma melhor experiência, por favor utilize Chrome, Edge ou Firefox.');
-        }
+		if (isSafari) {
+			console.log(
+				'Infelizmente nem todos os recursos de PWA são suportados pelo seu browser (Safari). Para uma melhor experiência, por favor utilize Chrome, Edge ou Firefox.'
+			);
+		}
 	}
 
 	return (
@@ -29,10 +32,14 @@ const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 			</Head>
 			<GlobalStyle />
 			<ThemeProvider theme={Theme}>
-				{router.route !== '/' &&
-					router.route !== '/customer/login' &&
-					router.route !== '/customer/recover' &&
-					router.route !== '/customer/success' && <CustomerHeader />}
+				{router.route.match('/customer') &&
+					!router.route.match('/customer/login') &&
+					!router.route.match('/customer/recover') &&
+					!router.route.match('/customer/success') && <CustomerHeader />}
+				{router.route.match('/store') &&
+					!router.route.match('/store/login') &&
+					!router.route.match('/store/recover') &&
+					!router.route.match('/store/success') && <StoreHeader />}
 				<AnimatePresence>
 					<motion.div
 						key={router.route}

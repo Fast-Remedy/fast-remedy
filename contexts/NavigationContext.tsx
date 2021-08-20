@@ -7,9 +7,18 @@ interface INavigation {
 	profile: boolean;
 }
 
+interface IStoreNavigation {
+	home: boolean;
+	orders: boolean;
+	catalog: boolean;
+	profile: boolean;
+}
+
 interface INavigationContextData {
 	navigation: INavigation;
 	setNavigationState: (state: object) => void;
+	storeNavigation: IStoreNavigation;
+	setStoreNavigationState: (state: object) => void;
 }
 
 export const NavigationContext = createContext({} as INavigationContextData);
@@ -30,8 +39,26 @@ export function NavigationContextProvider({ children }: INavigationProps) {
 		setNavigation(state);
 	}
 
+	const [storeNavigation, setStoreNavigation] = useState<IStoreNavigation>({
+		home: true,
+		orders: false,
+		catalog: false,
+		profile: false,
+	});
+
+	function setStoreNavigationState(state: IStoreNavigation) {
+		setStoreNavigation(state);
+	}
+
 	return (
-		<NavigationContext.Provider value={{ navigation, setNavigationState }}>
+		<NavigationContext.Provider
+			value={{
+				navigation,
+				setNavigationState,
+				storeNavigation,
+				setStoreNavigationState,
+			}}
+		>
 			{children}
 		</NavigationContext.Provider>
 	);
