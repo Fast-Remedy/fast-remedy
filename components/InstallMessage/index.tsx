@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import { Alert, Section, Box, Text, Img, Close, Arrow } from './styles';
+import { Alert, Section, Box, Text, Text2, Img, Close, Arrow } from './styles';
 
 import { useNavigation } from '../../contexts/NavigationContext';
 
-const InstallMessage1: React.FC = () => {
+const InstallMessage: React.FC = () => {
 	const { installMessage, setInstallMessageState } = useNavigation();
 
 	return (
@@ -34,15 +34,17 @@ const InstallMessage1: React.FC = () => {
 									</svg>
 								</Box>
 								<Box>
-									<Text>Instale nosso aplicativo no seu iPhone:</Text>
+									<Text>Para uma melhor experiência</Text>
+									<Text>Certifique-se de instalar nosso app:</Text>
 									<Text>
 										Clique no ícone{' '}
 										<Img src='/images/icons/ios-share.png' alt='Compartilhar' />{' '}
 										e, em seguida,
 									</Text>
 									<Text>clique em "Adicionar à Tela de Início".</Text>
+									<Text2>Se já tiver instalado, ignore essa mensagem.</Text2>
 								</Box>
-								<Close onClick={setInstallMessageState}>
+								<Close onClick={() => setInstallMessageState(false)}>
 									<svg
 										fill='currentColor'
 										viewBox='0 0 20 20'
@@ -65,4 +67,4 @@ const InstallMessage1: React.FC = () => {
 	);
 };
 
-export default InstallMessage1;
+export default InstallMessage;

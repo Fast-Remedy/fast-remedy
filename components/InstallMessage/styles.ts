@@ -5,11 +5,15 @@ export const Section = styled.section`
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-end;
+	background-color: ${props => props.theme.colors.blackRGBA};
 	width: 100vw;
-	padding: 0 2.5rem 0 2.5rem;
+	height: 100vh;
+	padding: 0 2.5rem;
 	position: fixed;
-	bottom: 0;
-	z-index: 999;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1100;
 `;
 
 export const Alert = styled.div`
@@ -19,10 +23,9 @@ export const Alert = styled.div`
 	justify-content: space-between;
 	gap: 1rem;
 	width: 100%;
-    max-width: 400px;
+	max-width: 400px;
 	padding: 1rem;
 	border-radius: 1rem;
-    box-shadow: 0 20px 30px 15px rgba(0,0,0,0.2);
 `;
 
 export const Box = styled.div`
@@ -30,12 +33,20 @@ export const Box = styled.div`
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: center;
-    height: 100%;
-    margin: auto 0;
+	height: 100%;
+	margin: auto 0;
 
 	svg {
-        margin-left: 0.5rem;
+		margin-left: 0.5rem;
 		width: 2rem;
+	}
+
+	@media (max-width: 350px) {
+		svg {
+            margin-left: 0;
+            width: 0;
+            visibility: hidden;
+		}
 	}
 `;
 
@@ -44,12 +55,18 @@ export const Close = styled.div`
 	align-items: flex-start;
 	justify-content: center;
 	position: relative;
-    height: 100%;
-    width: 1.5rem;
+	height: 100%;
+	width: 1.5rem;
 
 	svg {
 		width: 1.8rem;
 		position: absolute;
+	}
+
+    @media (max-width: 350px) {
+		svg {
+			width: 1.4rem;
+		}
 	}
 `;
 
@@ -59,14 +76,30 @@ export const Text = styled.span`
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
-    height: 1.8rem;
+	height: 1.8rem;
 
 	@media (max-width: 400px) {
 		font-size: 0.8rem;
 	}
 
 	@media (max-width: 350px) {
-		font-size: 0.5rem;
+		font-size: 0.7rem;
+	}
+`;
+
+export const Text2 = styled.span`
+	color: ${props => props.theme.colors.black};
+	font-size: 0.8rem;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+    
+	@media (max-width: 400px) {
+		font-size: 0.7rem;
+	}
+
+	@media (max-width: 350px) {
+		font-size: 0.6rem;
 	}
 `;
 

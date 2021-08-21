@@ -23,7 +23,7 @@ interface IStoreNavigation {
 
 interface INavigationContextData {
 	installMessage: boolean;
-	setInstallMessageState: () => void;
+	setInstallMessageState: (state: boolean) => void;
 	navigation: INavigation;
 	setNavigationState: (state: object) => void;
 	storeNavigation: IStoreNavigation;
@@ -38,34 +38,19 @@ interface INavigationProps {
 
 export function NavigationContextProvider({ children }: INavigationProps) {
 	const [installMessage, setInstallMessage] = useState(false);
-	const [isInStandaloneMode, setIsInStandaloneMode] = useState(false);
 
 	useEffect(() => {
-		let nav = window.navigator as any;
-		console.log(nav.standalone);
-		if ('standalone' in window.navigator && nav.standalone == true) {
-			setIsInStandaloneMode(true);
-		}
-		if (isIOS && !isInStandaloneMode) {
-			setInstallMessage(true);
-		}
-	}, []);
-
-	useEffect(() => {
-		const interval = setInterval(() => {
-			let nav = window.navigator as any;
-			if ('standalone' in window.navigator && nav.standalone == true) {
-				setIsInStandaloneMode(true);
-			}
-			if (isIOS && !isInStandaloneMode) {
+		setTimeout(() => {
+			if (isIOS) {
 				setInstallMessage(true);
 			}
-		}, 60000);
-		return () => clearInterval(interval);
-	}, [installMessage]);
+		}, 400);
+	}, []);
 
-	function setInstallMessageState() {
-		setInstallMessage(false);
+	function setInstallMessageState(state: boolean) {
+		if (isIOS) {
+			setInstallMessage(state);
+		}
 	}
 
 	const [navigation, setNavigation] = useState<INavigation>({

@@ -7,6 +7,7 @@ import Form from '../../../components/Form';
 import InputField from '../../../components/InputField';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
+import InstallMessage from '../../../components/InstallMessage';
 
 import {
 	Container,
@@ -25,7 +26,7 @@ const Login: React.FC = () => {
 		e.preventDefault();
 		try {
 			// authentication
-			window.location.href = '/customer/home';
+            window.location.href = '/customer/home';
 		} catch (err) {
 			console.log(err);
 		}
@@ -43,6 +44,7 @@ const Login: React.FC = () => {
 
 	return (
 		<Container>
+			<InstallMessage />
 			<Header>
 				<LogoImage src='/images/logos/fastremedy-logo.png' alt='FastRemedy' />
 			</Header>
@@ -116,7 +118,7 @@ const Login: React.FC = () => {
 					</motion.div>
 				</Section>
 			) : (
-				<Section style={{ marginBottom: '4rem' }} >
+				<Section style={{ marginBottom: '4rem' }}>
 					<AnimatePresence>
 						<motion.div
 							initial={{ opacity: 0 }}

@@ -8,8 +8,6 @@ import { isSafari } from 'react-device-detect';
 import { NavigationContextProvider } from '../contexts/NavigationContext';
 import CustomerHeader from '../components/CustomerHeader';
 import StoreHeader from '../components/StoreHeader';
-import InstallMessage1 from '../components/InstallMessage1';
-import InstallMessage2 from '../components/InstallMessage2';
 
 import GlobalStyle from '../styles/global';
 import Theme from '../styles/theme';
@@ -63,11 +61,6 @@ const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 			<ThemeProvider theme={Theme}>
 				{showCustomerHeader && <CustomerHeader />}
 				{showStoreHeader && <StoreHeader />}
-				{!showCustomerHeader && !showStoreHeader ? (
-					<InstallMessage1 />
-				) : (
-					<InstallMessage2 />
-				)}
 				<AnimatePresence>
 					<motion.div
                         key={router.route}

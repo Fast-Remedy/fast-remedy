@@ -7,6 +7,7 @@ import Form from '../../../components/Form';
 import InputField from '../../../components/InputField';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
+import InstallMessage from '../../../components/InstallMessage';
 
 import {
 	Container,
@@ -43,6 +44,7 @@ const Login: React.FC = () => {
 
 	return (
 		<Container>
+			<InstallMessage />
 			<Header>
 				<LogoImage src='/images/logos/fastremedy-logo.png' alt='FastRemedy' />
 			</Header>
@@ -116,7 +118,7 @@ const Login: React.FC = () => {
 					</motion.div>
 				</Section>
 			) : (
-				<Section style={{ marginBottom: '4rem' }} >
+				<Section style={{ marginBottom: '4rem' }}>
 					<AnimatePresence>
 						<motion.div
 							initial={{ opacity: 0 }}
@@ -152,10 +154,7 @@ const Login: React.FC = () => {
 										label='Razão Social'
 										placeholder='LOJA X LTDA - ME'
 									/>
-									<InputField
-										label='Nome Fantasia'
-										placeholder='Loja X'
-									/>
+									<InputField label='Nome Fantasia' placeholder='Loja X' />
 									<InputField label='CNPJ' placeholder='12.345.678/0009-10' />
 									<InputField label='Telefone' placeholder='(24) 3333-4444' />
 									<InputField label='Email' placeholder='loja@email.com' />

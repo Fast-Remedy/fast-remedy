@@ -17,7 +17,7 @@ import {
 import { useNavigation } from '../../../contexts/NavigationContext';
 
 const Home: React.FC = () => {
-	const { storeNavigation, setStoreNavigationState } = useNavigation();
+	const { setStoreNavigationState } = useNavigation();
 
 	const [timeNow, setTimeNow] = useState(new Date().getHours());
 
@@ -70,16 +70,16 @@ const Home: React.FC = () => {
 							<h1>Novos Pedidos</h1>
 							<StoreNewOrderCard
 								orderId='1'
-                                customerName='Antônio Silva de Abreu Rodrigues Paulino'
-                                customerAddress='Retiro, Volta Redonda - RJ'
-                                items={2}
+								customerName='Antônio Silva de Abreu Rodrigues Paulino'
+								customerAddress='Retiro, Volta Redonda - RJ'
+								items={2}
 								time='Quarta-feira, 11/08/2021 às 19h41'
 							/>
 							<StoreNewOrderCard
 								orderId='2'
-                                customerName='Ricardo Souza da Costa Santos'
-                                customerAddress='Retiro, Volta Redonda - RJ'
-                                items={1}
+								customerName='Ricardo Souza da Costa Santos'
+								customerAddress='Retiro, Volta Redonda - RJ'
+								items={1}
 								time='Quarta-feira, 11/08/2021 às 19h41'
 							/>
 						</NewOrdersCard>
