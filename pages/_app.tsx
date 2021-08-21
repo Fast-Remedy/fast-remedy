@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
@@ -8,11 +8,40 @@ import { isSafari } from 'react-device-detect';
 import { NavigationContextProvider } from '../contexts/NavigationContext';
 import CustomerHeader from '../components/CustomerHeader';
 import StoreHeader from '../components/StoreHeader';
+import InstallMessage1 from '../components/InstallMessage1';
+import InstallMessage2 from '../components/InstallMessage2';
 
 import GlobalStyle from '../styles/global';
 import Theme from '../styles/theme';
 
 const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
+	const [showCustomerHeader, setShowCustomerHeader] = useState(false);
+	const [showStoreHeader, setShowStoreHeader] = useState(false);
+
+	useEffect(() => {
+		if (
+			router.route.match('/customer') &&
+			!router.route.match('/customer/login') &&
+			!router.route.match('/customer/recover') &&
+			!router.route.match('/customer/success')
+		) {
+			setShowCustomerHeader(true);
+		} else {
+			setShowCustomerHeader(false);
+		}
+
+		if (
+			router.route.match('/store') &&
+			!router.route.match('/store/login') &&
+			!router.route.match('/store/recover') &&
+			!router.route.match('/store/success')
+		) {
+			setShowStoreHeader(true);
+		} else {
+			setShowStoreHeader(false);
+		}
+	}, [router.route]);
+
 	if (process.browser) {
 		if (isSafari) {
 			console.log(
@@ -32,17 +61,15 @@ const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 			</Head>
 			<GlobalStyle />
 			<ThemeProvider theme={Theme}>
-				{router.route.match('/customer') &&
-					!router.route.match('/customer/login') &&
-					!router.route.match('/customer/recover') &&
-					!router.route.match('/customer/success') && <CustomerHeader />}
-				{router.route.match('/store') &&
-					!router.route.match('/store/login') &&
-					!router.route.match('/store/recover') &&
-					!router.route.match('/store/success') && <StoreHeader />}
+				{showCustomerHeader && <CustomerHeader />}
+				{showStoreHeader && <StoreHeader />}
+				{!showCustomerHeader && !showStoreHeader ? (
+					<InstallMessage1 />
+				) : (
+					<InstallMessage2 />
+				)}
 				<AnimatePresence>
 					<motion.div
-						key={router.route}
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						transition={{ duration: 0.3 }}

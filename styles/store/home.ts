@@ -26,7 +26,7 @@ export const BoxCard = styled.div`
 	margin: 1.1rem auto 1.1rem auto;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: 2rem;
+	gap: 1rem;
 
 	@media (max-width: 800px) {
 		display: flex;
@@ -64,7 +64,7 @@ export const InfoCard = styled.div`
 export const NewOrders = styled.div`
 	max-width: 800px;
 	width: 100%;
-	margin: 1.1rem auto 8rem auto;
+	margin: 0 auto 8rem auto;
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 2rem;
