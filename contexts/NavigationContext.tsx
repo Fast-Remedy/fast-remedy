@@ -41,8 +41,7 @@ export function NavigationContextProvider({ children }: INavigationProps) {
 	const [isInStandaloneMode, setIsInStandaloneMode] = useState(false);
 
 	useEffect(() => {
-		let nav = window.navigator as any;
-		if (nav.standalone) {
+		if (window.matchMedia('(display-mode: standalone)').matches) {
 			setIsInStandaloneMode(true);
 		}
 		if (isIOS && !isInStandaloneMode) {
@@ -52,8 +51,7 @@ export function NavigationContextProvider({ children }: INavigationProps) {
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			let nav = window.navigator as any;
-			if (nav.standalone) {
+			if (window.matchMedia('(display-mode: standalone)').matches) {
 				setIsInStandaloneMode(true);
 			}
 			if (isIOS && !isInStandaloneMode) {
