@@ -18,7 +18,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 
 	useEffect(() => {
 		if (
-			router.route.match('/customer') &&
+			router.route.match('/customer/') &&
 			!router.route.match('/customer/login') &&
 			!router.route.match('/customer/recover') &&
 			!router.route.match('/customer/success')
@@ -29,7 +29,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 		}
 
 		if (
-			router.route.match('/store') &&
+			router.route.match('/store/') &&
 			!router.route.match('/store/login') &&
 			!router.route.match('/store/recover') &&
 			!router.route.match('/store/success')
