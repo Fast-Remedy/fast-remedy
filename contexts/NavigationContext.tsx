@@ -1,10 +1,4 @@
-import {
-	createContext,
-	useContext,
-	useState,
-	useEffect,
-	ReactNode,
-} from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { isIOS } from 'react-device-detect';
 
 interface INavigation {
@@ -38,35 +32,28 @@ interface INavigationProps {
 
 export function NavigationContextProvider({ children }: INavigationProps) {
 	const [installMessage, setInstallMessage] = useState(false);
-	const [isInStandaloneMode, setIsInStandaloneMode] = useState(false);
+    const [isInStandaloneMode, setIsInStandaloneMode] = useState(false);
 
-	function isPwa() {
-		return ['fullscreen', 'standalone', 'minimal-ui'].some(
-			displayMode =>
-				window.matchMedia('(display-mode: ' + displayMode + ')').matches
-		);
-	}
-
-	useEffect(() => {
-		if (isPwa()) {
-			setIsInStandaloneMode(true);
-		}
+    useEffect(() => {
+        if ('standalone' in window.navigator) {
+            setIsInStandaloneMode(true);
+        }
 		if (isIOS && !isInStandaloneMode) {
 			setInstallMessage(true);
 		}
 	}, []);
 
-	useEffect(() => {
-		const interval = setInterval(() => {
-			if (isPwa()) {
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if ('standalone' in window.navigator) {
                 setIsInStandaloneMode(true);
             }
             if (isIOS && !isInStandaloneMode) {
                 setInstallMessage(true);
             }
-		}, 60000);
-		return () => clearInterval(interval);
-	}, [installMessage]);
+        }, 60000);
+        return () => clearInterval(interval);
+      }, [installMessage]);
 
 	function setInstallMessageState() {
 		setInstallMessage(false);

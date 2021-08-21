@@ -70,6 +70,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 				)}
 				<AnimatePresence>
 					<motion.div
+                        key={router.route}
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						transition={{ duration: 0.3 }}
