@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import {
+	createContext,
+	useContext,
+	useState,
+	useEffect,
+	ReactNode,
+} from 'react';
 import { isIOS } from 'react-device-detect';
 
 interface INavigation {
@@ -32,28 +38,35 @@ interface INavigationProps {
 
 export function NavigationContextProvider({ children }: INavigationProps) {
 	const [installMessage, setInstallMessage] = useState(false);
-    const [isInStandaloneMode, setIsInStandaloneMode] = useState(false);
+	const [isInStandaloneMode, setIsInStandaloneMode] = useState(false);
 
-    useEffect(() => {
-        if ((window.matchMedia('(display-mode: standalone)').matches) || (window.navigator.standalone) || document.referrer.includes('android-app://')) {
-            setIsInStandaloneMode(true);
-        }
+	function isPwa() {
+		return ['fullscreen', 'standalone', 'minimal-ui'].some(
+			displayMode =>
+				window.matchMedia('(display-mode: ' + displayMode + ')').matches
+		);
+	}
+
+	useEffect(() => {
+		if (isPwa()) {
+			setIsInStandaloneMode(true);
+		}
 		if (isIOS && !isInStandaloneMode) {
 			setInstallMessage(true);
 		}
 	}, []);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if ('standalone' in window.navigator && window.navigator.standalone) {
-                setIsInStandaloneMode(true);
-            }
-            if (isIOS && !isInStandaloneMode) {
-                setInstallMessage(true);
-            }
-        }, 60000);
-        return () => clearInterval(interval);
-      }, [installMessage]);
+	useEffect(() => {
+		const interval = setInterval(() => {
+			if ('standalone' in window.navigator && window.navigator.standalone) {
+				setIsInStandaloneMode(true);
+			}
+			if (isIOS && !isInStandaloneMode) {
+				setInstallMessage(true);
+			}
+		}, 60000);
+		return () => clearInterval(interval);
+	}, [installMessage]);
 
 	function setInstallMessageState() {
 		setInstallMessage(false);
