@@ -94,6 +94,7 @@ export const Text2 = styled.span`
 	align-items: center;
 	justify-content: flex-end;
 	margin-top: 0.5rem;
+	margin-bottom: 0.2rem;
 
 	@media (max-width: 400px) {
 		font-size: 0.7rem;
