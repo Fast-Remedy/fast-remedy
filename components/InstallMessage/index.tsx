@@ -35,10 +35,11 @@ const InstallMessage: React.FC = () => {
 								</Box>
 								<Box>
 									<Text>Para uma melhor experiência</Text>
-									<Text>Certifique-se de instalar nosso app:</Text>
+									<Text>certifique-se de instalar nosso app.</Text>
+									<Text>Utilizando o navegador Safari,</Text>
 									<Text>
-										Clique no ícone{' '}
-										<Img src='/images/icons/ios-share.png' alt='Compartilhar' />{' '}
+										clique no ícone
+										<Img src='/images/icons/ios-share.png' alt='Compartilhar' />
 										e, em seguida,
 									</Text>
 									<Text>clique em "Adicionar à Tela de Início".</Text>

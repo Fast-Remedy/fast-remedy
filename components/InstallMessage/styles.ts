@@ -4,11 +4,11 @@ export const Section = styled.section`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: flex-end;
+	justify-content: center;
 	background-color: ${props => props.theme.colors.blackRGBA};
 	width: 100vw;
 	height: 100vh;
-	padding: 0 2.5rem;
+	padding: 40vh 2.5rem 0 2.5rem;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -21,7 +21,7 @@ export const Alert = styled.div`
 	display: flex;
 	align-items: flex-start;
 	justify-content: space-between;
-	gap: 1rem;
+	gap: 0.5rem;
 	width: 100%;
 	max-width: 400px;
 	padding: 1rem;
@@ -43,9 +43,9 @@ export const Box = styled.div`
 
 	@media (max-width: 350px) {
 		svg {
-            margin-left: 0;
-            width: 0;
-            visibility: hidden;
+			margin-left: 0;
+			width: 0;
+			visibility: hidden;
 		}
 	}
 `;
@@ -63,7 +63,7 @@ export const Close = styled.div`
 		position: absolute;
 	}
 
-    @media (max-width: 350px) {
+	@media (max-width: 350px) {
 		svg {
 			width: 1.4rem;
 		}
@@ -93,7 +93,8 @@ export const Text2 = styled.span`
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
-    
+	margin-top: 0.5rem;
+
 	@media (max-width: 400px) {
 		font-size: 0.7rem;
 	}
