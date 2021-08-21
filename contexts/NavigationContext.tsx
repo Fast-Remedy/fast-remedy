@@ -58,12 +58,12 @@ export function NavigationContextProvider({ children }: INavigationProps) {
 
 	useEffect(() => {
 		const interval = setInterval(() => {
-			if ('standalone' in window.navigator && window.navigator.standalone) {
-				setIsInStandaloneMode(true);
-			}
-			if (isIOS && !isInStandaloneMode) {
-				setInstallMessage(true);
-			}
+			if (isPwa()) {
+                setIsInStandaloneMode(true);
+            }
+            if (isIOS && !isInStandaloneMode) {
+                setInstallMessage(true);
+            }
 		}, 60000);
 		return () => clearInterval(interval);
 	}, [installMessage]);
