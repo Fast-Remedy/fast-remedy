@@ -29,7 +29,7 @@ const Store: React.FC = () => {
 			}),
 		[]
 	);
-    
+
 	// return url param to show directly on interface
 	// it's not required to use with SSG
 	const { query } = useRouter();
@@ -46,7 +46,7 @@ const Store: React.FC = () => {
 			<>
 				<Section>
 					<TitleBox
-						title={`Drogaria Ultra Popular`}
+						title={`Drogaria Moderna`}
 						fontSize='2rem'
 					/>
 					<ButtonsContainer>

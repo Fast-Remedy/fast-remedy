@@ -170,8 +170,8 @@ const Payment: React.FC = () => {
 												/>
 											</Line>
 											<InputField
-												label='Código de Segurança'
-												placeholder='Ex. 22'
+												label='Código de Segurança (Número de trás do cartão)'
+												placeholder='Ex. 123'
 											/>
 											<InputField
 												label='Nome do Titular'

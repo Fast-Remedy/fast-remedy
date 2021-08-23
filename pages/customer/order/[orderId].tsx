@@ -179,37 +179,23 @@ const Order: React.FC = () => {
 								<OrderCard
 									quantity={1}
 									store='Drogaria Moderna'
-									description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
-									price={5.69}
-									src='/images/logos/remedy.svg'
+									description='Maleato de Dexclorfeniramina 2mg/5ml Cimed Solução Oral Sabor Laranja com 120ml'
+									price={13.45}
+									src='/images/logos/remedy2.jpg'
 								/>
 								<OrderCard
 									quantity={1}
 									store='Drogaria Moderna'
-									description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
-									price={5.69}
-									src='/images/logos/remedy.svg'
-								/>
-								<OrderCard
-									quantity={1}
-									store='Drogaria Moderna'
-									description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
-									price={5.69}
-									src='/images/logos/remedy.svg'
-								/>
-								<OrderCard
-									quantity={1}
-									store='Drogaria Moderna'
-									description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
-									price={5.69}
-									src='/images/logos/remedy.svg'
+									description='Aparelho de Barbear MACH3 Gillette - 1 Unidade'
+									price={31.99}
+									src='/images/logos/remedy3.jpg'
 								/>
 							</BoxCard>
 							<BoxCard>
 								<FinishCard>
 									<div className='total'>
 										<span>Subtotal:</span>
-										<span className='info'>R$ 6,50</span>
+										<span className='info'>R$ 51,13</span>
 									</div>
 									<div className='total'>
 										<span>Taxa de entrega:</span>
@@ -217,7 +203,7 @@ const Order: React.FC = () => {
 									</div>
 									<div className='total'>
 										<span>Total:</span>
-										<span>R$ 11,50</span>
+										<span>R$ 56,13</span>
 									</div>
 								</FinishCard>
 								<FinishCard>

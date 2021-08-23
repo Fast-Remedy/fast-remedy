@@ -20,10 +20,14 @@ export const BoxCard = styled.div`
             filter: none;
         }
     }
+
+    &:last-child {
+        border-radius: 0 0 1rem 1rem;
+    }
 `;
 
 export const Text = styled.span`
-	width: 90%;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;

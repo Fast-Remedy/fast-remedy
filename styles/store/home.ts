@@ -65,16 +65,11 @@ export const NewOrders = styled.div`
 	max-width: 800px;
 	width: 100%;
 	margin: 0 auto 8rem auto;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 	gap: 2rem;
-
-	@media (max-width: 800px) {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
 `;
 
 export const NewOrdersCard = styled.div`
@@ -93,4 +88,3 @@ export const NewOrdersCard = styled.div`
 		margin-bottom: 1rem;
 	}
 `;
-

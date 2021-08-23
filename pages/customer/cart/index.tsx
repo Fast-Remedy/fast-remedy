@@ -74,37 +74,23 @@ const Cart: React.FC = () => {
 						<CartCard
 							quantity={1}
 							store='Drogaria Moderna'
-							description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
-							price={5.69}
-							src='/images/logos/remedy.svg'
+							description='Maleato de Dexclorfeniramina 2mg/5ml Cimed Solução Oral Sabor Laranja com 120ml'
+							price={13.45}
+							src='/images/logos/remedy2.jpg'
 						/>
 						<CartCard
 							quantity={1}
 							store='Drogaria Moderna'
-							description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
-							price={5.69}
-							src='/images/logos/remedy.svg'
-						/>
-						<CartCard
-							quantity={1}
-							store='Drogaria Moderna'
-							description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
-							price={5.69}
-							src='/images/logos/remedy.svg'
-						/>
-						<CartCard
-							quantity={1}
-							store='Drogaria Moderna'
-							description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
-							price={5.69}
-							src='/images/logos/remedy.svg'
+							description='Aparelho de Barbear MACH3 Gillette - 1 Unidade'
+							price={31.99}
+							src='/images/logos/remedy3.jpg'
 						/>
 					</BoxCard>
 					<BoxCard>
 						<FinishCard>
 							<div className='total'>
 								<span>Subtotal:</span>
-								<span className='info'>R$ 6,50</span>
+								<span className='info'>R$ 51,13</span>
 							</div>
 							<div className='total'>
 								<span>Taxa de entrega:</span>
@@ -172,7 +158,7 @@ const Cart: React.FC = () => {
 										</svg>
 										Finalizar compra
 									</span>
-									<span className='info'>Total: R$ 11,50</span>
+									<span className='info'>Total: R$ 56,13</span>
 								</div>
 							</Button>
 						</FinishCard>

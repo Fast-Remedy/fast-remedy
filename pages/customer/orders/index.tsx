@@ -49,8 +49,12 @@ const Orders: React.FC = () => {
 										'Dipirona Sódica 500mg Genérico Medley 10 Comprimidos',
 								},
 								{
-									quantity: 2,
-									description: 'Bromoprida Xarope Medley 100mL',
+									quantity: 1,
+									description: 'Maleato de Dexclorfeniramina 2mg/5ml Cimed Solução Oral Sabor Laranja com 120ml',
+								},
+								{
+									quantity: 1,
+									description: 'Aparelho de Barbear MACH3 Gillette - 1 Unidade',
 								},
 							]}
 						/>

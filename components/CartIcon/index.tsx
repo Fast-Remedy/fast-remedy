@@ -5,7 +5,7 @@ import Theme from '../../styles/theme';
 
 const CartIcon = () => {
 	const { colors } = Theme;
-	const items = 5;
+	const items = 3;
 
 	return (
 		<Link href='/customer/cart' passHref>

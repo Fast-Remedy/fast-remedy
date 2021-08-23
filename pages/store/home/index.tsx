@@ -67,7 +67,7 @@ const Home: React.FC = () => {
 					</BoxCard>
 					<NewOrders>
 						<NewOrdersCard>
-							<h1>Novos Pedidos</h1>
+							<h1>Você possui novos pedidos!</h1>
 							<StoreNewOrderCard
 								orderId='1'
 								customerName='Antônio Silva de Abreu Rodrigues Paulino'
