@@ -19,6 +19,7 @@ import Theme from '../../../styles/theme';
 
 const Recover: React.FC = () => {
 	const [isMessageVisible, setIsMessageVisible] = useState(false);
+	const [email, setEmail] = useState('1');
 
 	const goBack = () => {
 		window.history.back();
@@ -66,10 +67,16 @@ const Recover: React.FC = () => {
 				</div>
 				<Form onSubmit={handleRecover}>
 					<>
-						<InputField label='Email' placeholder='loja@email.com' />
+						<InputField
+							label='Email'
+							placeholder='loja@email.com'
+							required={true}
+							value={email}
+							onChange={e => setEmail(e.target.value)}
+						/>
 						<ButtonsContainer style={{ marginTop: '1rem' }}>
 							<Button
-                                className='icon right'
+								className='icon right'
 								width='100%'
 								type='submit'
 								color={Theme.colors.white}

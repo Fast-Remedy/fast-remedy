@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -21,24 +21,58 @@ import Theme from '../../../styles/theme';
 
 const Login: React.FC = () => {
 	const [isLoginPageVisible, setIsLoginPageVisible] = useState(true);
+	const [isLoginButtonIncorrect, setIsLoginButtonIncorrect] = useState(false);
+	const [isRegisterButtonIncorrect, setIsRegisterButtonIncorrect] = useState(false);
+	const [emailLogin, setEmailLogin] = useState('1');
+	const [passwordLogin, setPasswordLogin] = useState('2');
+	const [name, setName] = useState('3');
+	const [cpf, setCpf] = useState('4');
+	const [phone, setPhone] = useState('5');
+	const [email, setEmail] = useState('6');
+	const [password, setPassword] = useState('7');
+	const [confirmPassword, setConfirmPassword] = useState('8');
+
+	useEffect(() => {
+		setIsLoginButtonIncorrect(false);
+	}, [emailLogin, passwordLogin]);
+
+    useEffect(() => {
+		setIsRegisterButtonIncorrect(false);
+	}, [name, cpf, phone, email, password, confirmPassword]);
 
 	const handleLogin = async (e: FormEvent) => {
 		e.preventDefault();
+
+		const loginData = {
+			emailCustomer: emailLogin,
+			passwordCustomer: passwordLogin,
+		};
+
 		try {
 			// authentication
-            window.location.href = '/customer/home';
+			window.location.href = '/customer/home';
 		} catch (err) {
-			console.log(err);
+			setIsLoginButtonIncorrect(true);
 		}
 	};
 
 	const handleRegister = async (e: FormEvent) => {
 		e.preventDefault();
+
+        const registerData = {
+            nameCustomer: name,
+            cpfCustomer: cpf,
+            phoneCustomer: phone,
+            emailCustomer: email,
+            passwordCustomer: password,
+            registrationDateCustomer: new Date(),
+        };
+
 		try {
 			// authentication
 			window.location.href = '/customer/home';
 		} catch (err) {
-			console.log(err);
+			setIsRegisterButtonIncorrect(true);
 		}
 	};
 
@@ -80,11 +114,23 @@ const Login: React.FC = () => {
 						</div>
 						<Form onSubmit={handleLogin}>
 							<>
-								<InputField label='Email' placeholder='antonio@email.com' />
+								<InputField
+									label='Email'
+									placeholder='antonio@email.com'
+									type='email'
+									required={true}
+									value={emailLogin}
+									onChange={e => setEmailLogin(e.target.value)}
+									isIncorrect={isLoginButtonIncorrect}
+								/>
 								<InputField
 									label='Senha'
 									placeholder='**********'
 									type='password'
+									required={true}
+									value={passwordLogin}
+									onChange={e => setPasswordLogin(e.target.value)}
+									isIncorrect={isLoginButtonIncorrect}
 								/>
 								<ButtonsContainer style={{ marginTop: '1rem' }}>
 									<Button
@@ -92,7 +138,11 @@ const Login: React.FC = () => {
 										width='100%'
 										type='submit'
 										color={Theme.colors.white}
-										backgroundColor={Theme.colors.green}
+										backgroundColor={
+											isLoginButtonIncorrect
+												? Theme.colors.red
+												: Theme.colors.green
+										}
 									>
 										<svg
 											xmlns='http://www.w3.org/2000/svg'
@@ -107,7 +157,9 @@ const Login: React.FC = () => {
 												d='M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1'
 											/>
 										</svg>
-										Entrar
+										{isLoginButtonIncorrect
+											? 'Usuário e/ou senha incorreto(s)!'
+											: 'Entrar'}
 									</Button>
 								</ButtonsContainer>
 								<Link href='/customer/recover'>
@@ -153,19 +205,52 @@ const Login: React.FC = () => {
 									<InputField
 										label='Nome Completo'
 										placeholder='Antônio da Silva'
+										required={true}
+										value={name}
+										onChange={e => setName(e.target.value)}
+                                        isIncorrect={isRegisterButtonIncorrect}
 									/>
-									<InputField label='CPF' placeholder='123.456.789-10' />
-									<InputField label='Celular' placeholder='(24) 99999-8888' />
-									<InputField label='Email' placeholder='antonio@email.com' />
+									<InputField
+										label='CPF'
+										placeholder='123.456.789-10'
+										required={true}
+										value={cpf}
+										onChange={e => setCpf(e.target.value)}
+                                        isIncorrect={isRegisterButtonIncorrect}
+									/>
+									<InputField
+										label='Celular'
+										placeholder='(24) 99999-8888'
+										value={phone}
+										onChange={e => setPhone(e.target.value)}
+                                        isIncorrect={isRegisterButtonIncorrect}
+									/>
+									<InputField
+										label='Email'
+										placeholder='antonio@email.com'
+										type='email'
+										required={true}
+										value={email}
+										onChange={e => setEmail(e.target.value)}
+                                        isIncorrect={isRegisterButtonIncorrect}
+									/>
 									<InputField
 										label='Senha'
-										placeholder='xxxxxxxx'
+										placeholder='**********'
 										type='password'
+										required={true}
+										value={password}
+										onChange={e => setPassword(e.target.value)}
+                                        isIncorrect={isRegisterButtonIncorrect}
 									/>
 									<InputField
 										label='Confirmar Senha'
-										placeholder='xxxxxxxx'
+										placeholder='**********'
 										type='password'
+										required={true}
+										value={confirmPassword}
+										onChange={e => setConfirmPassword(e.target.value)}
+                                        isIncorrect={isRegisterButtonIncorrect}
 									/>
 									<ButtonsContainer style={{ marginTop: '1rem' }}>
 										<Button
@@ -173,7 +258,11 @@ const Login: React.FC = () => {
 											width='100%'
 											type='submit'
 											color={Theme.colors.white}
-											backgroundColor={Theme.colors.green}
+											backgroundColor={
+                                                isRegisterButtonIncorrect
+                                                    ? Theme.colors.red
+                                                    : Theme.colors.green
+                                            }
 										>
 											<svg
 												xmlns='http://www.w3.org/2000/svg'
@@ -188,7 +277,9 @@ const Login: React.FC = () => {
 													d='M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1'
 												/>
 											</svg>
-											Cadastrar
+											{isRegisterButtonIncorrect
+											? 'Um ou mais campos inválidos!'
+											: 'Cadastrar'}
 										</Button>
 									</ButtonsContainer>
 								</>

@@ -21,7 +21,7 @@ import Theme from '../../../styles/theme';
 import { useNavigation } from '../../../contexts/NavigationContext';
 
 const Edit: React.FC = () => {
-    const { setNavigationState } = useNavigation();
+	const { setNavigationState } = useNavigation();
 
 	useEffect(
 		() =>
@@ -313,12 +313,12 @@ const Edit: React.FC = () => {
 								<>
 									<InputField
 										label='Nova Senha'
-										placeholder='xxxxxxxx'
+										placeholder='**********'
 										type='password'
 									/>
 									<InputField
 										label='Confirmar Nova Senha'
-										placeholder='xxxxxxxx'
+										placeholder='**********'
 										type='password'
 									/>
 									<ButtonsContainer style={{ marginTop: '2rem' }}>

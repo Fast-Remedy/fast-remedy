@@ -28,6 +28,7 @@ export const Btn = styled.button<Props>`
 	font-size: ${props => props.fontSize || '1rem'};
 	font-weight: 500;
 	overflow: hidden;
+    transition: all 0.2s;
 
 	&:hover,
     &:focus {

@@ -20,9 +20,18 @@ export const Label = styled.label`
 	text-align: start;
 	font-size: 0.85rem;
 	font-weight: 600;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 
 	&:focus {
 		border: 1.5px solid ${props => props.theme.colors.green};
+	}
+
+	svg {
+		margin-top: 1px;
+		width: 1rem;
+		height: 1rem;
 	}
 `;
 
@@ -38,6 +47,7 @@ export const SelectBox = styled.select`
 	padding: 1rem;
 	outline: 0;
 	-webkit-appearance: none;
+    transition: all 0.2s;
 
 	&:focus {
 		border: 1.5px solid ${props => props.theme.colors.green};
@@ -46,6 +56,10 @@ export const SelectBox = styled.select`
     &:disabled {
         filter: brightness(0.85);
         cursor: not-allowed;
+    }
+
+    &.incorrect {
+        border: 1.5px solid ${props => props.theme.colors.red};
     }
 `;
 

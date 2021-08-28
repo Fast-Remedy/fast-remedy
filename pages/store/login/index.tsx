@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -21,24 +21,64 @@ import Theme from '../../../styles/theme';
 
 const Login: React.FC = () => {
 	const [isLoginPageVisible, setIsLoginPageVisible] = useState(true);
+    const [isLoginButtonIncorrect, setIsLoginButtonIncorrect] = useState(false);
+    const [isRegisterButtonIncorrect, setIsRegisterButtonIncorrect] = useState(false);
+	const [emailLogin, setEmailLogin] = useState('1');
+	const [passwordLogin, setPasswordLogin] = useState('2');
+	const [companyName, setCompanyName] = useState('3');
+	const [tradingName, setTradingName] = useState('3.5');
+	const [cnpj, setCnpj] = useState('4');
+	const [phone, setPhone] = useState('5');
+	const [email, setEmail] = useState('6');
+	const [password, setPassword] = useState('7');
+	const [confirmPassword, setConfirmPassword] = useState('8');
+	const [deliveryFee, setDeliveryFee] = useState('');
+	const [deliveryEstimatedTime, setDeliveryEstimatedTime] = useState('');
+
+    useEffect(() => {
+		setIsLoginButtonIncorrect(false);
+	}, [emailLogin, passwordLogin]);
+
+    useEffect(() => {
+		setIsRegisterButtonIncorrect(false);
+	}, [companyName, tradingName, cnpj, phone, email, password, confirmPassword]);
 
 	const handleLogin = async (e: FormEvent) => {
 		e.preventDefault();
+
+        const loginData = {
+			emailStore: emailLogin,
+			passwordStore: passwordLogin,
+		};
+
 		try {
 			// authentication
 			window.location.href = '/store/home';
 		} catch (err) {
-			console.log(err);
+            setIsLoginButtonIncorrect(true);
 		}
 	};
 
 	const handleRegister = async (e: FormEvent) => {
 		e.preventDefault();
+
+        const registerData = {
+            companyNameStore: companyName,
+            tradingNameStore: tradingName,
+            cnpjStore: cnpj,
+            phoneStore: phone,
+            emailStore: email,
+            passwordStore: password,
+            deliveryFeeStore: 1,
+            deliveryEstimatedTimeStore: 30,
+            registrationDateStore: new Date(),
+        };
+
 		try {
 			// authentication
 			window.location.href = '/store/home';
 		} catch (err) {
-			console.log(err);
+			setIsRegisterButtonIncorrect(true);
 		}
 	};
 
@@ -80,11 +120,23 @@ const Login: React.FC = () => {
 						</div>
 						<Form onSubmit={handleLogin}>
 							<>
-								<InputField label='Email' placeholder='loja@email.com' />
+								<InputField
+									label='Email'
+									placeholder='loja@email.com'
+									type='email'
+									required={true}
+									value={emailLogin}
+									onChange={e => setEmailLogin(e.target.value)}
+									isIncorrect={isLoginButtonIncorrect}
+								/>
 								<InputField
 									label='Senha'
 									placeholder='**********'
 									type='password'
+									required={true}
+									value={passwordLogin}
+									onChange={e => setPasswordLogin(e.target.value)}
+                                    isIncorrect={isLoginButtonIncorrect}
 								/>
 								<ButtonsContainer style={{ marginTop: '1rem' }}>
 									<Button
@@ -92,7 +144,11 @@ const Login: React.FC = () => {
 										width='100%'
 										type='submit'
 										color={Theme.colors.white}
-										backgroundColor={Theme.colors.green}
+										backgroundColor={
+											isLoginButtonIncorrect
+												? Theme.colors.red
+												: Theme.colors.green
+										}
 									>
 										<svg
 											xmlns='http://www.w3.org/2000/svg'
@@ -107,7 +163,9 @@ const Login: React.FC = () => {
 												d='M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1'
 											/>
 										</svg>
-										Entrar
+										{isLoginButtonIncorrect
+											? 'Usuário e/ou senha incorreto(s)!'
+											: 'Entrar'}
 									</Button>
 								</ButtonsContainer>
 								<Link href='/store/recover'>
@@ -153,20 +211,76 @@ const Login: React.FC = () => {
 									<InputField
 										label='Razão Social'
 										placeholder='LOJA X LTDA - ME'
+										required={true}
+										value={companyName}
+										onChange={e => setCompanyName(e.target.value)}
+                                        isIncorrect={isRegisterButtonIncorrect}
 									/>
-									<InputField label='Nome Fantasia' placeholder='Loja X' />
-									<InputField label='CNPJ' placeholder='12.345.678/0009-10' />
-									<InputField label='Telefone' placeholder='(24) 3333-4444' />
-									<InputField label='Email' placeholder='loja@email.com' />
+									<InputField
+										label='Nome Fantasia'
+										placeholder='Loja X'
+										required={true}
+										value={tradingName}
+										onChange={e => setTradingName(e.target.value)}
+                                        isIncorrect={isRegisterButtonIncorrect}
+									/>
+									<InputField
+										label='CNPJ'
+										placeholder='12.345.678/0009-10'
+										required={true}
+										value={cnpj}
+										onChange={e => setCnpj(e.target.value)}
+                                        isIncorrect={isRegisterButtonIncorrect}
+									/>
+									<InputField
+										label='Telefone'
+										placeholder='(24) 3333-4444'
+										value={phone}
+										onChange={e => setPhone(e.target.value)}
+                                        isIncorrect={isRegisterButtonIncorrect}
+									/>
+									<InputField
+										label='Email'
+										placeholder='loja@email.com'
+										type='email'
+										required={true}
+										value={email}
+										onChange={e => setEmail(e.target.value)}
+                                        isIncorrect={isRegisterButtonIncorrect}
+									/>
 									<InputField
 										label='Senha'
-										placeholder='xxxxxxxx'
+										placeholder='**********'
 										type='password'
+                                        required={true}
+										value={password}
+										onChange={e => setPassword(e.target.value)}
+                                        isIncorrect={isRegisterButtonIncorrect}
 									/>
 									<InputField
 										label='Confirmar Senha'
-										placeholder='xxxxxxxx'
+										placeholder='**********'
 										type='password'
+                                        required={true}
+										value={confirmPassword}
+										onChange={e => setConfirmPassword(e.target.value)}
+                                        isIncorrect={isRegisterButtonIncorrect}
+									/>
+									<InputField
+										label='Taxa de entrega'
+										placeholder='R$ 5,00'
+                                        required={true}
+										value={deliveryFee}
+										onChange={e => setDeliveryFee(e.target.value)}
+                                        isIncorrect={isRegisterButtonIncorrect}
+									/>
+									<InputField
+										label='Tempo estimado de entrega (em min)'
+										placeholder='40'
+                                        required={true}
+										value={deliveryEstimatedTime}
+										onChange={e => setDeliveryEstimatedTime(e.target.value)}
+                                        isIncorrect={isRegisterButtonIncorrect}
 									/>
 									<ButtonsContainer style={{ marginTop: '1rem' }}>
 										<Button

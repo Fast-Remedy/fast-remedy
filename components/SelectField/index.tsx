@@ -1,25 +1,41 @@
 import React, { ReactNode } from 'react';
 import { ContainerBox, SelectBox, Label, Span } from './styles';
+import Theme from '../../styles/theme';
 
 interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
 	props?: React.SelectHTMLAttributes<HTMLSelectElement>;
 	children: ReactNode;
 	label: string;
-	value: string;
-	onChange(e: any): void;
+	// value: string;
+	// onChange(e: any): void;
+    isIncorrect?: boolean | false;
 }
 
 const SelectField: React.FC<Props> = ({
 	children,
 	label,
-	value,
-	onChange,
+    isIncorrect,
 	...props
 }) => {
 	return (
 		<ContainerBox>
-			<Label>{label}</Label>
-			<SelectBox {...props} required value={value} onChange={onChange}>
+			<Label>
+				{label}
+				{isIncorrect && (
+					<svg
+						fill={Theme.colors.red}
+						viewBox='0 0 20 20'
+						xmlns='http://www.w3.org/2000/svg'
+					>
+						<path
+							fillRule='evenodd'
+							d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z'
+							clipRule='evenodd'
+						/>
+					</svg>
+				)}
+			</Label>
+			<SelectBox {...props} required className={isIncorrect && 'incorrect'}>
 				{children}
 			</SelectBox>
 			<Span>
