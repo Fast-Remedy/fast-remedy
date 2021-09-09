@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
+import router from 'next/router';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
@@ -31,7 +32,7 @@ const Cart: React.FC = () => {
 	};
 
 	const handleBuy = () => {
-		window.location.href = '/customer/success';
+		router.push('/customer/success');
 	};
 
 	return (

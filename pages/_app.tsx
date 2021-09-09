@@ -16,6 +16,12 @@ const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 	const [showCustomerHeader, setShowCustomerHeader] = useState(false);
 	const [showStoreHeader, setShowStoreHeader] = useState(false);
 
+    useEffect(() => {
+        if (!localStorage.getItem('token')) {
+            router.push('/');
+        }
+    }, [])
+
 	useEffect(() => {
 		if (
 			router.route.match('/customer/') &&

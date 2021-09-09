@@ -1,5 +1,6 @@
 import React, { FormEvent, useState, useEffect } from 'react';
 import Link from 'next/link';
+import router from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import TitleBox from '../../../components/TitleBox';
@@ -53,7 +54,7 @@ const Login: React.FC = () => {
 
 		try {
 			// authentication
-			window.location.href = '/store/home';
+			router.push('/store/home');
 		} catch (err) {
             setIsLoginButtonIncorrect(true);
 		}
@@ -76,7 +77,7 @@ const Login: React.FC = () => {
 
 		try {
 			// authentication
-			window.location.href = '/store/home';
+			router.push('/store/home');
 		} catch (err) {
 			setIsRegisterButtonIncorrect(true);
 		}

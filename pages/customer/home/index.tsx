@@ -90,8 +90,8 @@ const Home: React.FC = () => {
 
 export const getStaticProps: GetStaticProps = async () => {
 	// request to api
-	// const response = await api.get('/stores')
-	// const data = await response.json();
+	// const { data } = await api.get('/');
+	// const stores = data;
 
 	return {
 		props: {

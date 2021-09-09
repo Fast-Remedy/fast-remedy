@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from 'react';
+import router from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import TitleBox from '../../../components/TitleBox';
@@ -31,7 +32,7 @@ const Recover: React.FC = () => {
 		setIsMessageVisible(!isMessageVisible);
 
 		setTimeout(() => {
-			window.location.href = '/store/login';
+			router.push('/store/login');
 		}, 2000);
 	};
 
