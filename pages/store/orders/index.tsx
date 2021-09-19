@@ -29,6 +29,21 @@ const Orders: React.FC = () => {
 					</div>
 					<BoxCard>
 						<StoreOrdersCard
+							orderId='4'
+							customerName='Fulano de Tal'
+							customerAddress='Retiro, Volta Redonda - RJ'
+							itemsQuantity={1}
+							status='pendingAcceptance'
+							time='Quarta-feira, 11/08/2021 às 19h41'
+							items={[
+								{
+									quantity: 1,
+									description:
+										'Dipirona Sódica 500mg Genérico Medley 10 Comprimidos',
+								},
+							]}
+						/>
+						<StoreOrdersCard
 							orderId='1'
 							customerName='Fulano de Tal'
 							customerAddress='Retiro, Volta Redonda - RJ'

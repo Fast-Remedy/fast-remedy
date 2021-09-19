@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
 // import { GetStaticProps } from 'next';
 import router, { useRouter } from 'next/router';
-import { motion, AnimatePresence } from 'framer-motion';
 import { animateScroll as scroll } from 'react-scroll';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
-import CartIcon from '../../../components/CartIcon';
 import ProductDetailsCard from '../../../components/ProductDetailsCard';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
 import LoadingMessage from '../../../components/LoadingMessage';
 
-import { Section, BoxCard, FinishCard, Message } from '../../../styles/customer/product';
+import { Section, BoxCard, FinishCard, Message } from '../../../styles/store/product';
 import Theme from '../../../styles/theme';
 
 import { useNavigation } from '../../../contexts/NavigationContext';
 
 const Product: React.FC = () => {
 	const { setNavigationState } = useNavigation();
+
+	const [availability, setAvailability] = useState('soldOff');
 
 	useEffect(
 		() =>
@@ -38,12 +38,8 @@ const Product: React.FC = () => {
 	// check if data has already been loaded
 	const { isFallback } = useRouter();
 
-	const [isMessageVisible, setIsMessageVisible] = useState(false);
-
 	const handleAddToCart = () => {
 		scroll.scrollToBottom();
-
-		setIsMessageVisible(!isMessageVisible);
 
 		setTimeout(() => {
 			router.back();
@@ -54,7 +50,7 @@ const Product: React.FC = () => {
 		<Container>
 			<>
 				<Section>
-					<TitleBox title='Drogaria Ultra Popular' fontSize='2rem' />
+					<TitleBox title='Catálogo' />
 					<ButtonsContainer>
 						<>
 							<Button
@@ -77,7 +73,6 @@ const Product: React.FC = () => {
 								</svg>
 								Voltar
 							</Button>
-							<CartIcon />
 						</>
 					</ButtonsContainer>
 					{isFallback ? (
@@ -91,75 +86,98 @@ const Product: React.FC = () => {
 									description={`Dipirona Sódica 500mg Genérico Medley 10 Comprimidos - ${query.productId}`}
 									src='/images/logos/remedy.svg'
 									price={5.69}
+									availability={availability}
 								/>
 							</BoxCard>
 							<BoxCard>
 								<FinishCard>
-									<div className='total'>
-										<span>Quantidade:</span>
-										<span className='info'>1</span>
-									</div>
-								</FinishCard>
-								<FinishCard>
-									<ButtonsContainer width='40%'>
-										<>
-											<Button
-												width='2.5rem'
-												height='2.5rem'
-												color={Theme.colors.white}
-												backgroundColor={Theme.colors.green}
+									{availability === 'soldOff' ? (
+										<Button
+											className='icon right'
+											width='100%'
+											height='70px'
+											color={Theme.colors.white}
+											backgroundColor={Theme.colors.green}
+											onClick={handleAddToCart}
+										>
+											<svg
+												fill='currentColor'
+												viewBox='0 0 20 20'
+												xmlns='http://www.w3.org/2000/svg'
 											>
-												-
-											</Button>
-											<Button
-												width='2.5rem'
-												height='2.5rem'
-												color={Theme.colors.white}
-												backgroundColor={Theme.colors.green}
+												<path
+													fillRule='evenodd'
+													d='M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z'
+													clipRule='evenodd'
+												/>
+											</svg>
+											Definir como disponível
+										</Button>
+									) : (
+										<Button
+											className='icon right'
+											width='100%'
+											height='70px'
+											color={Theme.colors.white}
+											backgroundColor={Theme.colors.green}
+											onClick={handleAddToCart}
+										>
+											<svg
+												fill='currentColor'
+												viewBox='0 0 20 20'
+												xmlns='http://www.w3.org/2000/svg'
 											>
-												+
-											</Button>
-										</>
-									</ButtonsContainer>
+												<path
+													fillRule='evenodd'
+													d='M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z'
+													clipRule='evenodd'
+												/>
+											</svg>
+											Definir como esgotado
+										</Button>
+									)}
 								</FinishCard>
 								<FinishCard>
 									<Button
-										className='icon margin'
+										className='icon right margin'
 										width='100%'
-										height='80px'
 										color={Theme.colors.white}
 										backgroundColor={Theme.colors.green}
 										onClick={handleAddToCart}
 									>
-										<div>
-											<span>
-												<svg
-													className='w-6 h-6'
-													fill='currentColor'
-													viewBox='0 0 20 20'
-													xmlns='http://www.w3.org/2000/svg'
-													style={{ marginRight: '0.6rem' }}
-												>
-													<path d='M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z' />
-												</svg>
-												Adicionar ao carrinho
-											</span>
-											<span className='info'>R$ 5,59</span>
-										</div>
+										<svg
+											fill='currentColor'
+											viewBox='0 0 20 20'
+											xmlns='http://www.w3.org/2000/svg'
+										>
+											<path d='M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z' />
+										</svg>
+										Editar
+									</Button>
+								</FinishCard>
+								<FinishCard>
+									<Button
+										className='icon right'
+										width='100%'
+										color={Theme.colors.white}
+										backgroundColor={Theme.colors.red}
+										onClick={handleAddToCart}
+									>
+										<svg
+											fill='currentColor'
+											viewBox='0 0 20 20'
+											xmlns='http://www.w3.org/2000/svg'
+										>
+											<path
+												fillRule='evenodd'
+												d='M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z'
+												clipRule='evenodd'
+											/>
+										</svg>
+										Excluir
 									</Button>
 								</FinishCard>
 							</BoxCard>
-							{isMessageVisible && (
-								<AnimatePresence>
-									<motion.div
-										initial={{ opacity: 0 }}
-										animate={{ opacity: 1 }}
-										transition={{ duration: 0.3 }}
-									>
-										<Message>Produto adicionado ao carrinho!</Message>
-									</motion.div>
-								</AnimatePresence>
-							)}
 						</>
 					)}
 				</Section>

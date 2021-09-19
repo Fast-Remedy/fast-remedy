@@ -1,37 +1,32 @@
 import React from 'react';
-import {
-	BoxCard,
-	Line,
-	Image,
-	Text,
-	Description,
-	Price,
-    Availability,
-} from './styles';
+import Link from 'next/link';
+import { BoxCard, Image, Text, Description, Price, Availability } from './styles';
 
 interface Props {
+	productId: string;
 	description: string;
-	src: string;
 	price: number;
+	src: string;
     availability: string;
 }
 
-const ProductDetailsCard: React.FC<Props> = ({
+const StoreProductCard: React.FC<Props> = ({
+	productId,
 	description,
-	src,
 	price,
+	src,
     availability,
 }) => (
-	<BoxCard>
-		<Line>
-			<Image src={src} alt={description} />
+	<Link href={`/store/product/${productId}`}>
+		<BoxCard>
 			<Text>
 				<Description>{description}</Description>
 				<Price>R$ {price.toString().replace('.', ',')}</Price>
                 {availability === 'soldOff' && <Availability>Esgotado!</Availability>}
 			</Text>
-		</Line>
-	</BoxCard>
+			<Image src={src} alt={description} />
+		</BoxCard>
+	</Link>
 );
 
-export default ProductDetailsCard;
+export default StoreProductCard;

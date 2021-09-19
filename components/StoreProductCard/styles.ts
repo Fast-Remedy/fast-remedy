@@ -4,53 +4,54 @@ export const BoxCard = styled.div`
 	width: 100%;
 	padding: 2rem;
 	display: flex;
-	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
-	border-top: 1px solid ${props => props.theme.colors.darkGray};
+	background-color: ${props => props.theme.colors.white};
+	border-bottom: 1px solid ${props => props.theme.colors.darkGray};
+	border-radius: 1rem;
+	cursor: pointer;
 	transition: 0.2s;
 
-	&:first-child {
+	&:hover {
+		filter: brightness(0.85);
+	}
+
+	&:last-child {
 		border: 0;
+	}
+
+	@media (max-width: 800px) {
+		&:hover {
+			filter: none;
+		}
 	}
 `;
 
-export const Line = styled.div`
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-between;
-`;
-
 export const Image = styled.img`
-	width: 13rem;
-	height: 13rem;
+	width: 6rem;
+	height: 6rem;
 `;
 
 export const Text = styled.span`
-    margin-top: 2rem;
-    width: 100%;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: center;
-	gap: 1rem;
+	gap: 0.5rem;
 `;
 
 export const Description = styled.span`
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 	font-weight: 400;
-    text-align: center;
 `;
 
 export const Price = styled.span`
-	font-size: 1.6rem;
+	font-size: 1.4rem;
 	font-weight: 600;
 `;
 
 export const Availability = styled.span`
-	font-size: 1rem;
+	font-size: 1.1rem;
 	font-weight: 400;
-    color: ${props => props.theme.colors.red}
+	color: ${props => props.theme.colors.red};
 `;

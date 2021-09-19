@@ -10,6 +10,8 @@ import {
 	BoxCard,
 	Greeting,
 	InfoCard,
+	InfoBox,
+	Info,
 	NewOrders,
 	NewOrdersCard,
 } from '../../../styles/store/home';
@@ -54,15 +56,37 @@ const Home: React.FC = () => {
 					<BoxCard>
 						<InfoCard>
 							<h1>Hoje</h1>
-							<span>Pedidos em andamento: 11</span>
-							<span>Pedidos concluídos: 57</span>
-							<span>Total: R$ 753,34</span>
+							<InfoBox>
+								<Info>
+									<span>Pedidos em andamento:</span>
+									<span>11</span>
+								</Info>
+								<Info>
+									<span>Pedidos concluídos:</span>
+									<span>57</span>
+								</Info>
+								<Info>
+									<span>Total vendido:</span>
+									<span>R$ 753,34</span>
+								</Info>
+							</InfoBox>
 						</InfoCard>
 						<InfoCard>
 							<h1>Total</h1>
-							<span>Pedidos concluídos: 1346</span>
-							<span>Clientes atendidos: 642</span>
-							<span>Total: R$ 75.453,34</span>
+							<InfoBox>
+								<Info>
+									<span>Pedidos concluídos:</span>
+									<span>1346</span>
+								</Info>
+								<Info>
+									<span>Clientes atendidos:</span>
+									<span>642</span>
+								</Info>
+								<Info>
+									<span>Total vendido:</span>
+									<span>R$ 75.453,34</span>
+								</Info>
+							</InfoBox>
 						</InfoCard>
 					</BoxCard>
 					<NewOrders>

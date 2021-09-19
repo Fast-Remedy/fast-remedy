@@ -1,34 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import router, { useRouter } from 'next/router';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
-import CartIcon from '../../../components/CartIcon';
-import ProductCard from '../../../components/ProductCard';
+import StoreProductCard from '../../../components/StoreProductCard';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
 import SearchField from '../../../components/SearchField';
 import LoadingMessage from '../../../components/LoadingMessage';
 
-import { Section, BoxCard } from '../../../styles/customer/store';
+import { Section, BoxCard } from '../../../styles/store/catalog';
 import Theme from '../../../styles/theme';
 
 import { useNavigation } from '../../../contexts/NavigationContext';
 
-const Store: React.FC = () => {
-	const { setNavigationState } = useNavigation();
+const Catalog: React.FC = () => {
+	const { setStoreNavigationState } = useNavigation();
 
-	useEffect(
-		() =>
-			setNavigationState({
-				home: true,
-				search: false,
-				orders: false,
-				profile: false,
-			}),
-		[]
-	);
+	const [newProductVisible, setNewProductVisible] = useState(false);
+
+	useEffect(() => {
+		setStoreNavigationState({
+			home: false,
+			orders: false,
+			catalog: true,
+			profile: false,
+		});
+	}, []);
 
 	// return url param to show directly on interface
 	// it's not required to use with SSG
@@ -41,32 +41,41 @@ const Store: React.FC = () => {
 		<Container>
 			<>
 				<Section>
-					<TitleBox title={`Drogaria Moderna`} fontSize='2rem' />
-					<ButtonsContainer>
-						<>
-							<Button
-								className='icon back'
-								color={Theme.colors.black}
-								backgroundColor={Theme.colors.white}
-								onClick={() => router.back()}
-							>
-								<svg
-									className='icon'
-									fill='currentColor'
-									viewBox='0 0 20 20'
-									xmlns='http://www.w3.org/2000/svg'
+					<TitleBox title='Catálogo' />
+					{!newProductVisible ? (
+						<motion.div
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{ duration: 0.3 }}
+						>
+							<ButtonsContainer>
+								<Button
+									className='icon right'
+									color={Theme.colors.white}
+									width='100%'
+									height='70px'
+									backgroundColor={Theme.colors.green}
+									onClick={() => setNewProductVisible(true)}
 								>
-									<path
-										fillRule='evenodd'
-										d='M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
-										clipRule='evenodd'
-									/>
-								</svg>
-								Voltar
-							</Button>
-							<CartIcon />
-						</>
-					</ButtonsContainer>
+									<svg
+										fill='currentColor'
+										viewBox='0 0 20 20'
+										xmlns='http://www.w3.org/2000/svg'
+									>
+										<path
+											fillRule='evenodd'
+											d='M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z'
+											clipRule='evenodd'
+										/>
+									</svg>
+									Novo produto
+								</Button>
+							</ButtonsContainer>
+						</motion.div>
+					) : (
+						<h1>not</h1>
+					)}
+
 					<SearchField />
 					{isFallback ? (
 						<BoxCard>
@@ -74,40 +83,40 @@ const Store: React.FC = () => {
 						</BoxCard>
 					) : (
 						<BoxCard>
-							<ProductCard
+							<StoreProductCard
 								productId='1'
 								description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
 								price={5.69}
 								src='/images/logos/remedy.svg'
-                                availability='soldOff'
+								availability='soldOff'
 							/>
-							<ProductCard
+							<StoreProductCard
 								productId='1'
 								description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
 								price={5.69}
 								src='/images/logos/remedy.svg'
-                                availability='available'
+								availability='available'
 							/>
-							<ProductCard
+							<StoreProductCard
 								productId='1'
 								description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
 								price={5.69}
 								src='/images/logos/remedy.svg'
-                                availability='soldOff'
+								availability='available'
 							/>
-							<ProductCard
+							<StoreProductCard
 								productId='1'
 								description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
 								price={5.69}
 								src='/images/logos/remedy.svg'
-                                availability='available'
+								availability='available'
 							/>
-							<ProductCard
+							<StoreProductCard
 								productId='1'
 								description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
 								price={5.69}
 								src='/images/logos/remedy.svg'
-                                availability='available'
+								availability='available'
 							/>
 						</BoxCard>
 					)}
@@ -151,4 +160,4 @@ const Store: React.FC = () => {
 // 	};
 // };
 
-export default Store;
+export default Catalog;

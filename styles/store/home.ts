@@ -27,13 +27,6 @@ export const BoxCard = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 1rem;
-
-	@media (max-width: 800px) {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
 `;
 
 export const Greeting = styled.div`
@@ -53,11 +46,44 @@ export const InfoCard = styled.div`
 	border: 2px solid ${props => props.theme.colors.white};
 	background-color: ${props => props.theme.colors.white};
 	border-radius: 1rem;
+`;
+
+export const InfoBox = styled.div`
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
 	gap: 0.4rem;
 
+	@media (max-width: 620px) {
+		align-items: flex-start;
+		gap: 0.8rem;
+	}
+
 	h1 {
+		width: 100%;
+		text-align: center;
 		font-size: 1.5rem;
 		margin-bottom: 0;
+	}
+`;
+
+export const Info = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	gap: 0.4rem;
+	line-height: 1.2rem;
+	font-size: 0.9rem;
+
+	@media (max-width: 620px) {
+		flex-direction: column;
+		gap: 0.2rem;
 	}
 `;
 

@@ -118,6 +118,10 @@ export const Span = styled.span`
 		width: 1.5rem;
 	}
 
+    &.pending-acceptance {
+		color: ${props => props.theme.colors.yellow};
+	}
+    
 	&.in-progress {
 		color: ${props => props.theme.colors.black};
 	}

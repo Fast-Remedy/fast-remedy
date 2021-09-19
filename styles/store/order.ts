@@ -85,7 +85,7 @@ export const Status = styled.span`
 	align-items: flex-end;
 	justify-content: flex-start;
 	gap: 0.5rem;
-	margin-top: 1rem;
+	margin-top: 0.3rem;
 `;
 
 export const Description = styled.span`
@@ -110,6 +110,10 @@ export const Span = styled.span`
 		width: 1.5rem;
 	}
 
+	&.pending-acceptance {
+		color: ${props => props.theme.colors.yellow};
+	}
+
 	&.in-progress {
 		color: ${props => props.theme.colors.black};
 	}
@@ -128,7 +132,7 @@ export const Date = styled.span`
 	flex-direction: column;
 	font-size: 0.9rem;
 	font-weight: 400;
-	margin-top: 1rem;
+	margin-top: 0.5rem;
 `;
 
 export const FinishCard = styled.div`

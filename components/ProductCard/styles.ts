@@ -49,3 +49,9 @@ export const Price = styled.span`
 	font-size: 1.4rem;
 	font-weight: 600;
 `;
+
+export const Availability = styled.span`
+	font-size: 1.1rem;
+	font-weight: 400;
+    color: ${props => props.theme.colors.red}
+`;
