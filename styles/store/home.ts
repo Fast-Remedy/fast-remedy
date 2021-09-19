@@ -79,7 +79,6 @@ export const NewOrdersCard = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-between;
-	border: 2px solid ${props => props.theme.colors.white};
 	background-color: ${props => props.theme.colors.white};
 	border-radius: 1rem;
 

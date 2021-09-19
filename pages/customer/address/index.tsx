@@ -1,4 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react';
+import router from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import Container from '../../../components/Container';
@@ -16,7 +17,7 @@ import Theme from '../../../styles/theme';
 import { useNavigation } from '../../../contexts/NavigationContext';
 
 const Address: React.FC = () => {
-    const { setNavigationState } = useNavigation();
+	const { setNavigationState } = useNavigation();
 
 	useEffect(
 		() =>
@@ -35,10 +36,6 @@ const Address: React.FC = () => {
 	const [listCity, setListCity] = useState([]);
 	const [state, setState] = useState('');
 	const [city, setCity] = useState('');
-
-	const goBack = () => {
-		window.history.back();
-	};
 
 	const loadUf = () => {
 		fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
@@ -92,7 +89,7 @@ const Address: React.FC = () => {
 									className='icon back'
 									color={Theme.colors.black}
 									backgroundColor={Theme.colors.white}
-									onClick={goBack}
+									onClick={() => router.back()}
 								>
 									<svg
 										className='icon'
@@ -238,13 +235,16 @@ const Address: React.FC = () => {
 											>
 												<>
 													<Button
-                                                        width='100%'
-                                                        className='icon moreRight margin white'
+														width='100%'
+														className='icon moreRight margin white'
 														type='submit'
 														color={Theme.colors.white}
 														backgroundColor={Theme.colors.green}
 													>
-                                                        <img src='/images/icons/save.svg' alt='Salvar' />
+														<img
+															src='/images/icons/save.svg'
+															alt='Salvar'
+														/>
 														Salvar
 													</Button>
 												</>

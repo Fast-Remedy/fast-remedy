@@ -14,7 +14,7 @@ import Theme from '../../../styles/theme';
 import { useNavigation } from '../../../contexts/NavigationContext';
 
 const Cart: React.FC = () => {
-    const { setNavigationState } = useNavigation();
+	const { setNavigationState } = useNavigation();
 
 	useEffect(
 		() =>
@@ -26,10 +26,6 @@ const Cart: React.FC = () => {
 			}),
 		[]
 	);
-
-	const goBack = () => {
-		window.history.back();
-	};
 
 	const handleBuy = () => {
 		router.push('/customer/success');
@@ -46,7 +42,7 @@ const Cart: React.FC = () => {
 								className='icon back'
 								color={Theme.colors.black}
 								backgroundColor={Theme.colors.white}
-								onClick={goBack}
+								onClick={() => router.back()}
 							>
 								<svg
 									className='icon'
@@ -110,8 +106,8 @@ const Cart: React.FC = () => {
 										<div>
 											<span>Entregar em:</span>
 											<span className='info'>
-												Avenida Amaral Peixoto, Nº 45, Centro, Volta Redonda -
-												RJ
+												Avenida Amaral Peixoto, Nº 45, Centro, Volta Redonda
+												- RJ
 											</span>
 										</div>
 									</Button>
@@ -139,7 +135,7 @@ const Cart: React.FC = () => {
 						</FinishCard>
 						<FinishCard>
 							<Button
-                                className='icon margin'
+								className='icon margin'
 								width='100%'
 								height='80px'
 								color={Theme.colors.white}
@@ -153,7 +149,7 @@ const Cart: React.FC = () => {
 											fill='currentColor'
 											viewBox='0 0 20 20'
 											xmlns='http://www.w3.org/2000/svg'
-                                            style={{marginRight: '0.6rem'}}
+											style={{ marginRight: '0.6rem' }}
 										>
 											<path d='M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z' />
 										</svg>

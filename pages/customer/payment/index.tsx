@@ -1,4 +1,5 @@
 import React, { FormEvent, useState, useEffect } from 'react';
+import router from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import Container from '../../../components/Container';
@@ -16,7 +17,7 @@ import Theme from '../../../styles/theme';
 import { useNavigation } from '../../../contexts/NavigationContext';
 
 const Payment: React.FC = () => {
-    const { setNavigationState } = useNavigation();
+	const { setNavigationState } = useNavigation();
 
 	useEffect(
 		() =>
@@ -31,10 +32,6 @@ const Payment: React.FC = () => {
 
 	const [newPaymentVisible, setNewPaymentVisible] = useState(false);
 	const [paymentType, setPaymentType] = useState('');
-
-	const goBack = () => {
-		window.history.back();
-	};
 
 	const handleSavePayment = (e: FormEvent) => {
 		setNewPaymentVisible(!newPaymentVisible);
@@ -52,7 +49,7 @@ const Payment: React.FC = () => {
 									className='icon back'
 									color={Theme.colors.black}
 									backgroundColor={Theme.colors.white}
-									onClick={goBack}
+									onClick={() => router.back()}
 								>
 									<svg
 										className='icon'
@@ -195,7 +192,10 @@ const Payment: React.FC = () => {
 														color={Theme.colors.white}
 														backgroundColor={Theme.colors.green}
 													>
-														<img src='/images/icons/save.svg' alt='Salvar' />
+														<img
+															src='/images/icons/save.svg'
+															alt='Salvar'
+														/>
 														Salvar
 													</Button>
 												</>

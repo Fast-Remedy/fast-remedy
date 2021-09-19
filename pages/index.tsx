@@ -1,37 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import router from 'next/router';
 
 import Button from '../components/Button';
 import { Section, LogoImage, ButtonContainer } from '../styles/index';
 
 const Index = () => {
-	const handleLoginUser = async () => {
-		try {
-			// authentication
-			router.push('/customer/login');
-		} catch (err) {
-			console.log(err);
-		}
-	};
-
-	const handleLoginStore = async () => {
-		try {
-			// authentication
-			router.push('/store/login');
-		} catch (err) {
-			console.log(err);
-		}
-	};
-
-	const handleLoginDeliveryman = async () => {
-		try {
-			// authentication
-			router.push('/delivery/login');
-		} catch (err) {
-			console.log(err);
-		}
-	};
-
 	return (
 		<Section>
 			<LogoImage src='/images/logos/fastremedy-logo.png' alt='FastRemedy' />
@@ -39,7 +12,7 @@ const Index = () => {
 				className='icon right margin'
 				width='22rem'
 				height='5rem'
-				onClick={handleLoginUser}
+				onClick={() => router.push('/customer/login')}
 			>
 				<svg fill='#000' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'>
 					<path
@@ -56,7 +29,7 @@ const Index = () => {
 					className='icon right'
 					width='100%'
 					height='3rem'
-					onClick={handleLoginStore}
+					onClick={() => router.push('/store/login')}
 				>
 					<img src='/images/icons/store.svg' alt='Loja' />
 					<span>Loja</span>
@@ -65,7 +38,7 @@ const Index = () => {
 					className='icon right'
 					width='100%'
 					height='3rem'
-					onClick={handleLoginDeliveryman}
+					onClick={() => router.push('/delivery/login')}
 				>
 					<img src='/images/icons/motorcycle.svg' alt='Entregador' />
 					<span>Entregador</span>

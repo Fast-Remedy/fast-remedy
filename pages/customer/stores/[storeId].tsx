@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
@@ -17,7 +17,7 @@ import Theme from '../../../styles/theme';
 import { useNavigation } from '../../../contexts/NavigationContext';
 
 const Store: React.FC = () => {
-    const { setNavigationState } = useNavigation();
+	const { setNavigationState } = useNavigation();
 
 	useEffect(
 		() =>
@@ -37,25 +37,18 @@ const Store: React.FC = () => {
 	// check if data has already been loaded
 	const { isFallback } = useRouter();
 
-	const goBack = () => {
-		window.history.back();
-	};
-
 	return (
 		<Container>
 			<>
 				<Section>
-					<TitleBox
-						title={`Drogaria Moderna`}
-						fontSize='2rem'
-					/>
+					<TitleBox title={`Drogaria Moderna`} fontSize='2rem' />
 					<ButtonsContainer>
 						<>
 							<Button
-                                className='icon back'
+								className='icon back'
 								color={Theme.colors.black}
 								backgroundColor={Theme.colors.white}
-								onClick={goBack}
+								onClick={() => router.back()}
 							>
 								<svg
 									className='icon'

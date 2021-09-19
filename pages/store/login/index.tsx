@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import TitleBox from '../../../components/TitleBox';
 import Form from '../../../components/Form';
 import InputField from '../../../components/InputField';
+import SelectField from '../../../components/SelectField';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
 import InstallMessage from '../../../components/InstallMessage';
@@ -22,8 +23,8 @@ import Theme from '../../../styles/theme';
 
 const Login: React.FC = () => {
 	const [isLoginPageVisible, setIsLoginPageVisible] = useState(true);
-    const [isLoginButtonIncorrect, setIsLoginButtonIncorrect] = useState(false);
-    const [isRegisterButtonIncorrect, setIsRegisterButtonIncorrect] = useState(false);
+	const [isLoginButtonIncorrect, setIsLoginButtonIncorrect] = useState(false);
+	const [isRegisterButtonIncorrect, setIsRegisterButtonIncorrect] = useState(false);
 	const [emailLogin, setEmailLogin] = useState('1');
 	const [passwordLogin, setPasswordLogin] = useState('2');
 	const [companyName, setCompanyName] = useState('3');
@@ -33,21 +34,23 @@ const Login: React.FC = () => {
 	const [email, setEmail] = useState('6');
 	const [password, setPassword] = useState('7');
 	const [confirmPassword, setConfirmPassword] = useState('8');
+	const [logo, setLogo] = useState('');
+	const [deliveryMode, setDeliveryMode] = useState('Own');
 	const [deliveryFee, setDeliveryFee] = useState('');
 	const [deliveryEstimatedTime, setDeliveryEstimatedTime] = useState('');
 
-    useEffect(() => {
+	useEffect(() => {
 		setIsLoginButtonIncorrect(false);
 	}, [emailLogin, passwordLogin]);
 
-    useEffect(() => {
+	useEffect(() => {
 		setIsRegisterButtonIncorrect(false);
 	}, [companyName, tradingName, cnpj, phone, email, password, confirmPassword]);
 
 	const handleLogin = async (e: FormEvent) => {
 		e.preventDefault();
 
-        const loginData = {
+		const loginData = {
 			emailStore: emailLogin,
 			passwordStore: passwordLogin,
 		};
@@ -56,24 +59,24 @@ const Login: React.FC = () => {
 			// authentication
 			router.push('/store/home');
 		} catch (err) {
-            setIsLoginButtonIncorrect(true);
+			setIsLoginButtonIncorrect(true);
 		}
 	};
 
 	const handleRegister = async (e: FormEvent) => {
 		e.preventDefault();
 
-        const registerData = {
-            companyNameStore: companyName,
-            tradingNameStore: tradingName,
-            cnpjStore: cnpj,
-            phoneStore: phone,
-            emailStore: email,
-            passwordStore: password,
-            deliveryFeeStore: 1,
-            deliveryEstimatedTimeStore: 30,
-            registrationDateStore: new Date(),
-        };
+		const registerData = {
+			companyNameStore: companyName,
+			tradingNameStore: tradingName,
+			cnpjStore: cnpj,
+			phoneStore: phone,
+			emailStore: email,
+			passwordStore: password,
+			deliveryFeeStore: 1,
+			deliveryEstimatedTimeStore: 30,
+			registrationDateStore: new Date(),
+		};
 
 		try {
 			// authentication
@@ -122,7 +125,7 @@ const Login: React.FC = () => {
 						<Form onSubmit={handleLogin}>
 							<>
 								<InputField
-									label='Email'
+									label='Email da Loja'
 									placeholder='loja@email.com'
 									type='email'
 									required={true}
@@ -137,7 +140,7 @@ const Login: React.FC = () => {
 									required={true}
 									value={passwordLogin}
 									onChange={e => setPasswordLogin(e.target.value)}
-                                    isIncorrect={isLoginButtonIncorrect}
+									isIncorrect={isLoginButtonIncorrect}
 								/>
 								<ButtonsContainer style={{ marginTop: '1rem' }}>
 									<Button
@@ -215,7 +218,7 @@ const Login: React.FC = () => {
 										required={true}
 										value={companyName}
 										onChange={e => setCompanyName(e.target.value)}
-                                        isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isRegisterButtonIncorrect}
 									/>
 									<InputField
 										label='Nome Fantasia'
@@ -223,7 +226,7 @@ const Login: React.FC = () => {
 										required={true}
 										value={tradingName}
 										onChange={e => setTradingName(e.target.value)}
-                                        isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isRegisterButtonIncorrect}
 									/>
 									<InputField
 										label='CNPJ'
@@ -231,14 +234,14 @@ const Login: React.FC = () => {
 										required={true}
 										value={cnpj}
 										onChange={e => setCnpj(e.target.value)}
-                                        isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isRegisterButtonIncorrect}
 									/>
 									<InputField
 										label='Telefone'
 										placeholder='(24) 3333-4444'
 										value={phone}
 										onChange={e => setPhone(e.target.value)}
-                                        isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isRegisterButtonIncorrect}
 									/>
 									<InputField
 										label='Email'
@@ -247,41 +250,58 @@ const Login: React.FC = () => {
 										required={true}
 										value={email}
 										onChange={e => setEmail(e.target.value)}
-                                        isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isRegisterButtonIncorrect}
 									/>
 									<InputField
 										label='Senha'
 										placeholder='**********'
 										type='password'
-                                        required={true}
+										required={true}
 										value={password}
 										onChange={e => setPassword(e.target.value)}
-                                        isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isRegisterButtonIncorrect}
 									/>
 									<InputField
 										label='Confirmar Senha'
 										placeholder='**********'
 										type='password'
-                                        required={true}
+										required={true}
 										value={confirmPassword}
 										onChange={e => setConfirmPassword(e.target.value)}
-                                        isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isRegisterButtonIncorrect}
 									/>
+									<InputField
+										label='Logo'
+										type='file'
+										accept='.png, .jpg, .jpeg'
+										required={true}
+										value={logo}
+										onChange={e => setLogo(e.target.value)}
+										isIncorrect={isRegisterButtonIncorrect}
+									/>
+									<SelectField
+										label='Mode de entrega'
+										value={deliveryMode}
+										onChange={e => setDeliveryMode(e.target.value)}
+									>
+										<option value='Own'>Entregador próprio</option>
+										<option value='Platform'>Entregador da plataforma</option>
+									</SelectField>
 									<InputField
 										label='Taxa de entrega'
 										placeholder='R$ 5,00'
-                                        required={true}
+										required={true}
 										value={deliveryFee}
 										onChange={e => setDeliveryFee(e.target.value)}
-                                        isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isRegisterButtonIncorrect}
 									/>
 									<InputField
 										label='Tempo estimado de entrega (em min)'
 										placeholder='40'
-                                        required={true}
+										required={true}
 										value={deliveryEstimatedTime}
 										onChange={e => setDeliveryEstimatedTime(e.target.value)}
-                                        isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isRegisterButtonIncorrect}
 									/>
 									<ButtonsContainer style={{ marginTop: '1rem' }}>
 										<Button

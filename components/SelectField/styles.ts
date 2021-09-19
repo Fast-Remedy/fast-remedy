@@ -8,6 +8,7 @@ export const ContainerBox = styled.span`
 	align-items: center;
 	justify-content: flex-start;
     position: relative;
+    margin-bottom: 1rem;
 `;
 
 export const Label = styled.label`

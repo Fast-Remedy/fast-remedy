@@ -54,7 +54,7 @@ export const Text = styled.span`
 	gap: 0.2rem;
 `;
 
-export const Store = styled.span`
+export const Customer = styled.span`
 	width: 100%;
 	display: flex;
 	flex-direction: row;

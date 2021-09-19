@@ -8,23 +8,13 @@ import InputField from '../../../components/InputField';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
 
-import {
-	Container,
-	Header,
-	Section,
-	LogoImage,
-	Message,
-} from '../../../styles/store/recover';
+import { Container, Header, Section, LogoImage, Message } from '../../../styles/store/recover';
 
 import Theme from '../../../styles/theme';
 
 const Recover: React.FC = () => {
 	const [isMessageVisible, setIsMessageVisible] = useState(false);
 	const [email, setEmail] = useState('1');
-
-	const goBack = () => {
-		window.history.back();
-	};
 
 	const handleRecover = (e: FormEvent) => {
 		e.preventDefault();
@@ -48,7 +38,7 @@ const Recover: React.FC = () => {
 						className='icon'
 						width='12rem'
 						height='2.5rem'
-						onClick={goBack}
+						onClick={() => router.back()}
 						style={{ textAlign: 'right', marginLeft: '1rem' }}
 					>
 						<svg

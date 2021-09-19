@@ -16,11 +16,26 @@ const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 	const [showCustomerHeader, setShowCustomerHeader] = useState(false);
 	const [showStoreHeader, setShowStoreHeader] = useState(false);
 
-    useEffect(() => {
-        if (!localStorage.getItem('token')) {
-            router.push('/');
-        }
-    }, [])
+	if (process.browser) {
+		if (
+			!localStorage.getItem('token') &&
+			router.route !== '/' &&
+			!router.route.includes('login') &&
+			!router.route.includes('recover')
+		) {
+			// router.push('/');
+		}
+	}
+
+	useEffect(() => {
+		if (process.browser) {
+			if (isSafari) {
+				console.log(
+					'Infelizmente nem todos os recursos de PWA são suportados pelo seu browser (Safari). Para uma melhor experiência, por favor utilize Chrome, Edge ou Firefox.'
+				);
+			}
+		}
+	}, []);
 
 	useEffect(() => {
 		if (
@@ -46,14 +61,6 @@ const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 		}
 	}, [router.route]);
 
-	if (process.browser) {
-		if (isSafari) {
-			console.log(
-				'Infelizmente nem todos os recursos de PWA são suportados pelo seu browser (Safari). Para uma melhor experiência, por favor utilize Chrome, Edge ou Firefox.'
-			);
-		}
-	}
-
 	return (
 		<NavigationContextProvider>
 			<Head>
@@ -69,7 +76,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 				{showStoreHeader && <StoreHeader />}
 				<AnimatePresence>
 					<motion.div
-                        key={router.route}
+						key={router.route}
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						transition={{ duration: 0.3 }}

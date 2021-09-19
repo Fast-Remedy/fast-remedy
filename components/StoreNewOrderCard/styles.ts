@@ -27,7 +27,7 @@ export const BoxCard = styled.div`
 `;
 
 export const Text = styled.span`
-	width: 100%;
+	width: 90%;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;

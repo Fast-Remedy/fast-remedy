@@ -13,7 +13,7 @@ import {
 	DetailsCard,
 	BoxCard,
 	Text,
-	Store,
+	Customer,
 	Name,
 	Status,
 	Description,
@@ -23,24 +23,22 @@ import {
 	Info,
 	CancelCard,
 	Message,
-} from '../../../styles/customer/order';
+} from '../../../styles/store/order';
 import Theme from '../../../styles/theme';
 
 import { useNavigation } from '../../../contexts/NavigationContext';
 
 const Order: React.FC = () => {
-	const { setNavigationState } = useNavigation();
+	const { setStoreNavigationState } = useNavigation();
 
-	useEffect(
-		() =>
-			setNavigationState({
-				home: false,
-				search: false,
-				orders: true,
-				profile: false,
-			}),
-		[]
-	);
+	useEffect(() => {
+		setStoreNavigationState({
+			home: false,
+			orders: true,
+			catalog: false,
+			profile: false,
+		});
+	}, []);
 
 	const { query } = useRouter();
 
@@ -57,6 +55,10 @@ const Order: React.FC = () => {
 			setIsMessageVisible(false);
 		}, 2000);
 	};
+
+    const handleSendDelivery = async () => {
+        // send
+    }
 
 	return (
 		<Container>
@@ -95,13 +97,9 @@ const Order: React.FC = () => {
 							</ButtonsContainer>
 							<DetailsCard>
 								<Text>
-									<Store>
-										<img
-											src='/images/logos/drogaria-moderna.png'
-											alt='Drogaria Moderna'
-										/>
-										<Name>Drogaria Moderna</Name>
-									</Store>
+									<Customer>
+										<Name>Fulano de Tal</Name>
+									</Customer>
 									<Status>
 										<Description>
 											Status:
@@ -165,29 +163,6 @@ const Order: React.FC = () => {
 								</Text>
 							</DetailsCard>
 							<BoxCard>
-								<OrderCard
-									quantity={1}
-									store='Drogaria Moderna'
-									description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
-									price={5.69}
-									src='/images/logos/remedy.svg'
-								/>
-								<OrderCard
-									quantity={1}
-									store='Drogaria Moderna'
-									description='Maleato de Dexclorfeniramina 2mg/5ml Cimed Solução Oral Sabor Laranja com 120ml'
-									price={13.45}
-									src='/images/logos/remedy2.jpg'
-								/>
-								<OrderCard
-									quantity={1}
-									store='Drogaria Moderna'
-									description='Aparelho de Barbear MACH3 Gillette - 1 Unidade'
-									price={31.99}
-									src='/images/logos/remedy3.jpg'
-								/>
-							</BoxCard>
-							<BoxCard>
 								<FinishCard>
 									<div className='total'>
 										<span>Subtotal:</span>
@@ -220,38 +195,80 @@ const Order: React.FC = () => {
 									</Info>
 								</FinishCard>
 								{status === 'inProgress' && (
-									<FinishCard>
-										<Button
-											className='icon margin right'
-											width='100%'
-											height='50px'
-											color={Theme.colors.white}
-											backgroundColor={Theme.colors.green}
-											onClick={() => setIsCancelMenuVisible(true)}
-										>
-											<div>
-												<span>
-													<svg
-														fill='currentColor'
-														viewBox='0 0 20 20'
-														xmlns='http://www.w3.org/2000/svg'
-														style={{
-															marginRight: '0.2rem',
-															marginBottom: '0.1rem',
-														}}
-													>
-														<path
-															fillRule='evenodd'
-															d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
-															clipRule='evenodd'
-														/>
-													</svg>
-													Cancelar pedido
-												</span>
-											</div>
-										</Button>
-									</FinishCard>
+									<>
+										<FinishCard>
+											<Button
+												className='icon margin right'
+												width='100%'
+												height='50px'
+												color={Theme.colors.white}
+												backgroundColor={Theme.colors.red}
+												onClick={() => setIsCancelMenuVisible(true)}
+											>
+												<div>
+													<span>
+														<svg
+															fill='currentColor'
+															viewBox='0 0 20 20'
+															xmlns='http://www.w3.org/2000/svg'
+															style={{
+																marginRight: '0.2rem',
+																marginBottom: '0.1rem',
+															}}
+														>
+															<path
+																fillRule='evenodd'
+																d='M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z'
+																clipRule='evenodd'
+															/>
+														</svg>
+														Cancelar pedido
+													</span>
+												</div>
+											</Button>
+										</FinishCard>
+										<FinishCard>
+											<Button
+												className='icon margin right'
+												width='100%'
+												height='70px'
+												color={Theme.colors.white}
+												backgroundColor={Theme.colors.green}
+												onClick={handleSendDelivery}
+											>
+												<img
+													src='/images/icons/motorcycle.svg'
+													alt='Entregador'
+                                                    style={{ filter: 'invert(1)'}}
+												/>
+												Enviar pedido
+											</Button>
+										</FinishCard>
+									</>
 								)}
+							</BoxCard>
+							<BoxCard>
+								<OrderCard
+									quantity={1}
+									store='Drogaria Moderna'
+									description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
+									price={5.69}
+									src='/images/logos/remedy.svg'
+								/>
+								<OrderCard
+									quantity={1}
+									store='Drogaria Moderna'
+									description='Maleato de Dexclorfeniramina 2mg/5ml Cimed Solução Oral Sabor Laranja com 120ml'
+									price={13.45}
+									src='/images/logos/remedy2.jpg'
+								/>
+								<OrderCard
+									quantity={1}
+									store='Drogaria Moderna'
+									description='Aparelho de Barbear MACH3 Gillette - 1 Unidade'
+									price={31.99}
+									src='/images/logos/remedy3.jpg'
+								/>
 							</BoxCard>
 						</Section>
 					</motion.div>

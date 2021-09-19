@@ -27,7 +27,7 @@ const StoreNewOrderCard: React.FC<Props> = ({
 				</Line>
 				<Line>{time}</Line>
 			</Text>
-			<FiChevronRight size={30} style={{ color: '#212121' }} />
+			<FiChevronRight size={30} style={{ color: '#212121', marginRight: '-0.7rem' }} />
 		</BoxCard>
 	</Link>
 );

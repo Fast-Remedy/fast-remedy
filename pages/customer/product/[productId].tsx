@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import { GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { animateScroll as scroll } from 'react-scroll';
 
@@ -12,12 +12,7 @@ import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
 import LoadingMessage from '../../../components/LoadingMessage';
 
-import {
-	Section,
-	BoxCard,
-	FinishCard,
-	Message,
-} from '../../../styles/customer/product';
+import { Section, BoxCard, FinishCard, Message } from '../../../styles/customer/product';
 import Theme from '../../../styles/theme';
 
 import { useNavigation } from '../../../contexts/NavigationContext';
@@ -43,10 +38,6 @@ const Product: React.FC = () => {
 	// check if data has already been loaded
 	const { isFallback } = useRouter();
 
-	const goBack = () => {
-		window.history.back();
-	};
-
 	const [isMessageVisible, setIsMessageVisible] = useState(false);
 
 	const handleAddToCart = () => {
@@ -55,7 +46,7 @@ const Product: React.FC = () => {
 		setIsMessageVisible(!isMessageVisible);
 
 		setTimeout(() => {
-			goBack();
+			router.back();
 		}, 2000);
 	};
 
@@ -70,7 +61,7 @@ const Product: React.FC = () => {
 								className='icon back'
 								color={Theme.colors.black}
 								backgroundColor={Theme.colors.white}
-								onClick={goBack}
+								onClick={() => router.back()}
 							>
 								<svg
 									className='icon'

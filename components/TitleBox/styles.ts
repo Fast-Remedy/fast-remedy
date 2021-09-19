@@ -17,4 +17,5 @@ export const Title = styled.span<Props>`
 	color: ${props => props.theme.colors.black};
 	font-size: ${props => props.fontSize || '3rem'};
 	font-weight: 400;
+    line-height: 3.5rem;
 `;

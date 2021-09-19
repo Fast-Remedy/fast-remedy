@@ -2,26 +2,23 @@ import React, { useEffect } from 'react';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
-import CartIcon from '../../../components/CartIcon';
-import OrdersCard from '../../../components/OrdersCard';
+import StoreOrdersCard from '../../../components/StoreOrdersCard';
 
-import { Section, BoxCard } from '../../../styles/customer/orders';
+import { Section, BoxCard } from '../../../styles/store/orders';
 
 import { useNavigation } from '../../../contexts/NavigationContext';
 
 const Orders: React.FC = () => {
-	const { setNavigationState } = useNavigation();
+	const { setStoreNavigationState } = useNavigation();
 
-	useEffect(
-		() =>
-			setNavigationState({
-				home: false,
-				search: false,
-				orders: true,
-				profile: false,
-			}),
-		[]
-	);
+	useEffect(() => {
+		setStoreNavigationState({
+			home: false,
+			orders: true,
+			catalog: false,
+			profile: false,
+		});
+	}, []);
 
 	return (
 		<Container>
@@ -29,13 +26,13 @@ const Orders: React.FC = () => {
 				<Section>
 					<div className='title'>
 						<TitleBox title='Pedidos' />
-						<CartIcon />
 					</div>
 					<BoxCard>
-						<OrdersCard
+						<StoreOrdersCard
 							orderId='1'
-							imageSrc='/images/logos/drogaria-moderna.png'
-							storeName='Drogaria Moderna'
+							customerName='Fulano de Tal'
+							customerAddress='Retiro, Volta Redonda - RJ'
+							itemsQuantity={3}
 							status='inProgress'
 							time='Quarta-feira, 11/08/2021 às 19h41'
 							items={[
@@ -55,10 +52,11 @@ const Orders: React.FC = () => {
 								},
 							]}
 						/>
-						<OrdersCard
+						<StoreOrdersCard
 							orderId='2'
-							imageSrc='/images/logos/drogaria-moderna.png'
-							storeName='Drogaria Moderna'
+							customerName='Fulano de Tal'
+							customerAddress='Retiro, Volta Redonda - RJ'
+							itemsQuantity={6}
 							status='finished'
 							time='Quarta-feira, 11/08/2021 às 19h41'
 							items={[
@@ -81,10 +79,11 @@ const Orders: React.FC = () => {
 								},
 							]}
 						/>
-						<OrdersCard
+						<StoreOrdersCard
 							orderId='3'
-							imageSrc='/images/logos/drogaria-moderna.png'
-							storeName='Drogaria Moderna'
+							customerName='Fulano de Tal'
+							customerAddress='Retiro, Volta Redonda - RJ'
+							itemsQuantity={1}
 							status='canceled'
 							time='Quarta-feira, 11/08/2021 às 19h41'
 							items={[

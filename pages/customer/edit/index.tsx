@@ -1,4 +1,5 @@
 import React, { FormEvent, useState, useEffect } from 'react';
+import router from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiChevronRight } from 'react-icons/fi';
 
@@ -8,14 +9,7 @@ import InputField from '../../../components/InputField';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
 
-import {
-	Container,
-	Section,
-	BoxCard,
-	Text,
-	Title,
-	Message,
-} from '../../../styles/customer/edit';
+import { Container, Section, BoxCard, Text, Title, Message } from '../../../styles/customer/edit';
 import Theme from '../../../styles/theme';
 
 import { useNavigation } from '../../../contexts/NavigationContext';
@@ -38,10 +32,6 @@ const Edit: React.FC = () => {
 	const [contactData, setContactData] = useState(false);
 	const [password, setPassword] = useState(false);
 	const [isMessageVisible, setIsMessageVisible] = useState(false);
-
-	const goBack = () => {
-		window.history.back();
-	};
 
 	const handlePersonalData = async (e: FormEvent) => {
 		e.preventDefault();
@@ -102,7 +92,7 @@ const Edit: React.FC = () => {
 								className='icon back'
 								color={Theme.colors.black}
 								backgroundColor={Theme.colors.white}
-								onClick={goBack}
+								onClick={() => router.back()}
 							>
 								<svg
 									className='icon'
