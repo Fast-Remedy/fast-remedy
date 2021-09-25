@@ -88,7 +88,7 @@ const Product: React.FC = () => {
 						<>
 							<BoxCard>
 								<ProductDetailsCard
-									description={`Dipirona Sódica 500mg Genérico Medley 10 Comprimidos - ${query.productId}`}
+									description={`Dipirona Sódica 500mg Genérico Medley 10 Comprimidos`}
 									src='/images/logos/remedy.svg'
 									price={5.69}
 								/>

@@ -19,6 +19,17 @@ export const BoxCard = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-    background-color: ${props => props.theme.colors.white};
-    border-radius: 1rem;
+	background-color: ${props => props.theme.colors.white};
+	border-radius: 1rem;
+`;
+
+export const Message = styled.span`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	color: ${props => props.theme.colors.green};
+	margin-top: 1.5rem;
+	margin-bottom: 8rem;
 `;

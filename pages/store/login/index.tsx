@@ -271,6 +271,7 @@ const Login: React.FC = () => {
 										isIncorrect={isRegisterButtonIncorrect}
 									/>
 									<InputField
+										className='file'
 										label='Logo'
 										type='file'
 										accept='.png, .jpg, .jpeg'
@@ -280,7 +281,7 @@ const Login: React.FC = () => {
 										isIncorrect={isRegisterButtonIncorrect}
 									/>
 									<SelectField
-										label='Mode de entrega'
+										label='Modo de entrega'
 										value={deliveryMode}
 										onChange={e => setDeliveryMode(e.target.value)}
 									>

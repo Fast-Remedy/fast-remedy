@@ -7,7 +7,7 @@ export const ContainerBox = styled.span`
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
-    margin-bottom: 1rem;
+	margin-bottom: 1rem;
 `;
 
 export const Label = styled.label`
@@ -46,7 +46,13 @@ export const InputBox = styled.input`
 	padding: 1rem;
 	outline: 0;
 	-webkit-appearance: none;
-    transition: all 0.2s;
+	transition: all 0.2s;
+
+	&::-webkit-file-upload-button {
+		background-color: ${props => props.theme.colors.gray};
+		border: none;
+		border-radius: 1rem;
+	}
 
 	&:focus {
 		border: 1.5px solid ${props => props.theme.colors.green};
@@ -56,7 +62,7 @@ export const InputBox = styled.input`
 		color: ${props => props.theme.colors.darkerGray};
 	}
 
-    &.incorrect {
-        border: 1.5px solid ${props => props.theme.colors.red};
-    }
+	&.incorrect {
+		border: 1.5px solid ${props => props.theme.colors.red};
+	}
 `;
