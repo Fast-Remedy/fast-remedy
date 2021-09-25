@@ -7,8 +7,8 @@ export const ContainerBox = styled.span`
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
-    position: relative;
-    margin-bottom: 1rem;
+	position: relative;
+	margin-bottom: 1rem;
 `;
 
 export const Label = styled.label`
@@ -36,7 +36,6 @@ export const Label = styled.label`
 	}
 `;
 
-
 export const SelectBox = styled.select`
 	width: 100%;
 	background-color: ${props => props.theme.colors.white};
@@ -44,33 +43,33 @@ export const SelectBox = styled.select`
 	font-size: 1rem;
 	font-weight: 400;
 	border: 1.5px solid ${props => props.theme.colors.white};
-	border-radius: 1rem;
+	border-radius: 0.8rem;
 	padding: 1rem;
 	outline: 0;
 	-webkit-appearance: none;
-    transition: all 0.2s;
+	transition: all 0.2s;
 
 	&:focus {
 		border: 1.5px solid ${props => props.theme.colors.green};
 	}
 
-    &:disabled {
-        filter: brightness(0.85);
-        cursor: not-allowed;
-    }
+	&:disabled {
+		filter: brightness(0.85);
+		cursor: not-allowed;
+	}
 
-    &.incorrect {
-        border: 1.5px solid ${props => props.theme.colors.red};
-    }
+	&.incorrect {
+		border: 1.5px solid ${props => props.theme.colors.red};
+	}
 `;
 
 export const Span = styled.span`
-    position: absolute;
-    top: 4.3rem;
-    right: 1rem;
+	position: absolute;
+	top: 4.3rem;
+	right: 1rem;
 
-    svg {
-        height: 1.3rem;
-        width: 1.3rem;
-    }
+	svg {
+		height: 1.3rem;
+		width: 1.3rem;
+	}
 `;

@@ -5,7 +5,6 @@ interface Props {
 	backgroundColor?: string;
 	width?: string;
 	height?: string;
-	radius?: string;
 	fontSize?: string;
 }
 
@@ -13,27 +12,26 @@ export const Btn = styled.button<Props>`
 	border: 0;
 	font-weight: 600;
 	/* padding: 1rem; */
-	border-radius: 1rem;
+	border-radius: 0.8rem;
 	cursor: pointer;
 	transition: filter 0.2s;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	gap: 1rem;
-	background-color: ${props =>
-		props.backgroundColor || props.theme.colors.white};
+	background-color: ${props => props.backgroundColor || props.theme.colors.white};
 	color: ${props => props.color || props.theme.colors.black};
 	width: ${props => props.width || '8rem'};
 	height: ${props => props.height || '3.5rem'};
 	font-size: ${props => props.fontSize || '1rem'};
 	font-weight: 500;
 	overflow: hidden;
-    transition: all 0.2s;
+	transition: all 0.2s;
 
 	&:hover,
-    &:focus {
+	&:focus {
 		filter: brightness(0.85);
-        outline: none;
+		outline: none;
 	}
 
 	div {
@@ -49,7 +47,7 @@ export const Btn = styled.button<Props>`
 
 	@media (max-width: 800px) {
 		&:hover,
-        &:focus {
+		&:focus {
 			filter: none;
 		}
 	}
@@ -60,7 +58,7 @@ export const Btn = styled.button<Props>`
 	}
 
 	&.icon {
-        gap: 0.2rem;
+		gap: 0.2rem;
 
 		img,
 		svg {
@@ -69,37 +67,47 @@ export const Btn = styled.button<Props>`
 		}
 	}
 
-    &.back {
-        @media (max-width: 800px) {
-            gap: 0.1rem;
-        }
-        @media (min-width: 801px) {
-            img,
-            svg {
-                margin-bottom: 0.05rem;
-            }
-        }
-    }
-
-    &.right {
-        gap: 0.6rem;
-    }
-
-    &.moreRight {
-        gap: 1rem;
-    }
-
-	&.margin {
-        img,
-		svg {
-            margin-bottom: 0.1rem;
+	&.back {
+		@media (max-width: 800px) {
+			gap: 0.1rem;
+		}
+		@media (min-width: 801px) {
+			img,
+			svg {
+				margin-bottom: 0.05rem;
+			}
 		}
 	}
 
-    &.white {
-        img,
+	&.right {
+		gap: 0.6rem;
+	}
+
+	&.moreRight {
+		gap: 1rem;
+	}
+
+	&.margin {
+		img,
 		svg {
-            filter: brightness(0) invert(1);
+			margin-bottom: 0.1rem;
+		}
+	}
+
+	&.white {
+		img,
+		svg {
+			filter: brightness(0) invert(1);
+		}
+	}
+
+	&.disabled {
+		opacity: 60%;
+		cursor: not-allowed;
+
+		&:hover,
+		&:focus {
+			filter: none;
 		}
 	}
 `;

@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-	BoxCard,
-	Line,
-	Image,
-	Text,
-	Quantity,
-	Store,
-	Description,
-	Price,
-} from './styles';
+import { BoxCard, Line, Image, Text, Quantity, Store, Description, Price } from './styles';
 import Theme from '../../styles/theme';
 
 interface Props {
@@ -19,13 +10,7 @@ interface Props {
 	src: string;
 }
 
-const OrderCard: React.FC<Props> = ({
-	quantity,
-	store,
-	description,
-	price,
-	src,
-}) => {
+const OrderCard: React.FC<Props> = ({ quantity, store, description, price, src }) => {
 	return (
 		<BoxCard>
 			<Line>

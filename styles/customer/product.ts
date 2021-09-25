@@ -19,16 +19,16 @@ export const BoxCard = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-    background-color: ${props => props.theme.colors.white};
-    border-radius: 1rem;
+	background-color: ${props => props.theme.colors.white};
+	border-radius: 0.8rem;
 
-    &:last-child {
-        margin-bottom: 8rem;
-    }
+	&:last-child {
+		margin-bottom: 8rem;
+	}
 `;
 
 export const FinishCard = styled.div`
-    padding: 0 1rem;
+	padding: 0 1rem;
 	max-width: 800px;
 	width: 100%;
 	padding: 1rem;
@@ -36,25 +36,25 @@ export const FinishCard = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-    border-top: 1px solid ${props => props.theme.colors.darkGray};
+	border-top: 1px solid ${props => props.theme.colors.darkGray};
 
-    &:first-child {
-        border-top: 0;
-    }
+	&:first-child {
+		border-top: 0;
+	}
 
-    .total {
-        width: 100%;
+	.total {
+		width: 100%;
 		display: flex;
-        flex-direction: row;
+		flex-direction: row;
 		align-items: center;
 		justify-content: space-between;
-        font-size: 1rem;
-        font-weight: 600;
-        padding: 0 1rem;
+		font-size: 1rem;
+		font-weight: 600;
+		padding: 0 1rem;
 
-        .info {
-            font-weight: 400;
-        }
+		.info {
+			font-weight: 400;
+		}
 	}
 `;
 
@@ -66,6 +66,5 @@ export const Message = styled.span`
 	cursor: pointer;
 	color: ${props => props.theme.colors.green};
 	margin-top: 1.5rem;
-    margin-bottom: 8rem;
+	margin-bottom: 8rem;
 `;
-

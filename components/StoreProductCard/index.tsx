@@ -7,7 +7,7 @@ interface Props {
 	description: string;
 	price: number;
 	src: string;
-    availability: string;
+	availability: string;
 }
 
 const StoreProductCard: React.FC<Props> = ({
@@ -15,14 +15,14 @@ const StoreProductCard: React.FC<Props> = ({
 	description,
 	price,
 	src,
-    availability,
+	availability,
 }) => (
 	<Link href={`/store/product/${productId}`}>
 		<BoxCard>
 			<Text>
 				<Description>{description}</Description>
 				<Price>R$ {price.toString().replace('.', ',')}</Price>
-                {availability === 'soldOff' && <Availability>Esgotado!</Availability>}
+				{availability === 'soldOff' && <Availability>Esgotado!</Availability>}
 			</Text>
 			<Image src={src} alt={description} />
 		</BoxCard>

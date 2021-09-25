@@ -46,7 +46,7 @@ const Product: React.FC = () => {
 		setIsMessageVisible(!isMessageVisible);
 
 		setTimeout(() => {
-			router.back();
+			router.push('/customer/cart');
 		}, 2000);
 	};
 

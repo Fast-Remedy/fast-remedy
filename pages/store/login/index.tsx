@@ -38,6 +38,10 @@ const Login: React.FC = () => {
 	const [deliveryMode, setDeliveryMode] = useState('Own');
 	const [deliveryFee, setDeliveryFee] = useState('');
 	const [deliveryEstimatedTime, setDeliveryEstimatedTime] = useState('');
+	const [bankNumber, setBankNumber] = useState('');
+	const [agencyNumber, setAgencyNumber] = useState('');
+	const [accountNumber, setAccountNumber] = useState('');
+	const [verifyingDigit, setVerifyingDigit] = useState('');
 
 	useEffect(() => {
 		setIsLoginButtonIncorrect(false);
@@ -302,6 +306,38 @@ const Login: React.FC = () => {
 										required={true}
 										value={deliveryEstimatedTime}
 										onChange={e => setDeliveryEstimatedTime(e.target.value)}
+										isIncorrect={isRegisterButtonIncorrect}
+									/>
+									<InputField
+										label='Código do banco'
+										placeholder='104'
+										required={true}
+										value={bankNumber}
+										onChange={e => setBankNumber(e.target.value)}
+										isIncorrect={isRegisterButtonIncorrect}
+									/>
+									<InputField
+										label='Agência'
+										placeholder='7337'
+										required={true}
+										value={agencyNumber}
+										onChange={e => setAgencyNumber(e.target.value)}
+										isIncorrect={isRegisterButtonIncorrect}
+									/>
+									<InputField
+										label='Conta (sem dígito verificador)'
+										placeholder='10000645'
+										required={true}
+										value={accountNumber}
+										onChange={e => setAccountNumber(e.target.value)}
+										isIncorrect={isRegisterButtonIncorrect}
+									/>
+									<InputField
+										label='Dígito verificador'
+										placeholder='8'
+										required={true}
+										value={verifyingDigit}
+										onChange={e => setVerifyingDigit(e.target.value)}
 										isIncorrect={isRegisterButtonIncorrect}
 									/>
 									<ButtonsContainer style={{ marginTop: '1rem' }}>

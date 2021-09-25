@@ -6,24 +6,24 @@ export const BoxCard = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-    background-color: ${props => props.theme.colors.white};
-    border-top: 1px solid ${props => props.theme.colors.darkGray};
-    cursor: pointer;
-    transition: 0.2s;
+	background-color: ${props => props.theme.colors.white};
+	border-top: 1px solid ${props => props.theme.colors.darkGray};
+	cursor: pointer;
+	transition: 0.2s;
 
 	&:hover {
-        filter: brightness(0.85);
-    }
+		filter: brightness(0.85);
+	}
 
-    @media (max-width: 800px) {
-        &:hover {
-            filter: none;
-        }
-    }
+	@media (max-width: 800px) {
+		&:hover {
+			filter: none;
+		}
+	}
 
-    &:last-child {
-        border-radius: 0 0 1rem 1rem;
-    }
+	&:last-child {
+		border-radius: 0 0 0.8rem 0.8rem;
+	}
 `;
 
 export const Text = styled.span`
@@ -36,14 +36,14 @@ export const Text = styled.span`
 `;
 
 export const Name = styled.span`
-    width: 100%;
+	width: 100%;
 	font-size: 1.3rem;
 	font-weight: 400;
 	display: inline-block;
 	gap: 0.5rem;
 	overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 `;
 
 export const Line = styled.span`

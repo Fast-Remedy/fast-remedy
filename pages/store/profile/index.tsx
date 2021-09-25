@@ -28,10 +28,13 @@ const Profile: React.FC = () => {
 						<TitleBox title='Perfil' />
 					</div>
 					<BoxCard>
+						<ProfileCard href='store/address' menu='Endereço e Entrega' />
+					</BoxCard>
+					<BoxCard>
 						<ProfileCard href='store/payment' menu='Conta Bancária' />
 					</BoxCard>
 					<BoxCard>
-						<ProfileCard href='store/edit' menu='Meus Dados' />
+						<ProfileCard href='store/edit' menu='Dados da Empresa' />
 					</BoxCard>
 					<BoxCard>
 						<ProfileCard href='' menu='Sair' />

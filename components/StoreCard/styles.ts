@@ -8,7 +8,7 @@ export const BoxCard = styled.div`
 	align-items: center;
 	justify-content: center;
 	background-color: ${props => props.theme.colors.green};
-	border-radius: 1rem;
+	border-radius: 0.8rem;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	gap: 1rem;
 	cursor: pointer;

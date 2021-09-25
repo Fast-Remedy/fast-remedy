@@ -6,17 +6,10 @@ interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
 	props?: React.SelectHTMLAttributes<HTMLSelectElement>;
 	children: ReactNode;
 	label: string;
-	// value: string;
-	// onChange(e: any): void;
-    isIncorrect?: boolean | false;
+	isIncorrect?: boolean | false;
 }
 
-const SelectField: React.FC<Props> = ({
-	children,
-	label,
-    isIncorrect,
-	...props
-}) => {
+const SelectField: React.FC<Props> = ({ children, label, isIncorrect, ...props }) => {
 	return (
 		<ContainerBox>
 			<Label>

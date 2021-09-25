@@ -25,7 +25,7 @@ export const Alert = styled.div`
 	width: 100%;
 	max-width: 400px;
 	padding: 1rem;
-	border-radius: 1rem;
+	border-radius: 0.8rem;
 `;
 
 export const Box = styled.div`

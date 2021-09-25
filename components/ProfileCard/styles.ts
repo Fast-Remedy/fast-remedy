@@ -6,7 +6,7 @@ export const BoxCard = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	border-radius: 1rem;
+	border-radius: 0.8rem;
 	background-color: ${props => props.theme.colors.white};
 	transition: 0.2s;
 	cursor: pointer;

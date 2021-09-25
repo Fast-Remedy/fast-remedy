@@ -35,7 +35,8 @@ const Index = () => {
 					<span>Loja</span>
 				</Button>
 				<Button
-					className='icon right'
+					disabled
+					className='icon right disabled'
 					width='100%'
 					height='3rem'
 					onClick={() => router.push('/delivery/login')}

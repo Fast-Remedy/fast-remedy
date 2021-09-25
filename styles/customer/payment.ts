@@ -19,7 +19,7 @@ export const BoxCard = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	border-radius: 1rem;
+	border-radius: 0.8rem;
 	gap: 1rem;
 
 	div {

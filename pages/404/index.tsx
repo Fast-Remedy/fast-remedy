@@ -2,7 +2,14 @@ import React from 'react';
 import router from 'next/router';
 
 import Button from '../../components/Button';
-import { Section, LogoContainer, LogoImage, TitleBox, TextBox, ButtonContainer } from '../../styles/404';
+import {
+	Section,
+	LogoContainer,
+	LogoImage,
+	TitleBox,
+	TextBox,
+	ButtonContainer,
+} from '../../styles/404';
 
 const NotFound = () => {
 	return (
@@ -11,10 +18,10 @@ const NotFound = () => {
 				<LogoImage src='/images/logos/fastremedy-logo.png' alt='FastRemedy' />
 				<TitleBox>404</TitleBox>
 			</LogoContainer>
-            <TextBox>
-                <span>Ops...</span>
-                <span>A página que você procurou não existe!</span>
-            </TextBox>
+			<TextBox>
+				<span>Ops...</span>
+				<span>A página que você procurou não existe!</span>
+			</TextBox>
 			<ButtonContainer>
 				<Button
 					className='icon margin'

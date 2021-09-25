@@ -23,6 +23,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 			!router.route.includes('login') &&
 			!router.route.includes('recover')
 		) {
+			// check token
 			// router.push('/');
 		}
 	}

@@ -11,11 +11,7 @@ const CartIcon = () => {
 		<Link href='/customer/cart' passHref>
 			{true ? (
 				<Box>
-					{items >= 2 ? (
-						<Items>{items} itens</Items>
-					) : (
-						<Items>{items} item</Items>
-					)}
+					{items >= 2 ? <Items>{items} itens</Items> : <Items>{items} item</Items>}
 					<Image
 						xmlns='http://www.w3.org/2000/svg'
 						className='h-5 w-5'

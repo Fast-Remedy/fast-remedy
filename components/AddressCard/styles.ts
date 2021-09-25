@@ -8,7 +8,7 @@ export const BoxCard = styled.div`
 	justify-content: space-between;
 	border: 2px solid ${props => props.theme.colors.white};
 	background-color: ${props => props.theme.colors.white};
-	border-radius: 1rem;
+	border-radius: 0.8rem;
 	transition: 0.2s;
 	gap: 1.5rem;
 	cursor: pointer;

@@ -20,10 +20,7 @@ const StoreHeader: React.FC = () => {
 		<HeaderContainer>
 			<Content>
 				<Link href='/store/home'>
-					<TitleImage
-						src='/images/logos/fastremedy-logo.png'
-						alt='FastRemedy'
-					/>
+					<TitleImage src='/images/logos/fastremedy-logo.png' alt='FastRemedy' />
 				</Link>
 				<Separator />
 				<Nav>

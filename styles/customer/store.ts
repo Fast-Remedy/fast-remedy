@@ -19,6 +19,6 @@ export const BoxCard = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-    background-color: ${props => props.theme.colors.white};
-    border-radius: 1rem;
+	background-color: ${props => props.theme.colors.white};
+	border-radius: 0.8rem;
 `;

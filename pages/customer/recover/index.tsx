@@ -65,7 +65,7 @@ const Recover: React.FC = () => {
 							required={true}
 							value={email}
 							onChange={e => setEmail(e.target.value)}
-							isIncorrect={true}
+							isIncorrect={false}
 						/>
 						<ButtonsContainer style={{ marginTop: '1rem' }}>
 							<Button

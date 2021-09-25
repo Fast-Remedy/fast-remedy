@@ -42,7 +42,7 @@ export const InputBox = styled.input`
 	font-size: 1rem;
 	font-weight: 400;
 	border: 1.5px solid ${props => props.theme.colors.white};
-	border-radius: 1rem;
+	border-radius: 0.8rem;
 	padding: 1rem;
 	outline: 0;
 	-webkit-appearance: none;
@@ -51,7 +51,7 @@ export const InputBox = styled.input`
 	&::-webkit-file-upload-button {
 		background-color: ${props => props.theme.colors.gray};
 		border: none;
-		border-radius: 1rem;
+		border-radius: 0.8rem;
 	}
 
 	&:focus {

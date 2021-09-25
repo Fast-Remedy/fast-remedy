@@ -45,7 +45,7 @@ export const InfoCard = styled.div`
 	justify-content: space-between;
 	border: 2px solid ${props => props.theme.colors.white};
 	background-color: ${props => props.theme.colors.white};
-	border-radius: 1rem;
+	border-radius: 0.8rem;
 `;
 
 export const InfoBox = styled.div`
@@ -106,7 +106,7 @@ export const NewOrdersCard = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	background-color: ${props => props.theme.colors.white};
-	border-radius: 1rem;
+	border-radius: 0.8rem;
 
 	h1 {
 		font-size: 1.5rem;

@@ -28,9 +28,7 @@ const AddressCard: React.FC<Props> = ({
 			<Description>
 				{street}, {houseNumber}
 			</Description>
-			{complement && (
-                <Description>{complement}</Description>
-            )}
+			{complement && <Description>{complement}</Description>}
 			<Description>{neighborhood}</Description>
 			<Description>
 				{city} - {state}

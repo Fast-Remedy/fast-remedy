@@ -29,7 +29,7 @@ export const BoxCard = styled.div`
 	align-items: center;
 	justify-content: center;
 	background-color: ${props => props.theme.colors.white};
-	border-radius: 1rem;
+	border-radius: 0.8rem;
 
 	&:last-child {
 		margin-bottom: 8rem;

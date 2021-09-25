@@ -9,12 +9,7 @@ interface Props {
 	finalCardNumbers: string;
 }
 
-const PaymentCard: React.FC<Props> = ({
-	className,
-	type,
-	processor,
-	finalCardNumbers,
-}) => (
+const PaymentCard: React.FC<Props> = ({ className, type, processor, finalCardNumbers }) => (
 	<BoxCard className={className}>
 		<img src='/images/icons/card.png' alt='Pagamento' />
 		<Text>

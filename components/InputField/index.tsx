@@ -8,11 +8,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 	isIncorrect?: boolean | false;
 }
 
-const InputField: React.FC<Props> = ({
-	label,
-	isIncorrect,
-	...props
-}) => {
+const InputField: React.FC<Props> = ({ label, isIncorrect, ...props }) => {
 	return (
 		<ContainerBox>
 			<Label>
@@ -31,10 +27,7 @@ const InputField: React.FC<Props> = ({
 					</svg>
 				)}
 			</Label>
-			<InputBox
-				{...props}
-				className={isIncorrect && 'incorrect'}
-			/>
+			<InputBox {...props} className={isIncorrect && 'incorrect'} />
 		</ContainerBox>
 	);
 };

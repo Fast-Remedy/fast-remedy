@@ -10,14 +10,14 @@ export const Section = styled.section`
 	justify-content: center;
 	margin: 0 auto;
 
-    .title {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 0.6rem;
-    }
+	.title {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 0.6rem;
+	}
 `;
 
 export const BoxCard = styled.div`
@@ -28,7 +28,7 @@ export const BoxCard = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	border-radius: 1rem;
+	border-radius: 0.8rem;
 	gap: 1rem;
 
 	div {

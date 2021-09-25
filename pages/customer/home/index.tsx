@@ -29,7 +29,6 @@ const Home: React.FC = () => {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			setTimeNow(new Date().getHours());
-			console.log(timeNow);
 		}, 60000);
 		return () => clearInterval(interval);
 	}, []);

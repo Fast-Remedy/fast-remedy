@@ -8,7 +8,7 @@ export const BoxCard = styled.div`
 	justify-content: space-between;
 	border: 2px solid ${props => props.theme.colors.white};
 	background-color: ${props => props.theme.colors.white};
-	border-radius: 1rem;
+	border-radius: 0.8rem;
 	transition: 0.2s;
 	gap: 1.5rem;
 	cursor: pointer;
@@ -50,8 +50,8 @@ export const Customer = styled.span`
 	img {
 		border: 1px solid ${props => props.theme.colors.darkGray};
 		border-radius: 50%;
-        height: 3rem;
-        width: 3rem;
+		height: 3rem;
+		width: 3rem;
 	}
 `;
 
@@ -118,10 +118,10 @@ export const Span = styled.span`
 		width: 1.5rem;
 	}
 
-    &.pending-acceptance {
+	&.pending-acceptance {
 		color: ${props => props.theme.colors.yellow};
 	}
-    
+
 	&.in-progress {
 		color: ${props => props.theme.colors.black};
 	}

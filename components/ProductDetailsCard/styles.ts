@@ -29,8 +29,8 @@ export const Image = styled.img`
 `;
 
 export const Text = styled.span`
-    margin-top: 2rem;
-    width: 100%;
+	margin-top: 2rem;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -41,7 +41,7 @@ export const Text = styled.span`
 export const Description = styled.span`
 	font-size: 1.2rem;
 	font-weight: 400;
-    text-align: center;
+	text-align: center;
 `;
 
 export const Price = styled.span`
@@ -52,5 +52,5 @@ export const Price = styled.span`
 export const Availability = styled.span`
 	font-size: 1rem;
 	font-weight: 400;
-    color: ${props => props.theme.colors.red}
+	color: ${props => props.theme.colors.red};
 `;

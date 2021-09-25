@@ -3,15 +3,11 @@ import { ReactElement } from 'react';
 import { ContainerBox } from './styles';
 
 interface ContainerProps {
-    children: ReactElement
+	children: ReactElement;
 }
 
 const Container = ({ children }: ContainerProps) => {
-	return (
-        <ContainerBox>
-            {children}
-        </ContainerBox>
-     );
+	return <ContainerBox>{children}</ContainerBox>;
 };
 
 export default Container;

@@ -10,9 +10,7 @@ import Document, {
 import { ServerStyleSheet } from 'styled-components';
 
 class MyDocument extends Document {
-	static async getInitialProps(
-		ctx: DocumentContext
-	): Promise<DocumentInitialProps> {
+	static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
 		const sheet = new ServerStyleSheet();
 		const originalRenderPage = ctx.renderPage;
 
@@ -44,33 +42,15 @@ class MyDocument extends Document {
 				<Head>
 					<meta charSet='utf-8' />
 					<link rel='preconnect' href='https://fonts.googleapis.com' />
-					<link
-						rel='preconnect'
-						href='https://fonts.gstatic.com'
-						crossOrigin='true'
-					/>
+					<link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='true' />
 					<link
 						href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap'
 						rel='stylesheet'
 					/>
 
-					<link
-						rel='apple-touch-icon'
-						sizes='180x180'
-						href='/apple-touch-icon.png'
-					/>
-					<link
-						rel='icon'
-						type='image/png'
-						sizes='32x32'
-						href='/favicon-32x32.png'
-					/>
-					<link
-						rel='icon'
-						type='image/png'
-						sizes='16x16'
-						href='/favicon-16x16.png'
-					/>
+					<link rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.png' />
+					<link rel='icon' type='image/png' sizes='32x32' href='/favicon-32x32.png' />
+					<link rel='icon' type='image/png' sizes='16x16' href='/favicon-16x16.png' />
 					<link rel='manifest' href='/manifest.webmanifest' />
 					<link rel='mask-icon' href='/safari-pinned-tab.svg' color='#00c2b2' />
 					<meta name='apple-mobile-web-app-capable' content='yes' />

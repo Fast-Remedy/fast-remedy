@@ -9,8 +9,12 @@ const Success: React.FC = () => {
 			<Text>Compra concluída!</Text>
 			<Link href='/customer/orders'>
 				<Button className='icon back right' width='22rem'>
-                <img src='/images/icons/orders.png' alt='Pedidos' style={{filter: 'brightness(0)'}} />
-                Ver pedidos
+					<img
+						src='/images/icons/orders.png'
+						alt='Pedidos'
+						style={{ filter: 'brightness(0)' }}
+					/>
+					Ver pedidos
 				</Button>
 			</Link>
 			<Link href='/customer/home'>

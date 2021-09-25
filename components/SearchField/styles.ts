@@ -15,13 +15,13 @@ export const InputBox = styled.input`
 	color: ${props => props.theme.colors.black};
 	font-size: 1rem;
 	font-weight: 400;
-    border: 1.5px solid ${props => props.theme.colors.white};
-    border-radius: 1rem;
-    padding: 1rem;
-    outline: 0;
-    -webkit-appearance: none;
+	border: 1.5px solid ${props => props.theme.colors.white};
+	border-radius: 0.8rem;
+	padding: 1rem;
+	outline: 0;
+	-webkit-appearance: none;
 
-    &:focus {
-        border: 1.5px solid ${props => props.theme.colors.green}
-    }
+	&:focus {
+		border: 1.5px solid ${props => props.theme.colors.green};
+	}
 `;

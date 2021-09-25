@@ -28,14 +28,7 @@ interface Props {
 	items: Items[];
 }
 
-const OrdersCard: React.FC<Props> = ({
-	orderId,
-	imageSrc,
-	storeName,
-	status,
-	time,
-	items,
-}) => (
+const OrdersCard: React.FC<Props> = ({ orderId, imageSrc, storeName, status, time, items }) => (
 	<Link href={`/customer/order/${orderId}`}>
 		<BoxCard>
 			<Text>

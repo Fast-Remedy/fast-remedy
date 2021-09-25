@@ -15,13 +15,13 @@ export const DetailsCard = styled.div`
 	max-width: 800px;
 	width: 100%;
 	margin: 1.1rem auto 0 auto;
-    padding: 1rem 2rem;
+	padding: 1rem 2rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	background-color: ${props => props.theme.colors.white};
-	border-radius: 1rem;
+	border-radius: 0.8rem;
 	gap: 1rem;
 
 	div {
@@ -38,7 +38,7 @@ export const BoxCard = styled.div`
 	align-items: center;
 	justify-content: center;
 	background-color: ${props => props.theme.colors.white};
-	border-radius: 1rem;
+	border-radius: 0.8rem;
 
 	&:last-child {
 		margin-bottom: 8rem;
@@ -65,8 +65,8 @@ export const Store = styled.span`
 	img {
 		border: 1px solid ${props => props.theme.colors.darkGray};
 		border-radius: 50%;
-        height: 3rem;
-        width: 3rem;
+		height: 3rem;
+		width: 3rem;
 	}
 `;
 
@@ -169,7 +169,7 @@ export const Info = styled.div`
 	align-items: center;
 	justify-content: center;
 	font-weight: 600;
-    text-align: center;
+	text-align: center;
 
 	.info {
 		font-weight: 400;
@@ -180,22 +180,22 @@ export const CancelCard = styled.div`
 	max-width: 800px;
 	width: 100%;
 	margin: 1.1rem auto 0 auto;
-    padding: 2rem;
-    gap: 2rem;
+	padding: 2rem;
+	gap: 2rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	background-color: ${props => props.theme.colors.white};
-	border-radius: 1rem;
+	border-radius: 0.8rem;
 
-    .buttons {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-    }
+	.buttons {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		gap: 2rem;
+	}
 `;
 
 export const Message = styled.span`

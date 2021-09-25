@@ -8,15 +8,15 @@ export const Section = styled.section`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-    gap: 3rem;
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+	gap: 3rem;
+	padding-top: 4rem;
+	padding-bottom: 4rem;
 
-    .separator {
-        font-size: 1.2rem;
-        font-weight: 500;
-        color: ${props => props.theme.colors.white};
-    }
+	.separator {
+		font-size: 1.2rem;
+		font-weight: 500;
+		color: ${props => props.theme.colors.white};
+	}
 `;
 
 export const LogoImage = styled.img`
@@ -25,10 +25,10 @@ export const LogoImage = styled.img`
 `;
 
 export const ButtonContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    width: 22rem;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 2rem;
+	width: 22rem;
 `;

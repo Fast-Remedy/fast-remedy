@@ -10,7 +10,7 @@ import { Section, BoxCard } from '../../../styles/customer/profile';
 import { useNavigation } from '../../../contexts/NavigationContext';
 
 const Profile: React.FC = () => {
-    const { setNavigationState } = useNavigation();
+	const { setNavigationState } = useNavigation();
 
 	useEffect(
 		() =>

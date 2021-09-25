@@ -9,12 +9,12 @@ export const Box = styled.a`
 	justify-content: space-between;
 	gap: 0.5rem;
 
-    &:focus {
-        outline: none;
-        filter: brightness(0.85);
-    }
+	&:focus {
+		outline: none;
+		filter: brightness(0.85);
+	}
 
-    @media (max-width: 800px) {
+	@media (max-width: 800px) {
 		&:focus {
 			filter: none;
 		}
@@ -54,7 +54,7 @@ export const Items = styled.div`
 	font-weight: 600;
 	color: ${props => props.theme.colors.white};
 	background-color: ${props => props.theme.colors.green};
-	border-radius: 1rem;
+	border-radius: 0.8rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
