@@ -180,7 +180,7 @@ const Payment: React.FC = () => {
 											/>
 											<ButtonsContainer
 												style={{
-													marginTop: '2rem',
+													marginTop: '1rem',
 													justifyContent: 'flex-end',
 												}}
 											>

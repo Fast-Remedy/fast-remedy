@@ -34,7 +34,7 @@ const Profile: React.FC = () => {
 						<ProfileCard href='store/payment' menu='Conta Bancária' />
 					</BoxCard>
 					<BoxCard>
-						<ProfileCard href='store/edit' menu='Dados da Empresa' />
+						<ProfileCard href='store/edit' menu='Meus Dados' />
 					</BoxCard>
 					<BoxCard>
 						<ProfileCard href='' menu='Sair' />

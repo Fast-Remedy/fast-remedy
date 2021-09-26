@@ -285,6 +285,7 @@ const Login: React.FC = () => {
 										isIncorrect={isRegisterButtonIncorrect}
 									/>
 									<SelectField
+										disabled
 										label='Modo de entrega'
 										value={deliveryMode}
 										onChange={e => setDeliveryMode(e.target.value)}

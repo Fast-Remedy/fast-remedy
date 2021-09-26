@@ -229,7 +229,7 @@ const Address: React.FC = () => {
 											</SelectField>
 											<ButtonsContainer
 												style={{
-													marginTop: '2rem',
+													marginTop: '1rem',
 													justifyContent: 'flex-end',
 												}}
 											>
