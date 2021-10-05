@@ -16,17 +16,18 @@ const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 	const [showCustomerHeader, setShowCustomerHeader] = useState(false);
 	const [showStoreHeader, setShowStoreHeader] = useState(false);
 
-	if (process.browser) {
-		if (
-			!localStorage.getItem('token') &&
-			router.route !== '/' &&
-			!router.route.includes('login') &&
-			!router.route.includes('recover')
-		) {
-			// check token
-			// router.push('/');
+	useEffect(() => {
+		if (process.browser) {
+			if (
+				!localStorage.getItem('token') &&
+				router.route !== '/' &&
+				!router.route.includes('login') &&
+				!router.route.includes('recover')
+			) {
+				router.push('/');
+			}
 		}
-	}
+	});
 
 	useEffect(() => {
 		if (process.browser) {

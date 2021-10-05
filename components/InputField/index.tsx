@@ -1,14 +1,16 @@
 import React from 'react';
-import { ContainerBox, InputBox, Label } from './styles';
+import { ContainerBox, Input, Label } from './styles';
 import Theme from '../../styles/theme';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 	props?: React.InputHTMLAttributes<HTMLInputElement>;
 	label: string;
+	mask?: string;
+	maskChar?: any;
 	isIncorrect?: boolean | false;
 }
 
-const InputField: React.FC<Props> = ({ label, isIncorrect, ...props }) => {
+const InputField: React.FC<Props> = ({ label, isIncorrect, mask, ...props }) => {
 	return (
 		<ContainerBox>
 			<Label>
@@ -27,7 +29,13 @@ const InputField: React.FC<Props> = ({ label, isIncorrect, ...props }) => {
 					</svg>
 				)}
 			</Label>
-			<InputBox {...props} className={isIncorrect && 'incorrect'} />
+			<Input
+				mask={mask}
+				maskChar={null}
+				alwaysShowMask={false}
+				{...props}
+				className={isIncorrect && 'incorrect'}
+			/>
 		</ContainerBox>
 	);
 };

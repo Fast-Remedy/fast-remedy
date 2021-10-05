@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import InputMask from 'react-input-mask';
 
 export const ContainerBox = styled.span`
 	max-width: 800px;
@@ -35,7 +36,7 @@ export const Label = styled.label`
 	}
 `;
 
-export const InputBox = styled.input`
+export const Input = styled(InputMask)`
 	width: 100%;
 	background-color: ${props => props.theme.colors.white};
 	color: ${props => props.theme.colors.black};

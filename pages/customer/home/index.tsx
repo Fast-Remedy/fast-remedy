@@ -10,21 +10,37 @@ import { Section, BoxCard, Greeting } from '../../../styles/customer/home';
 
 import { useNavigation } from '../../../contexts/NavigationContext';
 
+interface IUser {
+	_id: string;
+	cpfCustomer: string;
+	emailCustomer: string;
+	nameCustomer: string;
+	phoneCustomer: string;
+	registrationDateCustomer: string;
+}
+
 const Home: React.FC = () => {
 	const { setNavigationState } = useNavigation();
 
 	const [timeNow, setTimeNow] = useState(new Date().getHours());
+	const [user, setUser] = useState<IUser>({
+		_id: '',
+		cpfCustomer: '',
+		emailCustomer: '',
+		nameCustomer: '',
+		phoneCustomer: '',
+		registrationDateCustomer: '',
+	});
 
-	useEffect(
-		() =>
-			setNavigationState({
-				home: true,
-				search: false,
-				orders: false,
-				profile: false,
-			}),
-		[]
-	);
+	useEffect(() => {
+		setNavigationState({
+			home: true,
+			search: false,
+			orders: false,
+			profile: false,
+		});
+		setUser(JSON.parse(localStorage.getItem('userData')));
+	}, []);
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -45,7 +61,8 @@ const Home: React.FC = () => {
 						{timeNow >= 0 && timeNow <= 4 && 'Boa noite'}
 						{timeNow >= 5 && timeNow <= 11 && 'Bom dia'}
 						{timeNow >= 12 && timeNow <= 17 && 'Boa tarde'}
-						{timeNow >= 18 && timeNow <= 24 && 'Boa noite'}, Antônio!
+						{timeNow >= 18 && timeNow <= 24 && 'Boa noite'},{' '}
+						{user?.nameCustomer.replace(/ .*/, '') || 'Usuário'}!
 					</Greeting>
 					<BoxCard>
 						<StoreCard

@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 
+export const Button = styled.button`
+	width: 100%;
+	border: 0;
+	border-radius: 0.8rem;
+	background-color: transparent;
+`;
+
 export const BoxCard = styled.div`
 	width: 100%;
 	padding: 2rem;

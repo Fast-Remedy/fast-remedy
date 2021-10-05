@@ -41,7 +41,14 @@ const Profile: React.FC = () => {
 						<ProfileCard href='customer/edit' menu='Meus Dados' />
 					</BoxCard>
 					<BoxCard>
-						<ProfileCard href='' menu='Sair' />
+						<ProfileCard
+							href=''
+							menu='Sair'
+							onClick={() => {
+								localStorage.removeItem('token');
+								localStorage.removeItem('userData');
+							}}
+						/>
 					</BoxCard>
 				</Section>
 			</>

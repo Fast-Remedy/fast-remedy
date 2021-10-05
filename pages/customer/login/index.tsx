@@ -17,32 +17,47 @@ import {
 	Section,
 	LogoImage,
 	PasswordRecover,
+	Message,
 } from '../../../styles/customer/login';
 
 import Theme from '../../../styles/theme';
 
 const Login: React.FC = () => {
 	const [isLoginPageVisible, setIsLoginPageVisible] = useState(true);
-	const [isLoginButtonIncorrect, setIsLoginButtonIncorrect] = useState(false);
-	const [isRegisterButtonIncorrect, setIsRegisterButtonIncorrect] = useState(false);
-	const [emailLogin, setEmailLogin] = useState('1');
-	const [passwordLogin, setPasswordLogin] = useState('2');
-	const [name, setName] = useState('3');
-	const [cpf, setCpf] = useState('4');
-	const [phone, setPhone] = useState('5');
-	const [email, setEmail] = useState('6');
-	const [password, setPassword] = useState('7');
-	const [confirmPassword, setConfirmPassword] = useState('8');
 
-	useEffect(() => {
-		setIsLoginButtonIncorrect(false);
-	}, [emailLogin, passwordLogin]);
+	const [isMessageVisible, setIsMessageVisible] = useState(false);
+	const [message, setMessage] = useState('');
+	const [isEmailLoginIncorrect, setIsEmailLoginIncorrect] = useState(false);
+	const [isPasswordLoginIncorrect, setIsPasswordLoginIncorrect] = useState(false);
+	const [isNameIncorrect, setIsNameIncorrect] = useState(false);
+	const [isCpfIncorrect, setIsCpfIncorrect] = useState(false);
+	const [isPhoneIncorrect, setIsPhoneIncorrect] = useState(false);
+	const [isEmailIncorrect, setIsEmailIncorrect] = useState(false);
+	const [isPasswordIncorrect, setIsPasswordIncorrect] = useState(false);
 
-	useEffect(() => {
-		setIsRegisterButtonIncorrect(false);
-	}, [name, cpf, phone, email, password, confirmPassword]);
+	const [isFetching, setIsFetching] = useState(false);
 
-	const handleLogin = (e: FormEvent) => {
+	const [emailLogin, setEmailLogin] = useState('');
+	const [passwordLogin, setPasswordLogin] = useState('');
+	const [name, setName] = useState('');
+	const [cpf, setCpf] = useState('');
+	const [phone, setPhone] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
+
+	const clearForm = () => {
+		setEmailLogin('');
+		setPasswordLogin('');
+		setName('');
+		setCpf('');
+		setPhone('');
+		setEmail('');
+		setPassword('');
+		setConfirmPassword('');
+	};
+
+	const handleLogin = async (e: FormEvent) => {
 		e.preventDefault();
 
 		const loginData = {
@@ -50,14 +65,21 @@ const Login: React.FC = () => {
 			passwordCustomer: passwordLogin,
 		};
 
-		api.post('/api/login/customer', loginData)
-			.then(response => {
-				console.log(response.data);
-				router.push('/customer/home');
-			})
-			.catch(() => {
-				setIsLoginButtonIncorrect(true);
-			});
+		try {
+			setIsFetching(true);
+			const response = await api.post('/api/login/customers', loginData);
+
+			console.log(response.data);
+			localStorage.setItem('token', JSON.stringify(response.data.token));
+			localStorage.setItem('userData', JSON.stringify(response.data.userList));
+			router.push('/customer/home');
+		} catch (error) {
+			setIsFetching(false);
+			setIsEmailLoginIncorrect(true);
+			setIsPasswordLoginIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Usuário e/ou senha inválido(s)!');
+		}
 	};
 
 	const handleRegister = async (e: FormEvent) => {
@@ -65,23 +87,104 @@ const Login: React.FC = () => {
 
 		const registerData = {
 			nameCustomer: name,
-			cpfCustomer: cpf,
-			phoneCustomer: phone,
+			cpfCustomer: cpf.replace(/[^0-9]+/g, ''),
+			phoneCustomer: phone.replace(/[^0-9]+/g, ''),
 			emailCustomer: email,
 			passwordCustomer: password,
 			registrationDateCustomer: new Date(),
 		};
 
-		api.post('/api/register/customers', registerData)
-			.then(response => {
-				console.log(response);
-				router.push('/customer/home');
-			})
-			.catch(error => {
-				console.log(error);
-				setIsRegisterButtonIncorrect(true);
-			});
+		let isIncorrect = false;
+
+		if (password.trim().length >= 8 && password.trim() !== confirmPassword.trim()) {
+			setIsPasswordIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('As senhas não coincidem!');
+			isIncorrect = true;
+		}
+		if (password.trim().length < 8) {
+			setIsPasswordIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('A senha deve conter pelo menos 8 caracteres!');
+			isIncorrect = true;
+		}
+		if (registerData.phoneCustomer.trim().length < 10) {
+			setIsPhoneIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Insira um número de celular válido!');
+			isIncorrect = true;
+		}
+		if (registerData.cpfCustomer.trim().length < 11) {
+			setIsCpfIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('O CPF deve conter 11 dígitos!');
+			isIncorrect = true;
+		}
+		if (name.length < 5) {
+			setIsNameIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Insira um nome válido!');
+			isIncorrect = true;
+		}
+		if (!isIncorrect) {
+			try {
+				setIsFetching(true);
+				await api.post('/api/register/customers', registerData);
+				setIsFetching(false);
+				setIsLoginPageVisible(true);
+				clearForm();
+			} catch (error) {
+				setIsFetching(false);
+				if (error.response.data.error.includes('cpf')) {
+					setIsCpfIncorrect(true);
+					setIsMessageVisible(true);
+					setMessage('Este CPF já está cadastrado!');
+				}
+				if (error.response.data.error.includes('email')) {
+					setIsEmailIncorrect(true);
+					setIsMessageVisible(true);
+					setMessage('Este email já está cadastrado!');
+				}
+			}
+		}
 	};
+
+	useEffect(() => {
+		setIsEmailLoginIncorrect(false);
+		setIsPasswordLoginIncorrect(false);
+		setIsMessageVisible(false);
+	}, [emailLogin]);
+
+	useEffect(() => {
+		setIsEmailLoginIncorrect(false);
+		setIsPasswordLoginIncorrect(false);
+		setIsMessageVisible(false);
+	}, [passwordLogin]);
+
+	useEffect(() => {
+		setIsNameIncorrect(false);
+		setIsMessageVisible(false);
+	}, [name]);
+
+	useEffect(() => {
+		setIsCpfIncorrect(false);
+		setIsMessageVisible(false);
+	}, [cpf]);
+
+	useEffect(() => {
+		setIsPhoneIncorrect(false);
+		setIsMessageVisible(false);
+	}, [phone]);
+
+	useEffect(() => {
+		setIsEmailIncorrect(false);
+		setIsMessageVisible(false);
+	}, [email]);
+
+	useEffect(() => {
+		setIsPasswordIncorrect(false);
+		setIsMessageVisible(false);
+	}, [password]);
 
 	return (
 		<Container>
@@ -102,7 +205,11 @@ const Login: React.FC = () => {
 								className='icon margin'
 								width='13rem'
 								height='2.5rem'
-								onClick={() => setIsLoginPageVisible(!isLoginPageVisible)}
+								onClick={() => {
+									setIsLoginPageVisible(!isLoginPageVisible);
+									setIsMessageVisible(false);
+									clearForm();
+								}}
 								style={{ textAlign: 'right', paddingRight: '0.2rem' }}
 							>
 								<svg
@@ -128,7 +235,7 @@ const Login: React.FC = () => {
 									required={true}
 									value={emailLogin}
 									onChange={e => setEmailLogin(e.target.value)}
-									isIncorrect={isLoginButtonIncorrect}
+									isIncorrect={isEmailLoginIncorrect}
 								/>
 								<InputField
 									label='Senha'
@@ -137,7 +244,7 @@ const Login: React.FC = () => {
 									required={true}
 									value={passwordLogin}
 									onChange={e => setPasswordLogin(e.target.value)}
-									isIncorrect={isLoginButtonIncorrect}
+									isIncorrect={isPasswordLoginIncorrect}
 								/>
 								<ButtonsContainer style={{ marginTop: '1rem' }}>
 									<Button
@@ -145,11 +252,7 @@ const Login: React.FC = () => {
 										width='100%'
 										type='submit'
 										color={Theme.colors.white}
-										backgroundColor={
-											isLoginButtonIncorrect
-												? Theme.colors.red
-												: Theme.colors.green
-										}
+										backgroundColor={Theme.colors.green}
 									>
 										<svg
 											xmlns='http://www.w3.org/2000/svg'
@@ -164,14 +267,24 @@ const Login: React.FC = () => {
 												d='M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1'
 											/>
 										</svg>
-										{isLoginButtonIncorrect
-											? 'Usuário e/ou senha incorreto(s)!'
-											: 'Entrar'}
+										{isFetching ? 'Carregando...' : 'Entrar'}
 									</Button>
 								</ButtonsContainer>
 								<Link href='/customer/recover'>
 									<PasswordRecover>Esqueci minha senha</PasswordRecover>
 								</Link>
+								{isMessageVisible && (
+									<AnimatePresence>
+										<motion.div
+											initial={{ opacity: 0 }}
+											animate={{ opacity: 1 }}
+											transition={{ duration: 0.3 }}
+											style={{ marginTop: '1.2rem' }}
+										>
+											<Message>{message}</Message>
+										</motion.div>
+									</AnimatePresence>
+								)}
 							</>
 						</Form>
 					</motion.div>
@@ -190,7 +303,11 @@ const Login: React.FC = () => {
 									className='icon margin'
 									width='13rem'
 									height='2.5rem'
-									onClick={() => setIsLoginPageVisible(!isLoginPageVisible)}
+									onClick={() => {
+										setIsLoginPageVisible(!isLoginPageVisible);
+										setIsMessageVisible(false);
+										clearForm();
+									}}
 								>
 									<svg
 										fill='currentColor'
@@ -215,22 +332,28 @@ const Login: React.FC = () => {
 										required={true}
 										value={name}
 										onChange={e => setName(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isNameIncorrect}
 									/>
 									<InputField
 										label='CPF'
+										mask='999.999.999-99'
 										placeholder='123.456.789-10'
 										required={true}
 										value={cpf}
 										onChange={e => setCpf(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isCpfIncorrect}
 									/>
 									<InputField
 										label='Celular'
+										mask={
+											phone?.length >= 6 && phone?.[5] === '9'
+												? '(99) 99999-9999'
+												: '(99) 9999-9999'
+										}
 										placeholder='(24) 99999-8888'
 										value={phone}
 										onChange={e => setPhone(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isPhoneIncorrect}
 									/>
 									<InputField
 										label='Email'
@@ -239,7 +362,7 @@ const Login: React.FC = () => {
 										required={true}
 										value={email}
 										onChange={e => setEmail(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isEmailIncorrect}
 									/>
 									<InputField
 										label='Senha'
@@ -248,7 +371,7 @@ const Login: React.FC = () => {
 										required={true}
 										value={password}
 										onChange={e => setPassword(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isPasswordIncorrect}
 									/>
 									<InputField
 										label='Confirmar Senha'
@@ -257,19 +380,15 @@ const Login: React.FC = () => {
 										required={true}
 										value={confirmPassword}
 										onChange={e => setConfirmPassword(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isPasswordIncorrect}
 									/>
 									<ButtonsContainer style={{ marginTop: '1rem' }}>
 										<Button
-											className='icon right'
+											className='icon right margin'
 											width='100%'
 											type='submit'
 											color={Theme.colors.white}
-											backgroundColor={
-												isRegisterButtonIncorrect
-													? Theme.colors.red
-													: Theme.colors.green
-											}
+											backgroundColor={Theme.colors.green}
 										>
 											<svg
 												xmlns='http://www.w3.org/2000/svg'
@@ -284,11 +403,20 @@ const Login: React.FC = () => {
 													d='M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1'
 												/>
 											</svg>
-											{isRegisterButtonIncorrect
-												? 'Um ou mais campos inválidos!'
-												: 'Cadastrar'}
+											{isFetching ? 'Carregando...' : 'Cadastrar'}
 										</Button>
 									</ButtonsContainer>
+									{isMessageVisible && (
+										<AnimatePresence>
+											<motion.div
+												initial={{ opacity: 0 }}
+												animate={{ opacity: 1 }}
+												transition={{ duration: 0.3 }}
+											>
+												<Message>{message}</Message>
+											</motion.div>
+										</AnimatePresence>
+									)}
 								</>
 							</Form>
 						</motion.div>

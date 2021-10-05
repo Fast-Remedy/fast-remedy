@@ -57,3 +57,13 @@ export const PasswordRecover = styled.span`
 		filter: brightness(0.85);
 	}
 `;
+
+export const Message = styled.span`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	color: ${props => props.theme.colors.red};
+	margin-top: 0.5rem;
+`;
