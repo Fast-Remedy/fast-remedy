@@ -11,7 +11,6 @@ interface Props {
 export const Btn = styled.button<Props>`
 	border: 0;
 	font-weight: 600;
-	/* padding: 1rem; */
 	border-radius: 0.8rem;
 	cursor: pointer;
 	transition: filter 0.2s;
@@ -108,6 +107,39 @@ export const Btn = styled.button<Props>`
 		&:hover,
 		&:focus {
 			filter: none;
+		}
+	}
+
+	.spinner {
+		animation: rotate 2s linear infinite;
+		width: 50px;
+		height: 50px;
+
+		& .path {
+			stroke: #fff;
+			stroke-linecap: round;
+			animation: dash 1.5s ease-in-out infinite;
+		}
+	}
+
+	@keyframes rotate {
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
+	@keyframes dash {
+		0% {
+			stroke-dasharray: 1, 150;
+			stroke-dashoffset: 0;
+		}
+		50% {
+			stroke-dasharray: 90, 150;
+			stroke-dashoffset: -35;
+		}
+		100% {
+			stroke-dasharray: 90, 150;
+			stroke-dashoffset: -124;
 		}
 	}
 `;

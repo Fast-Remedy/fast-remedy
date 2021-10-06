@@ -23,8 +23,15 @@ import Theme from '../../../styles/theme';
 
 const Login: React.FC = () => {
 	const [isLoginPageVisible, setIsLoginPageVisible] = useState(true);
+
 	const [isLoginButtonIncorrect, setIsLoginButtonIncorrect] = useState(false);
 	const [isRegisterButtonIncorrect, setIsRegisterButtonIncorrect] = useState(false);
+
+	const [isMessageVisible, setIsMessageVisible] = useState(false);
+	const [message, setMessage] = useState('');
+
+	const [isFetching, setIsFetching] = useState(false);
+
 	const [emailLogin, setEmailLogin] = useState('1');
 	const [passwordLogin, setPasswordLogin] = useState('2');
 	const [companyName, setCompanyName] = useState('3');
@@ -70,6 +77,9 @@ const Login: React.FC = () => {
 	const handleRegister = async (e: FormEvent) => {
 		e.preventDefault();
 
+		const timeArray = deliveryEstimatedTime.split(':');
+		const minutes = Number(timeArray[0]) * 60 + Number(timeArray[1]);
+
 		const registerData = {
 			companyNameStore: companyName,
 			tradingNameStore: tradingName,
@@ -78,7 +88,7 @@ const Login: React.FC = () => {
 			emailStore: email,
 			passwordStore: password,
 			deliveryFeeStore: 1,
-			deliveryEstimatedTimeStore: 30,
+			deliveryEstimatedTimeStore: minutes,
 			registrationDateStore: new Date(),
 		};
 
@@ -302,8 +312,10 @@ const Login: React.FC = () => {
 										isIncorrect={isRegisterButtonIncorrect}
 									/>
 									<InputField
-										label='Tempo estimado de entrega (em min)'
-										placeholder='40'
+										label='Tempo estimado de entrega'
+										type='time'
+										min='00:15'
+										max='03:00'
 										required={true}
 										value={deliveryEstimatedTime}
 										onChange={e => setDeliveryEstimatedTime(e.target.value)}

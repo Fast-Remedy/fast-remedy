@@ -62,7 +62,7 @@ const Home: React.FC = () => {
 						{timeNow >= 5 && timeNow <= 11 && 'Bom dia'}
 						{timeNow >= 12 && timeNow <= 17 && 'Boa tarde'}
 						{timeNow >= 18 && timeNow <= 24 && 'Boa noite'},{' '}
-						{user?.nameCustomer.replace(/ .*/, '') || 'Usuário'}!
+						{user.nameCustomer.replace(/ .*/, '')}!
 					</Greeting>
 					<BoxCard>
 						<StoreCard

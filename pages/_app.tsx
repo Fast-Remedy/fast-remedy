@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import { ThemeProvider } from 'styled-components';
@@ -13,18 +14,24 @@ import GlobalStyle from '../styles/global';
 import Theme from '../styles/theme';
 
 const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
+	const Router = useRouter();
 	const [showCustomerHeader, setShowCustomerHeader] = useState(false);
 	const [showStoreHeader, setShowStoreHeader] = useState(false);
 
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
+
 	useEffect(() => {
-		if (process.browser) {
+		if (typeof window !== 'undefined') {
 			if (
 				!localStorage.getItem('token') &&
 				router.route !== '/' &&
 				!router.route.includes('login') &&
 				!router.route.includes('recover')
 			) {
-				router.push('/');
+				setIsAuthenticated(false!);
+				Router.replace('/');
+			} else {
+				setIsAuthenticated(true);
 			}
 		}
 	});
@@ -73,20 +80,22 @@ const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 				/>
 			</Head>
 			<GlobalStyle />
-			<ThemeProvider theme={Theme}>
-				{showCustomerHeader && <CustomerHeader />}
-				{showStoreHeader && <StoreHeader />}
-				<AnimatePresence>
-					<motion.div
-						key={router.route}
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ duration: 0.3 }}
-					>
-						<Component {...pageProps} />
-					</motion.div>
-				</AnimatePresence>
-			</ThemeProvider>
+			{isAuthenticated && (
+				<ThemeProvider theme={Theme}>
+					{showCustomerHeader && <CustomerHeader />}
+					{showStoreHeader && <StoreHeader />}
+					<AnimatePresence>
+						<motion.div
+							key={router.route}
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{ duration: 0.3 }}
+						>
+							<Component {...pageProps} />
+						</motion.div>
+					</AnimatePresence>
+				</ThemeProvider>
+			)}
 		</NavigationContextProvider>
 	);
 };
