@@ -38,31 +38,36 @@ const Search: React.FC = () => {
 						<StoreCard
 							storeId='1'
 							name='Drogaria Moderna'
-							category='Farmácia'
+							fee={5}
+							estimatedTime={90}
 							src='/images/logos/drogaria-moderna.png'
 						/>
 						<StoreCard
 							storeId='1'
 							name='Drogaria Moderna'
-							category='Farmácia'
+							fee={5}
+							estimatedTime={90}
 							src='/images/logos/drogaria-moderna.png'
 						/>
 						<StoreCard
 							storeId='1'
 							name='Drogaria Moderna'
-							category='Farmácia'
+							fee={5}
+							estimatedTime={90}
 							src='/images/logos/drogaria-moderna.png'
 						/>
 						<StoreCard
 							storeId='1'
 							name='Drogaria Moderna'
-							category='Farmácia'
+							fee={5}
+							estimatedTime={90}
 							src='/images/logos/drogaria-moderna.png'
 						/>
 						<StoreCard
 							storeId='1'
 							name='Drogaria Moderna'
-							category='Farmácia'
+							fee={5}
+							estimatedTime={90}
 							src='/images/logos/drogaria-moderna.png'
 						/>
 					</BoxCard>
