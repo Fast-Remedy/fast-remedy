@@ -16,17 +16,22 @@ const StoreProductCard: React.FC<Props> = ({
 	price,
 	src,
 	availability,
-}) => (
-	<Link href={`/store/product/${productId}`}>
-		<BoxCard>
-			<Text>
-				<Description>{description}</Description>
-				<Price>R$ {price.toString().replace('.', ',')}</Price>
-				{availability === 'soldOff' && <Availability>Esgotado!</Availability>}
-			</Text>
-			<Image src={src} alt={description} />
-		</BoxCard>
-	</Link>
-);
+}) => {
+	const priceString = price.toFixed(2);
+	const priceConverted = priceString.replace('.', ',');
+
+	return (
+		<Link href={`/store/product/${productId}`}>
+			<BoxCard>
+				<Text>
+					<Description>{description}</Description>
+					<Price>R$ {priceConverted}</Price>
+					{availability === 'soldOff' && <Availability>Esgotado!</Availability>}
+				</Text>
+				<Image src={src} alt={description} />
+			</BoxCard>
+		</Link>
+	);
+};
 
 export default StoreProductCard;

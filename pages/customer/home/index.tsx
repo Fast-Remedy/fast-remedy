@@ -56,14 +56,6 @@ const Home = ({ stores }: IStores) => {
 		setUser(JSON.parse(localStorage.getItem('userData')));
 	}, []);
 
-	// const getData = async () => {
-	// 	const token = JSON.parse(localStorage.getItem('token'));
-	// 	const { data } = await api.get('/api/stores', {
-	// 		headers: { authorization: `Bearer ${token}` },
-	// 	});
-	// 	console.log(data);
-	// };
-
 	useEffect(() => {
 		setUserName(user?.nameCustomer.replace(/ .*/, ''));
 	}, [user]);
@@ -107,8 +99,6 @@ const Home = ({ stores }: IStores) => {
 		</Container>
 	);
 };
-
-// make page static
 
 export const getStaticProps: GetStaticProps = async () => {
 	const { data } = await api.get('/api/stores');

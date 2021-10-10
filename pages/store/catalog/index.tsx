@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { GetStaticPaths, GetStaticProps } from 'next';
 import router, { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
+import api from '../../../services/api';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
@@ -19,6 +19,8 @@ import { useNavigation } from '../../../contexts/NavigationContext';
 const Catalog: React.FC = () => {
 	const { setStoreNavigationState } = useNavigation();
 
+	const [products, setProducts] = useState([]);
+
 	useEffect(() => {
 		setStoreNavigationState({
 			home: false,
@@ -34,6 +36,24 @@ const Catalog: React.FC = () => {
 
 	// check if data has already been loaded
 	const { isFallback } = useRouter();
+
+	const getAllProducts = async () => {
+		try {
+			const { data } = await api.get(
+				`/api/products/stores/${JSON.parse(localStorage.getItem('storeData'))._id}`
+			);
+
+			console.log(data);
+
+			setProducts(data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		getAllProducts();
+	}, []);
 
 	return (
 		<Container>
@@ -70,12 +90,29 @@ const Catalog: React.FC = () => {
 						</BoxCard>
 					) : (
 						<BoxCard>
+							{products.map(product => (
+								<StoreProductCard
+									key={product._id}
+									productId={product._id}
+									description={product.descriptionProduct}
+									price={product.priceProduct}
+									src={product.imageProduct}
+									availability={product.availabilityProduct}
+								/>
+							))}
+							{/* <StoreProductCard
+								productId='1'
+								description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
+								price={5.69}
+								src='/images/logos/remedy.svg'
+								availability='available'
+							/>
 							<StoreProductCard
 								productId='1'
 								description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
 								price={5.69}
 								src='/images/logos/remedy.svg'
-								availability='soldOff'
+								availability='available'
 							/>
 							<StoreProductCard
 								productId='1'
@@ -90,21 +127,7 @@ const Catalog: React.FC = () => {
 								price={5.69}
 								src='/images/logos/remedy.svg'
 								availability='available'
-							/>
-							<StoreProductCard
-								productId='1'
-								description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
-								price={5.69}
-								src='/images/logos/remedy.svg'
-								availability='available'
-							/>
-							<StoreProductCard
-								productId='1'
-								description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
-								price={5.69}
-								src='/images/logos/remedy.svg'
-								availability='available'
-							/>
+							/> */}
 						</BoxCard>
 					)}
 				</Section>
@@ -112,39 +135,5 @@ const Catalog: React.FC = () => {
 		</Container>
 	);
 };
-
-// make page static
-
-// export const getStaticPaths: GetStaticPaths = async () => {
-// 	request to api
-// 	const response = await api.get('/stores')
-// 	const data = await response.json();
-
-//     const paths = data.map(store => {
-//         return {
-//             params: { storeId: store.idStore}
-//         }
-//     })
-
-// 	return {
-// 		// paths,
-// 		fallback: false,
-// 	};
-// };
-
-// export const getStaticProps: GetStaticProps = async context => {
-// 	const { storeId } = context.params;
-
-// 	// request to api
-// 	// const response = await api.get(`/stores/${storeId}`)
-// 	// const data = await response.json();
-
-// 	return {
-// 		props: {
-// 			products: data,
-// 		},
-// 		revalidate: 10, // time in seconds
-// 	};
-// };
 
 export default Catalog;

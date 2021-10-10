@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-// import { GetStaticProps } from 'next';
-import router, { useRouter } from 'next/router';
+import router from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
+import api from '../../../../services/api';
+import base64 from '../../../../utils/base64';
 
 import Container from '../../../../components/Container';
 import TitleBox from '../../../../components/TitleBox';
@@ -30,16 +31,78 @@ const NewProduct: React.FC = () => {
 		});
 	}, []);
 
-	// check if data has already been loaded
-	const { isFallback } = useRouter();
+	const [message, setMessage] = useState('');
+	const [isImageIncorrect, setIsImageIncorrect] = useState(false);
 
-	const handleSave = () => {
+	const [isImageLoading, setIsImageLoading] = useState(false);
+	const [isFetching, setIsFetching] = useState(false);
+
+	const [categoryProduct, setCategoryProduct] = useState('Medicine');
+	const [descriptionProduct, setDescriptionProduct] = useState('');
+	const [priceProduct, setPriceProduct] = useState('');
+	const [availabilityProduct, setAvailabilityProduct] = useState('available');
+	const [idStore, setIdStore] = useState(JSON.parse(localStorage.getItem('storeData'))._id);
+	const [imageProduct, setImageProduct] = useState('');
+	const [imageName, setImageName] = useState('');
+
+	const changeImage = async e => {
+		setIsImageLoading(true);
+		if (e.target.files[0].size > 5000000) {
+			setImageProduct('');
+			setImageName('');
+			setIsImageIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('A imagem deve conter até 5 MB!');
+			setIsImageLoading(false);
+		} else {
+			setImageName(e.target.value);
+			const img64 = await base64(e.target.files);
+			setImageProduct(img64);
+		}
+	};
+
+	const handleSave = async () => {
 		setIsMessageVisible(true);
 
-		setTimeout(() => {
-			router.back();
-		}, 2000);
+		const priceConverted = priceProduct.split(' ', 2);
+
+		const availability = availabilityProduct === 'available' ? true : false;
+
+		const newProduct = {
+			idStore,
+			categoryProduct,
+			descriptionProduct,
+			priceProduct: priceConverted[1].replace(/,/g, '.'),
+			availabilityProduct: availability,
+			imageProduct,
+			registrationDateProduct: new Date(),
+		};
+
+		try {
+			setIsFetching(true);
+			const { data } = await api.post('/api/register/product/stores', newProduct, {
+				headers: {
+					authorization: `Bearer ${JSON.parse(localStorage.getItem('storeToken'))}`,
+				},
+			});
+
+			console.log(data);
+			setTimeout(() => {
+				router.back();
+			}, 2000);
+		} catch (error) {
+			console.log(error);
+			setIsFetching(false);
+		}
 	};
+
+	useEffect(() => {
+		if (imageProduct !== '') {
+			setIsImageIncorrect(false);
+			setIsMessageVisible(false);
+			setIsImageLoading(false);
+		}
+	}, [imageProduct]);
 
 	return (
 		<Container>
@@ -70,96 +133,73 @@ const NewProduct: React.FC = () => {
 							</Button>
 						</>
 					</ButtonsContainer>
-					{isFallback ? (
-						<BoxCard>
-							<LoadingMessage />
-						</BoxCard>
-					) : (
-						<>
-							<InputField
-								label='Descrição'
-								placeholder='Dipirona Sódica 500mg Genérico 10 Comprimidos'
-								required={true}
-							/>
-							<InputField
-								className='file'
-								label='Imagem'
-								type='file'
-								accept='.png, .jpg, .jpeg'
-								required={true}
-							/>
-							<InputField label='Preço' placeholder='R$ 5,69' required={true} />
-							<SelectField label='Disponibilidade'>
-								<option value='available'>Disponível</option>
-								<option value='soldOff'>Esgotado</option>
-							</SelectField>
-							<ButtonsContainer style={{ marginTop: '1rem' }}>
-								<Button
-									className='icon right'
-									width='100%'
-									color={Theme.colors.white}
-									backgroundColor={Theme.colors.green}
-									onClick={handleSave}
-								>
-									<img
-										src='/images/icons/save.svg'
-										alt='Salvar'
-										style={{ filter: 'invert(1)' }}
-									/>
-									Cadastrar
-								</Button>
-							</ButtonsContainer>
-							{isMessageVisible && (
-								<AnimatePresence>
-									<motion.div
-										initial={{ opacity: 0 }}
-										animate={{ opacity: 1 }}
-										transition={{ duration: 0.3 }}
-									>
-										<Message>Produto cadastrado!</Message>
-									</motion.div>
-								</AnimatePresence>
+					<InputField
+						label='Descrição'
+						placeholder='Dipirona Sódica 500mg Genérico 10 Comprimidos'
+						required={true}
+						value={descriptionProduct}
+						onChange={e => setDescriptionProduct(e.target.value)}
+					/>
+					<InputField
+						className='file'
+						label='Imagem (JPG ou PNG até 5 MB)'
+						type='file'
+						accept='.png, .jpg, .jpeg'
+						required={true}
+						value={imageName}
+						disabled={isImageLoading}
+						onChange={e => changeImage(e)}
+						isIncorrect={isImageIncorrect}
+					/>
+					<InputField
+						label='Preço'
+						placeholder='R$ 5,69'
+						required={true}
+						value={priceProduct}
+						onChange={e => setPriceProduct(e.target.value)}
+					/>
+					<SelectField
+						label='Disponibilidade'
+						value={availabilityProduct}
+						onChange={e => setAvailabilityProduct(e.target.value)}
+					>
+						<option value='available'>Disponível</option>
+						<option value='soldOff'>Esgotado</option>
+					</SelectField>
+					<ButtonsContainer style={{ marginTop: '1rem' }}>
+						<Button
+							className='icon right'
+							width='100%'
+							color={Theme.colors.white}
+							backgroundColor={Theme.colors.green}
+							onClick={handleSave}
+							isLoading={isFetching}
+						>
+							{!isFetching && (
+								<img
+									src='/images/icons/save.svg'
+									alt='Salvar'
+									style={{ filter: 'invert(1)' }}
+								/>
 							)}
-						</>
+							{isFetching ? 'Carregando...' : 'Cadastrar'}
+						</Button>
+					</ButtonsContainer>
+					{isMessageVisible && (
+						<AnimatePresence>
+							<motion.div
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								transition={{ duration: 0.3 }}
+							>
+								<Message>Produto cadastrado!</Message>
+							</motion.div>
+						</AnimatePresence>
 					)}
 				</Section>
 			</>
 		</Container>
 	);
 };
-
-// make page static
-
-// export const getStaticPaths: GetStaticPaths = async () => {
-// 	request to api
-// 	const response = await api.get('/products')
-// 	const data = await response.json();
-
-//     const paths = data.map(product => {
-//         return {
-//             params: { productId: product.idProduct}
-//         }
-//     })
-
-// 	return {
-// 		// paths,
-// 		fallback: false,
-// 	};
-// };
-
-// export const getStaticProps: GetStaticProps = async context => {
-// 	const { productId } = context.params;
-
-// 	// request to api
-// 	// const response = await api.get(`/products/${productId}`)
-// 	// const data = await response.json();
-
-// 	return {
-// 		props: {
-// 			product: data,
-// 		},
-// 		revalidate: 10, // time in seconds
-// 	};
-// };
 
 export default NewProduct;
