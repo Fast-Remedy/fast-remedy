@@ -37,7 +37,14 @@ const Profile: React.FC = () => {
 						<ProfileCard href='store/edit' menu='Meus Dados' />
 					</BoxCard>
 					<BoxCard>
-						<ProfileCard href='' menu='Sair' />
+						<ProfileCard
+							href=''
+							menu='Sair'
+							onClick={() => {
+								localStorage.removeItem('storeToken');
+								localStorage.removeItem('storeData');
+							}}
+						/>
 					</BoxCard>
 				</Section>
 			</>

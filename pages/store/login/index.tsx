@@ -2,6 +2,8 @@ import React, { FormEvent, useState, useEffect } from 'react';
 import Link from 'next/link';
 import router from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
+import api from '../../../services/api';
+import base64 from '../../../utils/base64';
 
 import TitleBox from '../../../components/TitleBox';
 import Form from '../../../components/Form';
@@ -17,6 +19,7 @@ import {
 	Section,
 	LogoImage,
 	PasswordRecover,
+	Message,
 } from '../../../styles/store/login';
 
 import Theme from '../../../styles/theme';
@@ -24,12 +27,26 @@ import Theme from '../../../styles/theme';
 const Login: React.FC = () => {
 	const [isLoginPageVisible, setIsLoginPageVisible] = useState(true);
 
-	const [isLoginButtonIncorrect, setIsLoginButtonIncorrect] = useState(false);
-	const [isRegisterButtonIncorrect, setIsRegisterButtonIncorrect] = useState(false);
-
 	const [isMessageVisible, setIsMessageVisible] = useState(false);
 	const [message, setMessage] = useState('');
+	const [isEmailLoginIncorrect, setIsEmailLoginIncorrect] = useState(false);
+	const [isPasswordLoginIncorrect, setIsPasswordLoginIncorrect] = useState(false);
+	const [isCompanyNameIncorrect, setIsCompanyNameIncorrect] = useState(false);
+	const [isTradingNameIncorrect, setIsTradingNameIncorrect] = useState(false);
+	const [isCnpjIncorrect, setIsCnpjIncorrect] = useState(false);
+	const [isPhoneIncorrect, setIsPhoneIncorrect] = useState(false);
+	const [isEmailIncorrect, setIsEmailIncorrect] = useState(false);
+	const [isPasswordIncorrect, setIsPasswordIncorrect] = useState(false);
+	const [isLogoIncorrect, setIsLogoIncorrect] = useState(false);
+	const [isDeliveryModeIncorrect, setIsDeliveryModeIncorrect] = useState(false);
+	const [isDeliveryFeeIncorrect, setIsDeliveryFeeIncorrect] = useState(false);
+	const [isDeliveryEstimatedTimeIncorrect, setIsDeliveryEstimatedTimeIncorrect] = useState(false);
+	const [isBankNumberIncorrect, setIsBankNumberIncorrect] = useState(false);
+	const [isAgencyNumberIncorrect, setIsAgencyNumberIncorrect] = useState(false);
+	const [isAccountNumberIncorrect, setIsAccountNumberIncorrect] = useState(false);
+	const [isVerifyingDigitIncorrect, setIsVerifyingDigitIncorrect] = useState(false);
 
+	const [isLogoLoading, setIsLogoLoading] = useState(false);
 	const [isFetching, setIsFetching] = useState(false);
 
 	const [emailLogin, setEmailLogin] = useState('1');
@@ -41,7 +58,8 @@ const Login: React.FC = () => {
 	const [email, setEmail] = useState('6');
 	const [password, setPassword] = useState('7');
 	const [confirmPassword, setConfirmPassword] = useState('8');
-	const [logo, setLogo] = useState('');
+	const [logo, setLogo] = useState<any>();
+	const [logoName, setLogoName] = useState('');
 	const [deliveryMode, setDeliveryMode] = useState('Own');
 	const [deliveryFee, setDeliveryFee] = useState('');
 	const [deliveryEstimatedTime, setDeliveryEstimatedTime] = useState('');
@@ -50,13 +68,25 @@ const Login: React.FC = () => {
 	const [accountNumber, setAccountNumber] = useState('');
 	const [verifyingDigit, setVerifyingDigit] = useState('');
 
-	useEffect(() => {
-		setIsLoginButtonIncorrect(false);
-	}, [emailLogin, passwordLogin]);
-
-	useEffect(() => {
-		setIsRegisterButtonIncorrect(false);
-	}, [companyName, tradingName, cnpj, phone, email, password, confirmPassword]);
+	const clearForm = () => {
+		setEmailLogin('');
+		setPasswordLogin('');
+		setCompanyName('');
+		setTradingName('');
+		setCnpj('');
+		setPhone('');
+		setEmail('');
+		setPassword('');
+		setConfirmPassword('');
+		setLogo('');
+		setDeliveryMode('Own');
+		setDeliveryFee('');
+		setDeliveryEstimatedTime('');
+		setBankNumber('');
+		setAgencyNumber('');
+		setAccountNumber('');
+		setVerifyingDigit('');
+	};
 
 	const handleLogin = async (e: FormEvent) => {
 		e.preventDefault();
@@ -67,10 +97,17 @@ const Login: React.FC = () => {
 		};
 
 		try {
-			// authentication
+			setIsFetching(true);
+			const response = await api.post('/api/login/stores', loginData);
+			localStorage.setItem('storeToken', JSON.stringify(response.data.token));
+			localStorage.setItem('storeData', JSON.stringify(response.data.storeList));
 			router.push('/store/home');
-		} catch (err) {
-			setIsLoginButtonIncorrect(true);
+		} catch (error) {
+			setIsFetching(false);
+			setIsEmailLoginIncorrect(true);
+			setIsPasswordLoginIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Usuário e/ou senha inválido(s)!');
 		}
 	};
 
@@ -80,25 +117,181 @@ const Login: React.FC = () => {
 		const timeArray = deliveryEstimatedTime.split(':');
 		const minutes = Number(timeArray[0]) * 60 + Number(timeArray[1]);
 
+		const deliveryFeeConverted = deliveryFee.split(' ', 2);
+
 		const registerData = {
 			companyNameStore: companyName,
 			tradingNameStore: tradingName,
-			cnpjStore: cnpj,
-			phoneStore: phone,
+			cnpjStore: cnpj.replace(/[^0-9]+/g, ''),
+			phoneStore: phone.replace(/[^0-9]+/g, ''),
 			emailStore: email,
 			passwordStore: password,
-			deliveryFeeStore: 1,
+			imageStore: logo,
+			deliveryMode,
+			deliveryFeeStore: deliveryFeeConverted[1].replace(/,/g, '.'),
 			deliveryEstimatedTimeStore: minutes,
+			bankNumber: bankNumber,
+			agencyNumber: agencyNumber,
+			accountNumber: accountNumber,
+			verifyingDigit: verifyingDigit,
 			registrationDateStore: new Date(),
 		};
 
-		try {
-			// authentication
-			router.push('/store/home');
-		} catch (err) {
-			setIsRegisterButtonIncorrect(true);
+		let isIncorrect = false;
+
+		if (bankNumber.trim().length < 3) {
+			setIsBankNumberIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('O código do banco deve conter 3 dígitos!');
+			isIncorrect = true;
+		}
+		if (password.trim().length >= 8 && password.trim() !== confirmPassword.trim()) {
+			setIsPasswordIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('As senhas não coincidem!');
+			isIncorrect = true;
+		}
+		if (password.trim().length < 8) {
+			setIsPasswordIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('A senha deve conter pelo menos 8 caracteres!');
+			isIncorrect = true;
+		}
+		if (registerData.phoneStore.trim().length < 10) {
+			setIsPhoneIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Insira um número de celular válido!');
+			isIncorrect = true;
+		}
+		if (registerData.cnpjStore.trim().length < 14) {
+			setIsCnpjIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('O CNPJ deve conter 14 dígitos!');
+			isIncorrect = true;
+		}
+		if (registerData.companyNameStore.length < 5) {
+			setIsCompanyNameIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Insira um nome válido!');
+			isIncorrect = true;
+		}
+		if (registerData.tradingNameStore.length < 5) {
+			setIsTradingNameIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Insira um nome válido!');
+			isIncorrect = true;
+		}
+		if (isLogoLoading) {
+			setIsLogoIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Aguarde o carregamento da imagem!');
+			isIncorrect = true;
+		}
+		if (!isIncorrect) {
+			try {
+				setIsFetching(true);
+				await api.post('/api/register/stores', registerData);
+				setIsFetching(false);
+				setIsLoginPageVisible(true);
+				clearForm();
+			} catch (error) {
+				setIsFetching(false);
+				if (error.response.data.error.includes('cnpj')) {
+					setIsCnpjIncorrect(true);
+					setIsMessageVisible(true);
+					setMessage('Este CNPJ já está cadastrado!');
+				}
+				if (error.response.data.error.includes('email')) {
+					setIsEmailIncorrect(true);
+					setIsMessageVisible(true);
+					setMessage('Este email já está cadastrado!');
+				}
+			}
 		}
 	};
+
+	useEffect(() => {
+		setIsEmailLoginIncorrect(false);
+		setIsPasswordLoginIncorrect(false);
+		setIsMessageVisible(false);
+	}, [emailLogin]);
+
+	useEffect(() => {
+		setIsEmailLoginIncorrect(false);
+		setIsPasswordLoginIncorrect(false);
+		setIsMessageVisible(false);
+	}, [passwordLogin]);
+
+	useEffect(() => {
+		setIsTradingNameIncorrect(false);
+		setIsMessageVisible(false);
+	}, [tradingName]);
+
+	useEffect(() => {
+		setIsCompanyNameIncorrect(false);
+		setIsMessageVisible(false);
+	}, [companyName]);
+
+	useEffect(() => {
+		setIsCnpjIncorrect(false);
+		setIsMessageVisible(false);
+	}, [cnpj]);
+
+	useEffect(() => {
+		setIsPhoneIncorrect(false);
+		setIsMessageVisible(false);
+	}, [phone]);
+
+	useEffect(() => {
+		setIsEmailIncorrect(false);
+		setIsMessageVisible(false);
+	}, [email]);
+
+	useEffect(() => {
+		setIsPasswordIncorrect(false);
+		setIsMessageVisible(false);
+	}, [password, confirmPassword]);
+
+	useEffect(() => {
+		setIsLogoIncorrect(false);
+		setIsMessageVisible(false);
+		setIsLogoLoading(false);
+	}, [logo]);
+
+	useEffect(() => {
+		setIsDeliveryModeIncorrect(false);
+		setIsMessageVisible(false);
+	}, [deliveryMode]);
+
+	useEffect(() => {
+		setIsDeliveryFeeIncorrect(false);
+		setIsMessageVisible(false);
+	}, [deliveryFee]);
+
+	useEffect(() => {
+		setIsDeliveryEstimatedTimeIncorrect(false);
+		setIsMessageVisible(false);
+	}, [deliveryEstimatedTime]);
+
+	useEffect(() => {
+		setIsBankNumberIncorrect(false);
+		setIsMessageVisible(false);
+	}, [bankNumber]);
+
+	useEffect(() => {
+		setIsAgencyNumberIncorrect(false);
+		setIsMessageVisible(false);
+	}, [agencyNumber]);
+
+	useEffect(() => {
+		setIsAccountNumberIncorrect(false);
+		setIsMessageVisible(false);
+	}, [accountNumber]);
+
+	useEffect(() => {
+		setIsVerifyingDigitIncorrect(false);
+		setIsMessageVisible(false);
+	}, [verifyingDigit]);
 
 	return (
 		<Container>
@@ -119,7 +312,11 @@ const Login: React.FC = () => {
 								className='icon margin'
 								width='13rem'
 								height='2.5rem'
-								onClick={() => setIsLoginPageVisible(!isLoginPageVisible)}
+								onClick={() => {
+									setIsLoginPageVisible(!isLoginPageVisible);
+									setIsMessageVisible(false);
+									clearForm();
+								}}
 								style={{ textAlign: 'right', paddingRight: '0.2rem' }}
 							>
 								<svg
@@ -145,7 +342,7 @@ const Login: React.FC = () => {
 									required={true}
 									value={emailLogin}
 									onChange={e => setEmailLogin(e.target.value)}
-									isIncorrect={isLoginButtonIncorrect}
+									isIncorrect={isEmailLoginIncorrect}
 								/>
 								<InputField
 									label='Senha'
@@ -154,7 +351,7 @@ const Login: React.FC = () => {
 									required={true}
 									value={passwordLogin}
 									onChange={e => setPasswordLogin(e.target.value)}
-									isIncorrect={isLoginButtonIncorrect}
+									isIncorrect={isPasswordLoginIncorrect}
 								/>
 								<ButtonsContainer style={{ marginTop: '1rem' }}>
 									<Button
@@ -162,33 +359,42 @@ const Login: React.FC = () => {
 										width='100%'
 										type='submit'
 										color={Theme.colors.white}
-										backgroundColor={
-											isLoginButtonIncorrect
-												? Theme.colors.red
-												: Theme.colors.green
-										}
+										backgroundColor={Theme.colors.green}
+										isLoading={isFetching}
 									>
-										<svg
-											xmlns='http://www.w3.org/2000/svg'
-											fill='none'
-											stroke='#fff'
-											viewBox='0 0 24 24'
-										>
-											<path
-												strokeLinecap='round'
-												strokeLinejoin='round'
-												strokeWidth={2}
-												d='M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1'
-											/>
-										</svg>
-										{isLoginButtonIncorrect
-											? 'Usuário e/ou senha incorreto(s)!'
-											: 'Entrar'}
+										{!isFetching && (
+											<svg
+												xmlns='http://www.w3.org/2000/svg'
+												fill='none'
+												stroke='#fff'
+												viewBox='0 0 24 24'
+											>
+												<path
+													strokeLinecap='round'
+													strokeLinejoin='round'
+													strokeWidth={2}
+													d='M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1'
+												/>
+											</svg>
+										)}
+										{isFetching ? 'Carregando...' : 'Entrar'}
 									</Button>
 								</ButtonsContainer>
 								<Link href='/store/recover'>
 									<PasswordRecover>Esqueci minha senha</PasswordRecover>
 								</Link>
+								{isMessageVisible && (
+									<AnimatePresence>
+										<motion.div
+											initial={{ opacity: 0 }}
+											animate={{ opacity: 1 }}
+											transition={{ duration: 0.3 }}
+											style={{ marginTop: '1.2rem' }}
+										>
+											<Message>{message}</Message>
+										</motion.div>
+									</AnimatePresence>
+								)}
 							</>
 						</Form>
 					</motion.div>
@@ -207,7 +413,11 @@ const Login: React.FC = () => {
 									className='icon margin'
 									width='13rem'
 									height='2.5rem'
-									onClick={() => setIsLoginPageVisible(!isLoginPageVisible)}
+									onClick={() => {
+										setIsLoginPageVisible(!isLoginPageVisible);
+										setIsMessageVisible(false);
+										clearForm();
+									}}
 								>
 									<svg
 										fill='currentColor'
@@ -232,7 +442,7 @@ const Login: React.FC = () => {
 										required={true}
 										value={companyName}
 										onChange={e => setCompanyName(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isCompanyNameIncorrect}
 									/>
 									<InputField
 										label='Nome Fantasia'
@@ -240,22 +450,28 @@ const Login: React.FC = () => {
 										required={true}
 										value={tradingName}
 										onChange={e => setTradingName(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isTradingNameIncorrect}
 									/>
 									<InputField
 										label='CNPJ'
+										mask='99.999.999/9999-99'
 										placeholder='12.345.678/0009-10'
 										required={true}
 										value={cnpj}
 										onChange={e => setCnpj(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isCnpjIncorrect}
 									/>
 									<InputField
 										label='Telefone'
+										mask={
+											phone?.length >= 6 && phone?.[5] === '9'
+												? '(99) 99999-9999'
+												: '(99) 9999-9999'
+										}
 										placeholder='(24) 3333-4444'
 										value={phone}
 										onChange={e => setPhone(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isPhoneIncorrect}
 									/>
 									<InputField
 										label='Email'
@@ -264,7 +480,7 @@ const Login: React.FC = () => {
 										required={true}
 										value={email}
 										onChange={e => setEmail(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isEmailIncorrect}
 									/>
 									<InputField
 										label='Senha'
@@ -273,7 +489,7 @@ const Login: React.FC = () => {
 										required={true}
 										value={password}
 										onChange={e => setPassword(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isPasswordIncorrect}
 									/>
 									<InputField
 										label='Confirmar Senha'
@@ -282,7 +498,7 @@ const Login: React.FC = () => {
 										required={true}
 										value={confirmPassword}
 										onChange={e => setConfirmPassword(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isPasswordIncorrect}
 									/>
 									<InputField
 										className='file'
@@ -290,26 +506,33 @@ const Login: React.FC = () => {
 										type='file'
 										accept='.png, .jpg, .jpeg'
 										required={true}
-										value={logo}
-										onChange={e => setLogo(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										value={logoName}
+										onChange={async e => {
+											setIsLogoLoading(true);
+											setLogoName(e.target.value);
+											const img64 = await base64(e.target.files);
+											setLogo(img64);
+										}}
+										isIncorrect={isLogoIncorrect}
 									/>
 									<SelectField
 										disabled
 										label='Modo de entrega'
 										value={deliveryMode}
 										onChange={e => setDeliveryMode(e.target.value)}
+										isIncorrect={isDeliveryModeIncorrect}
 									>
 										<option value='Own'>Entregador próprio</option>
 										<option value='Platform'>Entregador da plataforma</option>
 									</SelectField>
 									<InputField
 										label='Taxa de entrega'
+										mask='R$ 9,99'
 										placeholder='R$ 5,00'
 										required={true}
 										value={deliveryFee}
 										onChange={e => setDeliveryFee(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isDeliveryFeeIncorrect}
 									/>
 									<InputField
 										label='Tempo estimado de entrega'
@@ -319,15 +542,16 @@ const Login: React.FC = () => {
 										required={true}
 										value={deliveryEstimatedTime}
 										onChange={e => setDeliveryEstimatedTime(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isDeliveryEstimatedTimeIncorrect}
 									/>
 									<InputField
 										label='Código do banco'
+										mask='999'
 										placeholder='104'
 										required={true}
 										value={bankNumber}
 										onChange={e => setBankNumber(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isBankNumberIncorrect}
 									/>
 									<InputField
 										label='Agência'
@@ -335,7 +559,7 @@ const Login: React.FC = () => {
 										required={true}
 										value={agencyNumber}
 										onChange={e => setAgencyNumber(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isAgencyNumberIncorrect}
 									/>
 									<InputField
 										label='Conta (sem dígito verificador)'
@@ -343,40 +567,54 @@ const Login: React.FC = () => {
 										required={true}
 										value={accountNumber}
 										onChange={e => setAccountNumber(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isAccountNumberIncorrect}
 									/>
 									<InputField
-										label='Dígito verificador'
+										label='Dígito verificador (caso não possua, digite 0)'
 										placeholder='8'
 										required={true}
 										value={verifyingDigit}
 										onChange={e => setVerifyingDigit(e.target.value)}
-										isIncorrect={isRegisterButtonIncorrect}
+										isIncorrect={isVerifyingDigitIncorrect}
 									/>
 									<ButtonsContainer style={{ marginTop: '1rem' }}>
 										<Button
-											className='icon right'
+											className='icon right margin'
 											width='100%'
 											type='submit'
 											color={Theme.colors.white}
 											backgroundColor={Theme.colors.green}
+											isLoading={isFetching}
 										>
-											<svg
-												xmlns='http://www.w3.org/2000/svg'
-												fill='none'
-												stroke='#fff'
-												viewBox='0 0 24 24'
-											>
-												<path
-													strokeLinecap='round'
-													strokeLinejoin='round'
-													strokeWidth={2}
-													d='M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1'
-												/>
-											</svg>
-											Cadastrar
+											{!isFetching && (
+												<svg
+													xmlns='http://www.w3.org/2000/svg'
+													fill='none'
+													stroke='#fff'
+													viewBox='0 0 24 24'
+												>
+													<path
+														strokeLinecap='round'
+														strokeLinejoin='round'
+														strokeWidth={2}
+														d='M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1'
+													/>
+												</svg>
+											)}
+											{isFetching ? 'Carregando...' : 'Cadastrar'}
 										</Button>
 									</ButtonsContainer>
+									{isMessageVisible && (
+										<AnimatePresence>
+											<motion.div
+												initial={{ opacity: 0 }}
+												animate={{ opacity: 1 }}
+												transition={{ duration: 0.3 }}
+											>
+												<Message>{message}</Message>
+											</motion.div>
+										</AnimatePresence>
+									)}
 								</>
 							</Form>
 						</motion.div>

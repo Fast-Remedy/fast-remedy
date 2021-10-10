@@ -31,6 +31,7 @@ const Home: React.FC = () => {
 		phoneCustomer: '',
 		registrationDateCustomer: '',
 	});
+	const [userName, setUserName] = useState('');
 
 	useEffect(() => {
 		setNavigationState({
@@ -41,6 +42,10 @@ const Home: React.FC = () => {
 		});
 		setUser(JSON.parse(localStorage.getItem('userData')));
 	}, []);
+
+	useEffect(() => {
+		setUserName(user?.nameCustomer.replace(/ .*/, ''));
+	}, [user]);
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -61,8 +66,7 @@ const Home: React.FC = () => {
 						{timeNow >= 0 && timeNow <= 4 && 'Boa noite'}
 						{timeNow >= 5 && timeNow <= 11 && 'Bom dia'}
 						{timeNow >= 12 && timeNow <= 17 && 'Boa tarde'}
-						{timeNow >= 18 && timeNow <= 24 && 'Boa noite'},{' '}
-						{user.nameCustomer.replace(/ .*/, '')}!
+						{timeNow >= 18 && timeNow <= 24 && 'Boa noite'}, {userName}!
 					</Greeting>
 					<BoxCard>
 						<StoreCard

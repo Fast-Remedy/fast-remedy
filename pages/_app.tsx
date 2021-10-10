@@ -26,9 +26,22 @@ const App: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 				!localStorage.getItem('token') &&
 				router.route !== '/' &&
 				!router.route.includes('login') &&
-				!router.route.includes('recover')
+				!router.route.includes('recover') &&
+				router.route.includes('customer/')
 			) {
-				setIsAuthenticated(false!);
+				setIsAuthenticated(false);
+				Router.replace('/');
+			} else {
+				setIsAuthenticated(true);
+			}
+			if (
+				!localStorage.getItem('storeToken') &&
+				router.route !== '/' &&
+				!router.route.includes('login') &&
+				!router.route.includes('recover') &&
+				router.route.includes('store/')
+			) {
+				setIsAuthenticated(false);
 				Router.replace('/');
 			} else {
 				setIsAuthenticated(true);

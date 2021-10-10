@@ -18,10 +18,46 @@ import {
 
 import { useNavigation } from '../../../contexts/NavigationContext';
 
+interface IStore {
+	_id: string;
+	cnpjStore: string;
+	emailStore: string;
+	companyNameStore: string;
+	tradingNameStore: string;
+	phoneStore: string;
+	imageStore: string;
+	deliveryMode: string;
+	deliveryFeeStore: number;
+	deliveryEstimatedTimeStore: string;
+	bankNumber: string;
+	agencyNumber: string;
+	accountNumber: string;
+	verifyingDigit: string;
+	registrationDateStore: string;
+}
+
 const Home: React.FC = () => {
 	const { setStoreNavigationState } = useNavigation();
 
 	const [timeNow, setTimeNow] = useState(new Date().getHours());
+	const [store, setStore] = useState<IStore>({
+		_id: '',
+		cnpjStore: '',
+		emailStore: '',
+		companyNameStore: '',
+		tradingNameStore: '',
+		phoneStore: '',
+		imageStore: '',
+		deliveryMode: '',
+		deliveryFeeStore: 0,
+		deliveryEstimatedTimeStore: '',
+		bankNumber: '',
+		agencyNumber: '',
+		accountNumber: '',
+		verifyingDigit: '',
+		registrationDateStore: '',
+	});
+	const [storeName, setStoreName] = useState('');
 
 	useEffect(() => {
 		setStoreNavigationState({
@@ -30,7 +66,12 @@ const Home: React.FC = () => {
 			catalog: false,
 			profile: false,
 		});
+		setStore(JSON.parse(localStorage.getItem('storeData')));
 	}, []);
+
+	useEffect(() => {
+		setStoreName(store?.tradingNameStore);
+	}, [store]);
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -50,7 +91,7 @@ const Home: React.FC = () => {
 						{timeNow >= 0 && timeNow <= 4 && 'Boa noite'}
 						{timeNow >= 5 && timeNow <= 11 && 'Bom dia'}
 						{timeNow >= 12 && timeNow <= 17 && 'Boa tarde'}
-						{timeNow >= 18 && timeNow <= 24 && 'Boa noite'}, Loja X!
+						{timeNow >= 18 && timeNow <= 24 && 'Boa noite'}, {storeName}!
 					</Greeting>
 					<BoxCard>
 						<InfoCard>

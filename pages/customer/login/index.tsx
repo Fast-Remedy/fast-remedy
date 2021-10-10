@@ -182,7 +182,7 @@ const Login: React.FC = () => {
 	useEffect(() => {
 		setIsPasswordIncorrect(false);
 		setIsMessageVisible(false);
-	}, [password]);
+	}, [password, confirmPassword]);
 
 	return (
 		<Container>
