@@ -2,6 +2,7 @@ import React, { FormEvent, useState, useEffect } from 'react';
 import router from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiChevronRight } from 'react-icons/fi';
+import base64 from '../../../utils/base64';
 
 import TitleBox from '../../../components/TitleBox';
 import Form from '../../../components/Form';
@@ -9,7 +10,16 @@ import InputField from '../../../components/InputField';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
 
-import { Container, Section, BoxCard, Text, Title, Message } from '../../../styles/store/edit';
+import {
+	Container,
+	Section,
+	BoxCard,
+	Text,
+	Title,
+	Message,
+	Image,
+	ImageContainer,
+} from '../../../styles/store/edit';
 import Theme from '../../../styles/theme';
 
 import { useNavigation } from '../../../contexts/NavigationContext';
@@ -26,6 +36,8 @@ const Edit: React.FC = () => {
 		});
 	}, []);
 
+	const [isLogoLoading, setIsLogoLoading] = useState(false);
+
 	const [companyData, setCompanyData] = useState(false);
 	const [contactData, setContactData] = useState(false);
 	const [passwordData, setPasswordData] = useState(false);
@@ -38,6 +50,7 @@ const Edit: React.FC = () => {
 	const [password, setPassword] = useState('7');
 	const [confirmPassword, setConfirmPassword] = useState('8');
 	const [logo, setLogo] = useState('');
+	const [logoName, setLogoName] = useState('');
 
 	const handleCompanyData = async (e: FormEvent) => {
 		e.preventDefault();
@@ -192,15 +205,27 @@ const Edit: React.FC = () => {
 										value={cnpj}
 										onChange={e => setCnpj(e.target.value)}
 									/>
-									<InputField
-										className='file'
-										label='Logo'
-										type='file'
-										accept='.png, .jpg, .jpeg'
-										required={true}
-										value={logo}
-										onChange={e => setLogo(e.target.value)}
-									/>
+									<ImageContainer>
+										<InputField
+											className='file'
+											label='Logo'
+											type='file'
+											accept='.png, .jpg, .jpeg'
+											required={true}
+											value={logoName}
+											onChange={async e => {
+												setIsLogoLoading(true);
+												setLogoName(e.target.value);
+												const img64 = await base64(e.target.files);
+												setLogo(img64);
+											}}
+											// isIncorrect={isLogoIncorrect}
+										/>
+										<Image
+											src='/images/logos/drogaria-moderna.png'
+											alt='logo'
+										/>
+									</ImageContainer>
 									<ButtonsContainer style={{ marginTop: '1rem' }}>
 										<Button
 											width='100%'

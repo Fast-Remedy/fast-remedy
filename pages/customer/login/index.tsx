@@ -23,6 +23,13 @@ import {
 import Theme from '../../../styles/theme';
 
 const Login: React.FC = () => {
+	useEffect(() => {
+		localStorage.removeItem('token');
+		localStorage.removeItem('userData');
+		localStorage.removeItem('storeToken');
+		localStorage.removeItem('storeData');
+	}, []);
+
 	const [isLoginPageVisible, setIsLoginPageVisible] = useState(true);
 
 	const [isMessageVisible, setIsMessageVisible] = useState(false);

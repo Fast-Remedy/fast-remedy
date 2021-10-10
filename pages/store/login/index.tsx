@@ -25,6 +25,13 @@ import {
 import Theme from '../../../styles/theme';
 
 const Login: React.FC = () => {
+	useEffect(() => {
+		localStorage.removeItem('token');
+		localStorage.removeItem('userData');
+		localStorage.removeItem('storeToken');
+		localStorage.removeItem('storeData');
+	}, []);
+
 	const [isLoginPageVisible, setIsLoginPageVisible] = useState(true);
 
 	const [isMessageVisible, setIsMessageVisible] = useState(false);
@@ -49,16 +56,16 @@ const Login: React.FC = () => {
 	const [isLogoLoading, setIsLogoLoading] = useState(false);
 	const [isFetching, setIsFetching] = useState(false);
 
-	const [emailLogin, setEmailLogin] = useState('1');
-	const [passwordLogin, setPasswordLogin] = useState('2');
-	const [companyName, setCompanyName] = useState('3');
-	const [tradingName, setTradingName] = useState('3.5');
-	const [cnpj, setCnpj] = useState('4');
-	const [phone, setPhone] = useState('5');
-	const [email, setEmail] = useState('6');
-	const [password, setPassword] = useState('7');
-	const [confirmPassword, setConfirmPassword] = useState('8');
-	const [logo, setLogo] = useState<any>();
+	const [emailLogin, setEmailLogin] = useState('');
+	const [passwordLogin, setPasswordLogin] = useState('');
+	const [companyName, setCompanyName] = useState('');
+	const [tradingName, setTradingName] = useState('');
+	const [cnpj, setCnpj] = useState('');
+	const [phone, setPhone] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
+	const [logo, setLogo] = useState<any>('');
 	const [logoName, setLogoName] = useState('');
 	const [deliveryMode, setDeliveryMode] = useState('Own');
 	const [deliveryFee, setDeliveryFee] = useState('');
@@ -86,6 +93,22 @@ const Login: React.FC = () => {
 		setAgencyNumber('');
 		setAccountNumber('');
 		setVerifyingDigit('');
+	};
+
+	const changeLogo = async e => {
+		setIsLogoLoading(true);
+		if (e.target.files[0].size > 5000000) {
+			setLogo('');
+			setLogoName('');
+			setIsLogoIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('A imagem deve conter até 5 MB!');
+			setIsLogoLoading(false);
+		} else {
+			setLogoName(e.target.value);
+			const img64 = await base64(e.target.files);
+			setLogo(img64);
+		}
 	};
 
 	const handleLogin = async (e: FormEvent) => {
@@ -253,9 +276,11 @@ const Login: React.FC = () => {
 	}, [password, confirmPassword]);
 
 	useEffect(() => {
-		setIsLogoIncorrect(false);
-		setIsMessageVisible(false);
-		setIsLogoLoading(false);
+		if (logo !== '') {
+			setIsLogoIncorrect(false);
+			setIsMessageVisible(false);
+			setIsLogoLoading(false);
+		}
 	}, [logo]);
 
 	useEffect(() => {
@@ -502,17 +527,13 @@ const Login: React.FC = () => {
 									/>
 									<InputField
 										className='file'
-										label='Logo'
+										label='Logo (JPG ou PNG até 5 MB)'
 										type='file'
 										accept='.png, .jpg, .jpeg'
 										required={true}
 										value={logoName}
-										onChange={async e => {
-											setIsLogoLoading(true);
-											setLogoName(e.target.value);
-											const img64 = await base64(e.target.files);
-											setLogo(img64);
-										}}
+										disabled={isLogoLoading}
+										onChange={e => changeLogo(e)}
 										isIncorrect={isLogoIncorrect}
 									/>
 									<SelectField

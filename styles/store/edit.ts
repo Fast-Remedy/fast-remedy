@@ -76,3 +76,18 @@ export const Message = styled.span`
 	color: ${props => props.theme.colors.green};
 	margin-top: 0.5rem;
 `;
+
+export const Image = styled.img`
+	margin-top: 1.7rem;
+	width: 6rem;
+	height: 6rem;
+	border-radius: 50%;
+	object-fit: cover;
+`;
+
+export const ImageContainer = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+`;
