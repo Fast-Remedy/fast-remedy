@@ -115,7 +115,13 @@ export const getStaticProps: GetStaticProps = async () => {
 
 	return {
 		props: {
-			stores: data,
+			stores: data.sort((a, b) =>
+				a.tradingNameStore > b.tradingNameStore
+					? 1
+					: b.tradingNameStore > a.tradingNameStore
+					? -1
+					: 0
+			),
 		},
 		revalidate: 300, // time in seconds
 	};
