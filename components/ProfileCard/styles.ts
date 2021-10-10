@@ -44,4 +44,6 @@ export const Text = styled.span`
 export const Title = styled.span`
 	font-size: 1.2rem;
 	font-weight: 400;
+	background-color: ${props => props.theme.colors.black};
+	text-decoration: none;
 `;
