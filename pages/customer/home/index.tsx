@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GetStaticProps } from 'next';
+import api from '../../../services/api';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
@@ -19,7 +20,19 @@ interface IUser {
 	registrationDateCustomer: string;
 }
 
-const Home: React.FC = () => {
+interface IStore {
+	_id: string;
+	tradingNameStore: string;
+	imageStore: string;
+	deliveryFeeStore: number;
+	deliveryEstimatedTimeStore: number;
+}
+
+interface IStores {
+	stores: IStore[];
+}
+
+const Home = ({ stores }: IStores) => {
 	const { setNavigationState } = useNavigation();
 
 	const [timeNow, setTimeNow] = useState(new Date().getHours());
@@ -42,6 +55,14 @@ const Home: React.FC = () => {
 		});
 		setUser(JSON.parse(localStorage.getItem('userData')));
 	}, []);
+
+	// const getData = async () => {
+	// 	const token = JSON.parse(localStorage.getItem('token'));
+	// 	const { data } = await api.get('/api/stores', {
+	// 		headers: { authorization: `Bearer ${token}` },
+	// 	});
+	// 	console.log(data);
+	// };
 
 	useEffect(() => {
 		setUserName(user?.nameCustomer.replace(/ .*/, ''));
@@ -69,36 +90,17 @@ const Home: React.FC = () => {
 						{timeNow >= 18 && timeNow <= 24 && 'Boa noite'}, {userName}!
 					</Greeting>
 					<BoxCard>
-						<StoreCard
-							storeId='1'
-							name='Drogaria Moderna'
-							category='Farmácia'
-							src='/images/logos/drogaria-moderna.png'
-						/>
-						<StoreCard
-							storeId='1'
-							name='Drogaria Moderna'
-							category='Farmácia'
-							src='/images/logos/drogaria-moderna.png'
-						/>
-						<StoreCard
-							storeId='1'
-							name='Drogaria Moderna'
-							category='Farmácia'
-							src='/images/logos/drogaria-moderna.png'
-						/>
-						<StoreCard
-							storeId='1'
-							name='Drogaria Moderna'
-							category='Farmácia'
-							src='/images/logos/drogaria-moderna.png'
-						/>
-						<StoreCard
-							storeId='1'
-							name='Drogaria Moderna'
-							category='Farmácia'
-							src='/images/logos/drogaria-moderna.png'
-						/>
+						{stores &&
+							stores.map(store => (
+								<StoreCard
+									key={store._id}
+									storeId={store._id}
+									name={store.tradingNameStore}
+									fee={store.deliveryFeeStore}
+									estimatedTime={store.deliveryEstimatedTimeStore}
+									src={store.imageStore}
+								/>
+							))}
 					</BoxCard>
 				</Section>
 			</>
@@ -109,16 +111,13 @@ const Home: React.FC = () => {
 // make page static
 
 export const getStaticProps: GetStaticProps = async () => {
-	// request to api
-	// const { data } = await api.get('/');
-	// const stores = data;
+	const { data } = await api.get('/api/stores');
 
 	return {
 		props: {
-			// stores: data,
-			stores: [],
+			stores: data,
 		},
-		revalidate: 10, // time in seconds
+		revalidate: 300, // time in seconds
 	};
 };
 

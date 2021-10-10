@@ -34,13 +34,15 @@ export const Image = styled.img`
 	width: 6rem;
 	height: 6rem;
 	border-radius: 50%;
+	object-fit: cover;
 `;
 
 export const Text = styled.span`
+	flex: 1;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
 
 	@media (max-width: 800px) {
 		align-items: flex-start;
@@ -57,7 +59,7 @@ export const Title = styled.span`
 	}
 `;
 
-export const Category = styled.span`
+export const Subtitle = styled.span`
 	color: ${props => props.theme.colors.white};
 	font-size: 0.9rem;
 	font-weight: 400;

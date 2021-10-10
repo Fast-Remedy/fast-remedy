@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import router from 'next/router';
+import { useRouter } from 'next/router';
 
 import Button from '../components/Button';
 import { Section, LogoImage, ButtonContainer } from '../styles/index';
 
 const Index = () => {
+	const Router = useRouter();
+
+	useEffect(() => {
+		if (process.browser) {
+			if (localStorage.getItem('token') && localStorage.getItem('userData')) {
+				Router.push('/customer/home');
+			}
+			if (localStorage.getItem('storeToken') && localStorage.getItem('storeData')) {
+				Router.push('/store/home');
+			}
+		}
+	});
+
 	return (
 		<Section>
 			<LogoImage src='/images/logos/fastremedy-logo.png' alt='FastRemedy' />
