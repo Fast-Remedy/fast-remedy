@@ -11,7 +11,7 @@ import Button from '../../../../components/Button';
 import SearchField from '../../../../components/SearchField';
 import LoadingMessage from '../../../../components/LoadingMessage';
 
-import { Section, BoxCard } from '../../../../styles/customer/store';
+import { Section, BoxCard, Message } from '../../../../styles/customer/store';
 import Theme from '../../../../styles/theme';
 
 import { useNavigation } from '../../../../contexts/NavigationContext';
@@ -86,7 +86,7 @@ const Store: React.FC = () => {
 						<BoxCard>
 							<LoadingMessage />
 						</BoxCard>
-					) : (
+					) : products.length > 0 ? (
 						<BoxCard>
 							{products.map(product => (
 								<ProductCard
@@ -100,6 +100,8 @@ const Store: React.FC = () => {
 								/>
 							))}
 						</BoxCard>
+					) : (
+						<Message>Nenhum produto cadastrado!</Message>
 					)}
 				</Section>
 			</>
