@@ -76,18 +76,21 @@ const Search: React.FC = () => {
 							productId='1'
 							description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
 							price={5.69}
+							storeName='Drogaria Teste'
 							src='/images/logos/remedy.svg'
 						/>
 						<ProductCard
 							productId='1'
 							description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
 							price={5.69}
+							storeName='Drogaria Teste'
 							src='/images/logos/remedy.svg'
 						/>
 						<ProductCard
 							productId='1'
 							description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
 							price={5.69}
+							storeName='Drogaria Teste'
 							src='/images/logos/remedy.svg'
 						/>
 					</BoxCard2>
