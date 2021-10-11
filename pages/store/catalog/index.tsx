@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import router, { useRouter } from 'next/router';
+import router from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '../../../services/api';
 
@@ -11,7 +11,7 @@ import Button from '../../../components/Button';
 import SearchField from '../../../components/SearchField';
 import LoadingMessage from '../../../components/LoadingMessage';
 
-import { Section, BoxCard } from '../../../styles/store/catalog';
+import { Section, BoxCard, Message } from '../../../styles/store/catalog';
 import Theme from '../../../styles/theme';
 
 import { useNavigation } from '../../../contexts/NavigationContext';
@@ -20,6 +20,7 @@ const Catalog: React.FC = () => {
 	const { setStoreNavigationState } = useNavigation();
 
 	const [products, setProducts] = useState([]);
+	const [isFetching, setIsFetching] = useState(true);
 
 	useEffect(() => {
 		setStoreNavigationState({
@@ -30,22 +31,14 @@ const Catalog: React.FC = () => {
 		});
 	}, []);
 
-	// return url param to show directly on interface
-	// it's not required to use with SSG
-	const { query } = useRouter();
-
-	// check if data has already been loaded
-	const { isFallback } = useRouter();
-
 	const getAllProducts = async () => {
 		try {
 			const { data } = await api.get(
 				`/api/products/stores/${JSON.parse(localStorage.getItem('storeData'))._id}`
 			);
 
-			console.log(data);
-
 			setProducts(data);
+			setIsFetching(false);
 		} catch (error) {
 			console.log(error);
 		}
@@ -53,6 +46,9 @@ const Catalog: React.FC = () => {
 
 	useEffect(() => {
 		getAllProducts();
+		return () => {
+			setProducts([]);
+		};
 	}, []);
 
 	return (
@@ -84,11 +80,11 @@ const Catalog: React.FC = () => {
 						</Button>
 					</ButtonsContainer>
 					<SearchField />
-					{isFallback ? (
+					{isFetching ? (
 						<BoxCard>
 							<LoadingMessage />
 						</BoxCard>
-					) : (
+					) : products.length > 0 ? (
 						<BoxCard>
 							{products.map(product => (
 								<StoreProductCard
@@ -100,35 +96,9 @@ const Catalog: React.FC = () => {
 									availability={product.availabilityProduct}
 								/>
 							))}
-							{/* <StoreProductCard
-								productId='1'
-								description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
-								price={5.69}
-								src='/images/logos/remedy.svg'
-								availability='available'
-							/>
-							<StoreProductCard
-								productId='1'
-								description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
-								price={5.69}
-								src='/images/logos/remedy.svg'
-								availability='available'
-							/>
-							<StoreProductCard
-								productId='1'
-								description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
-								price={5.69}
-								src='/images/logos/remedy.svg'
-								availability='available'
-							/>
-							<StoreProductCard
-								productId='1'
-								description='Dipirona Sódica 500mg Genérico Medley 10 Comprimidos'
-								price={5.69}
-								src='/images/logos/remedy.svg'
-								availability='available'
-							/> */}
 						</BoxCard>
+					) : (
+						<Message>Nenhum produto cadastrado!</Message>
 					)}
 				</Section>
 			</>

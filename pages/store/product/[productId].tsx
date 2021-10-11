@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-// import { GetStaticProps } from 'next';
 import router, { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
+import api from '../../../services/api';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
@@ -15,8 +15,31 @@ import Theme from '../../../styles/theme';
 
 import { useNavigation } from '../../../contexts/NavigationContext';
 
+interface IProduct {
+	_id: string;
+	idStore: string;
+	categoryProduct: string;
+	descriptionProduct: string;
+	imageProduct: string;
+	priceProduct: number;
+	availabilityProduct: boolean;
+	registrationDateProduct: string;
+}
+
 const Product: React.FC = () => {
 	const { setStoreNavigationState } = useNavigation();
+
+	const [product, setProduct] = useState<IProduct>({
+		_id: '',
+		idStore: '',
+		categoryProduct: '',
+		descriptionProduct: '',
+		imageProduct: '',
+		priceProduct: 0,
+		availabilityProduct: false,
+		registrationDateProduct: '',
+	});
+	const [isFetching, setIsFetching] = useState(true);
 
 	const [availability, setAvailability] = useState('soldOff');
 	const [isRemoveMenuVisible, setIsRemoveMenuVisible] = useState(false);
@@ -31,12 +54,34 @@ const Product: React.FC = () => {
 		});
 	}, []);
 
-	// return url param to show directly on interface
-	// it's not required to use with SSG
 	const { query } = useRouter();
 
-	// check if data has already been loaded
-	const { isFallback } = useRouter();
+	const getProduct = async () => {
+		try {
+			const { data } = await api.get(`/api/products/${query.productId}`);
+
+			setProduct(data);
+			setIsFetching(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		getProduct();
+		return () => {
+			setProduct({
+				_id: '',
+				idStore: '',
+				categoryProduct: '',
+				descriptionProduct: '',
+				imageProduct: '',
+				priceProduct: 0,
+				availabilityProduct: false,
+				registrationDateProduct: '',
+			});
+		};
+	}, []);
 
 	const handleMakeAvailable = () => {
 		setTimeout(() => {
@@ -99,7 +144,7 @@ const Product: React.FC = () => {
 									</Button>
 								</>
 							</ButtonsContainer>
-							{isFallback ? (
+							{isFetching ? (
 								<BoxCard>
 									<LoadingMessage />
 								</BoxCard>
@@ -107,10 +152,10 @@ const Product: React.FC = () => {
 								<>
 									<BoxCard>
 										<ProductDetailsCard
-											description={`Dipirona Sódica 500mg Genérico Medley 10 Comprimidos - ${query.productId}`}
-											src='/images/logos/remedy.svg'
-											price={5.69}
-											availability={availability}
+											description={product.descriptionProduct}
+											src={product.imageProduct}
+											price={product.priceProduct}
+											availability={product.availabilityProduct}
 										/>
 									</BoxCard>
 									<BoxCard>
@@ -280,39 +325,5 @@ const Product: React.FC = () => {
 		</Container>
 	);
 };
-
-// make page static
-
-// export const getStaticPaths: GetStaticPaths = async () => {
-// 	request to api
-// 	const response = await api.get('/products')
-// 	const data = await response.json();
-
-//     const paths = data.map(product => {
-//         return {
-//             params: { productId: product.idProduct}
-//         }
-//     })
-
-// 	return {
-// 		// paths,
-// 		fallback: false,
-// 	};
-// };
-
-// export const getStaticProps: GetStaticProps = async context => {
-// 	const { productId } = context.params;
-
-// 	// request to api
-// 	// const response = await api.get(`/products/${productId}`)
-// 	// const data = await response.json();
-
-// 	return {
-// 		props: {
-// 			product: data,
-// 		},
-// 		revalidate: 10, // time in seconds
-// 	};
-// };
 
 export default Product;

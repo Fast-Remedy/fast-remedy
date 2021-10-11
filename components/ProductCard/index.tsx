@@ -7,7 +7,7 @@ interface Props {
 	description: string;
 	price: number;
 	src: string;
-	availability?: string;
+	availability?: boolean;
 }
 
 const ProductCard: React.FC<Props> = ({ productId, description, price, src, availability }) => {
@@ -16,13 +16,13 @@ const ProductCard: React.FC<Props> = ({ productId, description, price, src, avai
 
 	return (
 		<>
-			{availability === 'soldOff' ? (
+			{!availability ? (
 				<>
 					<BoxCard style={{ filter: 'none', cursor: 'not-allowed' }}>
 						<Text>
 							<Description style={{ opacity: '40%' }}>{description}</Description>
 							<Price style={{ opacity: '40%' }}>R$ {priceConverted}</Price>
-							{availability && <Availability>Esgotado!</Availability>}
+							<Availability>Esgotado!</Availability>
 						</Text>
 						<Image style={{ opacity: '40%' }} src={src} alt={description} />
 					</BoxCard>

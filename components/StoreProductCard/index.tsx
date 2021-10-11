@@ -7,7 +7,7 @@ interface Props {
 	description: string;
 	price: number;
 	src: string;
-	availability: string;
+	availability: boolean;
 }
 
 const StoreProductCard: React.FC<Props> = ({
@@ -26,7 +26,7 @@ const StoreProductCard: React.FC<Props> = ({
 				<Text>
 					<Description>{description}</Description>
 					<Price>R$ {priceConverted}</Price>
-					{availability === 'soldOff' && <Availability>Esgotado!</Availability>}
+					{!availability && <Availability>Esgotado!</Availability>}
 				</Text>
 				<Image src={src} alt={description} />
 			</BoxCard>

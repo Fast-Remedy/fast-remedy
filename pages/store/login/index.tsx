@@ -8,6 +8,7 @@ import base64 from '../../../utils/base64';
 import TitleBox from '../../../components/TitleBox';
 import Form from '../../../components/Form';
 import InputField from '../../../components/InputField';
+import CurrencyField from '../../../components/CurrencyField';
 import SelectField from '../../../components/SelectField';
 import ButtonsContainer from '../../../components/ButtonsContainer';
 import Button from '../../../components/Button';
@@ -546,9 +547,8 @@ const Login: React.FC = () => {
 										<option value='Own'>Entregador próprio</option>
 										<option value='Platform'>Entregador da plataforma</option>
 									</SelectField>
-									<InputField
+									<CurrencyField
 										label='Taxa de entrega'
-										mask='R$ 9,99'
 										placeholder='R$ 5,00'
 										required={true}
 										value={deliveryFee}

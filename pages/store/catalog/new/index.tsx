@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { FormEvent, useState, useEffect } from 'react';
 import router from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
+import { animateScroll as scroll } from 'react-scroll';
 import api from '../../../../services/api';
 import base64 from '../../../../utils/base64';
+import defaultMedicineImage from '../../../../utils/defaultMedicineImage';
 
 import Container from '../../../../components/Container';
+import Form from '../../../../components/Form';
 import TitleBox from '../../../../components/TitleBox';
 import ButtonsContainer from '../../../../components/ButtonsContainer';
 import InputField from '../../../../components/InputField';
+import CurrencyField from '../../../../components/CurrencyField';
 import SelectField from '../../../../components/SelectField';
 import Button from '../../../../components/Button';
-import LoadingMessage from '../../../../components/LoadingMessage';
 
-import { Section, BoxCard, Message } from '../../../../styles/store/catalog';
+import { Section, Message, IncorrectMessage } from '../../../../styles/store/catalog';
 import Theme from '../../../../styles/theme';
 
 import { useNavigation } from '../../../../contexts/NavigationContext';
@@ -32,17 +35,18 @@ const NewProduct: React.FC = () => {
 	}, []);
 
 	const [message, setMessage] = useState('');
+	const [isDescriptionIncorrect, setIsDescriptionIncorrect] = useState(false);
 	const [isImageIncorrect, setIsImageIncorrect] = useState(false);
 
 	const [isImageLoading, setIsImageLoading] = useState(false);
 	const [isFetching, setIsFetching] = useState(false);
 
-	const [categoryProduct, setCategoryProduct] = useState('Medicine');
+	const [idStore] = useState(JSON.parse(localStorage.getItem('storeData'))._id);
+	const [categoryProduct, setCategoryProduct] = useState('medicines');
 	const [descriptionProduct, setDescriptionProduct] = useState('');
 	const [priceProduct, setPriceProduct] = useState('');
 	const [availabilityProduct, setAvailabilityProduct] = useState('available');
-	const [idStore, setIdStore] = useState(JSON.parse(localStorage.getItem('storeData'))._id);
-	const [imageProduct, setImageProduct] = useState('');
+	const [imageProduct, setImageProduct] = useState(defaultMedicineImage);
 	const [imageName, setImageName] = useState('');
 
 	const changeImage = async e => {
@@ -61,7 +65,9 @@ const NewProduct: React.FC = () => {
 		}
 	};
 
-	const handleSave = async () => {
+	const handleSave = async (e: FormEvent) => {
+		e.preventDefault();
+
 		setIsMessageVisible(true);
 
 		const priceConverted = priceProduct.split(' ', 2);
@@ -78,22 +84,41 @@ const NewProduct: React.FC = () => {
 			registrationDateProduct: new Date(),
 		};
 
-		try {
-			setIsFetching(true);
-			const { data } = await api.post('/api/register/product/stores', newProduct, {
-				headers: {
-					authorization: `Bearer ${JSON.parse(localStorage.getItem('storeToken'))}`,
-				},
-			});
+		let isIncorrect = false;
 
-			console.log(data);
-			setTimeout(() => {
-				router.back();
-			}, 2000);
-		} catch (error) {
-			console.log(error);
-			setIsFetching(false);
+		if (newProduct.descriptionProduct.length < 5) {
+			setIsDescriptionIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Insira um nome válido!');
+			isIncorrect = true;
 		}
+		if (isImageLoading) {
+			setIsImageLoading(true);
+			setIsMessageVisible(true);
+			setMessage('Aguarde o carregamento da imagem!');
+			isIncorrect = true;
+		}
+		if (!isIncorrect) {
+			try {
+				setIsFetching(true);
+				const { data } = await api.post('/api/register/product/stores', newProduct, {
+					headers: {
+						authorization: `Bearer ${JSON.parse(localStorage.getItem('storeToken'))}`,
+					},
+				});
+
+				setMessage('Produto cadastrado!');
+
+				console.log(data);
+				setTimeout(() => {
+					router.back();
+				}, 2000);
+			} catch (error) {
+				console.log(error);
+				setIsFetching(false);
+			}
+		}
+		scroll.scrollToBottom();
 	};
 
 	useEffect(() => {
@@ -104,10 +129,15 @@ const NewProduct: React.FC = () => {
 		}
 	}, [imageProduct]);
 
+	useEffect(() => {
+		setIsDescriptionIncorrect(false);
+		setIsMessageVisible(false);
+	}, [descriptionProduct]);
+
 	return (
 		<Container>
 			<>
-				<Section>
+				<Section style={{ marginBottom: '8rem' }}>
 					<TitleBox title='Novo Produto' />
 					<ButtonsContainer>
 						<>
@@ -133,69 +163,90 @@ const NewProduct: React.FC = () => {
 							</Button>
 						</>
 					</ButtonsContainer>
-					<InputField
-						label='Descrição'
-						placeholder='Dipirona Sódica 500mg Genérico 10 Comprimidos'
-						required={true}
-						value={descriptionProduct}
-						onChange={e => setDescriptionProduct(e.target.value)}
-					/>
-					<InputField
-						className='file'
-						label='Imagem (JPG ou PNG até 5 MB)'
-						type='file'
-						accept='.png, .jpg, .jpeg'
-						required={true}
-						value={imageName}
-						disabled={isImageLoading}
-						onChange={e => changeImage(e)}
-						isIncorrect={isImageIncorrect}
-					/>
-					<InputField
-						label='Preço'
-						placeholder='R$ 5,69'
-						required={true}
-						value={priceProduct}
-						onChange={e => setPriceProduct(e.target.value)}
-					/>
-					<SelectField
-						label='Disponibilidade'
-						value={availabilityProduct}
-						onChange={e => setAvailabilityProduct(e.target.value)}
-					>
-						<option value='available'>Disponível</option>
-						<option value='soldOff'>Esgotado</option>
-					</SelectField>
-					<ButtonsContainer style={{ marginTop: '1rem' }}>
-						<Button
-							className='icon right'
-							width='100%'
-							color={Theme.colors.white}
-							backgroundColor={Theme.colors.green}
-							onClick={handleSave}
-							isLoading={isFetching}
-						>
-							{!isFetching && (
-								<img
-									src='/images/icons/save.svg'
-									alt='Salvar'
-									style={{ filter: 'invert(1)' }}
-								/>
-							)}
-							{isFetching ? 'Carregando...' : 'Cadastrar'}
-						</Button>
-					</ButtonsContainer>
-					{isMessageVisible && (
-						<AnimatePresence>
-							<motion.div
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								transition={{ duration: 0.3 }}
+					<Form onSubmit={handleSave}>
+						<>
+							<SelectField
+								label='Categoria'
+								value={categoryProduct}
+								onChange={e => setCategoryProduct(e.target.value)}
 							>
-								<Message>Produto cadastrado!</Message>
-							</motion.div>
-						</AnimatePresence>
-					)}
+								<option value='medicines'>Medicamentos</option>
+								<option value='cosmetics'>Cosméticos / beleza</option>
+								<option value='vitamins'>Suplementos / Vitaminas</option>
+								<option value='food'>Biscoitos / balas / comestíveis</option>
+								<option value='hygiene'>Higiene pessoal</option>
+								<option value='babies'>Cuidados com bebê</option>
+								<option value='devices'>Aparelhos</option>
+							</SelectField>
+							<InputField
+								label='Descrição'
+								placeholder='Dipirona Sódica 500mg Genérico 10 Comprimidos'
+								required
+								value={descriptionProduct}
+								onChange={e => setDescriptionProduct(e.target.value)}
+								isIncorrect={isDescriptionIncorrect}
+							/>
+							<InputField
+								className='file'
+								label='Imagem (JPG ou PNG até 5 MB)'
+								type='file'
+								accept='.png, .jpg, .jpeg'
+								value={imageName}
+								disabled={isImageLoading}
+								onChange={e => changeImage(e)}
+								isIncorrect={isImageIncorrect}
+							/>
+							<CurrencyField
+								label='Preço'
+								placeholder='R$ 5,69'
+								required={true}
+								value={priceProduct}
+								onChange={e => setPriceProduct(e.target.value)}
+							/>
+							<SelectField
+								label='Disponibilidade'
+								value={availabilityProduct}
+								onChange={e => setAvailabilityProduct(e.target.value)}
+							>
+								<option value='available'>Disponível</option>
+								<option value='soldOff'>Esgotado</option>
+							</SelectField>
+							<ButtonsContainer style={{ marginTop: '1rem' }}>
+								<Button
+									className='icon right'
+									width='100%'
+									color={Theme.colors.white}
+									backgroundColor={Theme.colors.green}
+									type='submit'
+									isLoading={isFetching}
+								>
+									{!isFetching && (
+										<img
+											src='/images/icons/save.svg'
+											alt='Salvar'
+											style={{ filter: 'invert(1)' }}
+										/>
+									)}
+									{isFetching ? 'Carregando...' : 'Cadastrar'}
+								</Button>
+							</ButtonsContainer>
+							{isMessageVisible && (
+								<AnimatePresence>
+									<motion.div
+										initial={{ opacity: 0 }}
+										animate={{ opacity: 1 }}
+										transition={{ duration: 0.3 }}
+									>
+										{!isDescriptionIncorrect && !isImageIncorrect ? (
+											<Message>{message}</Message>
+										) : (
+											<IncorrectMessage>{message}</IncorrectMessage>
+										)}
+									</motion.div>
+								</AnimatePresence>
+							)}
+						</>
+					</Form>
 				</Section>
 			</>
 		</Container>
