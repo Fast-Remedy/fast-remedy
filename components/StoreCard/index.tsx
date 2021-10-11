@@ -16,7 +16,7 @@ const StoreCard: React.FC<Props> = ({ storeId, name, fee, estimatedTime, src }) 
 	const feeConverted = feeString.replace('.', ',');
 
 	return (
-		<Link href={`/customer/stores/${storeId}`}>
+		<Link href={`/customer/stores/${name}/${storeId}`}>
 			<BoxCard>
 				<Image src={src} alt={name} />
 				<Text>

@@ -8,9 +8,17 @@ interface Props {
 	price: number;
 	src: string;
 	availability?: boolean;
+	storeName: string;
 }
 
-const ProductCard: React.FC<Props> = ({ productId, description, price, src, availability }) => {
+const ProductCard: React.FC<Props> = ({
+	productId,
+	description,
+	price,
+	src,
+	availability,
+	storeName,
+}) => {
 	const priceString = price.toFixed(2);
 	const priceConverted = priceString.replace('.', ',');
 
@@ -28,11 +36,11 @@ const ProductCard: React.FC<Props> = ({ productId, description, price, src, avai
 					</BoxCard>
 				</>
 			) : (
-				<Link href={`/customer/product/${productId}`}>
+				<Link href={`/customer/product/${storeName}/${productId}`}>
 					<BoxCard>
 						<Text>
 							<Description>{description}</Description>
-							<Price>R$ {price.toString().replace('.', ',')}</Price>
+							<Price>R$ {priceConverted}</Price>
 						</Text>
 						<Image src={src} alt={description} />
 					</BoxCard>

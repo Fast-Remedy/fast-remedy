@@ -1,21 +1,32 @@
 import React, { useState, useEffect } from 'react';
-// import { GetStaticProps } from 'next';
 import router, { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { animateScroll as scroll } from 'react-scroll';
+import api from '../../../../services/api';
 
-import Container from '../../../components/Container';
-import TitleBox from '../../../components/TitleBox';
-import CartIcon from '../../../components/CartIcon';
-import ProductDetailsCard from '../../../components/ProductDetailsCard';
-import ButtonsContainer from '../../../components/ButtonsContainer';
-import Button from '../../../components/Button';
-import LoadingMessage from '../../../components/LoadingMessage';
+import Container from '../../../../components/Container';
+import TitleBox from '../../../../components/TitleBox';
+import CartIcon from '../../../../components/CartIcon';
+import ProductDetailsCard from '../../../../components/ProductDetailsCard';
+import ButtonsContainer from '../../../../components/ButtonsContainer';
+import Button from '../../../../components/Button';
+import LoadingMessage from '../../../../components/LoadingMessage';
 
-import { Section, BoxCard, FinishCard, Message } from '../../../styles/customer/product';
-import Theme from '../../../styles/theme';
+import { Section, BoxCard, FinishCard, Message } from '../../../../styles/customer/product';
+import Theme from '../../../../styles/theme';
 
-import { useNavigation } from '../../../contexts/NavigationContext';
+import { useNavigation } from '../../../../contexts/NavigationContext';
+
+interface IProduct {
+	_id: string;
+	idStore: string;
+	categoryProduct: string;
+	descriptionProduct: string;
+	imageProduct: string;
+	priceProduct: number;
+	availabilityProduct: boolean;
+	registrationDateProduct: string;
+}
 
 const Product: React.FC = () => {
 	const { setNavigationState } = useNavigation();
@@ -31,12 +42,47 @@ const Product: React.FC = () => {
 		[]
 	);
 
-	// return url param to show directly on interface
-	// it's not required to use with SSG
+	const [product, setProduct] = useState<IProduct>({
+		_id: '',
+		idStore: '',
+		categoryProduct: '',
+		descriptionProduct: '',
+		imageProduct: '',
+		priceProduct: 0,
+		availabilityProduct: false,
+		registrationDateProduct: '',
+	});
+	const [quantity, setQuantity] = useState(1);
+	const [isFetching, setIsFetching] = useState(true);
+
 	const { query } = useRouter();
 
-	// check if data has already been loaded
-	const { isFallback } = useRouter();
+	const getProduct = async () => {
+		try {
+			const { data } = await api.get(`/api/products/${query.productId}`);
+
+			setProduct(data);
+			setIsFetching(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		getProduct();
+		return () => {
+			setProduct({
+				_id: '',
+				idStore: '',
+				categoryProduct: '',
+				descriptionProduct: '',
+				imageProduct: '',
+				priceProduct: 0,
+				availabilityProduct: false,
+				registrationDateProduct: '',
+			});
+		};
+	}, []);
 
 	const [isMessageVisible, setIsMessageVisible] = useState(false);
 
@@ -54,7 +100,7 @@ const Product: React.FC = () => {
 		<Container>
 			<>
 				<Section>
-					<TitleBox title='Drogaria Ultra Popular' fontSize='2rem' />
+					<TitleBox title={query.storeName as string} fontSize='2rem' />
 					<ButtonsContainer>
 						<>
 							<Button
@@ -80,7 +126,7 @@ const Product: React.FC = () => {
 							<CartIcon />
 						</>
 					</ButtonsContainer>
-					{isFallback ? (
+					{isFetching ? (
 						<BoxCard>
 							<LoadingMessage />
 						</BoxCard>
@@ -88,36 +134,65 @@ const Product: React.FC = () => {
 						<>
 							<BoxCard>
 								<ProductDetailsCard
-									description={`Dipirona Sódica 500mg Genérico Medley 10 Comprimidos`}
-									src='/images/logos/remedy.svg'
-									price={5.69}
+									description={product.descriptionProduct}
+									src={product.imageProduct}
+									price={product.priceProduct}
+									availability={product.availabilityProduct}
 								/>
 							</BoxCard>
 							<BoxCard>
 								<FinishCard>
 									<div className='total'>
 										<span>Quantidade:</span>
-										<span className='info'>1</span>
+										<span className='info'>{quantity}</span>
 									</div>
 								</FinishCard>
 								<FinishCard>
 									<ButtonsContainer width='40%'>
 										<>
 											<Button
-												width='2.5rem'
-												height='2.5rem'
+												width='3rem'
+												height='3rem'
 												color={Theme.colors.white}
 												backgroundColor={Theme.colors.green}
+												onClick={() => {
+													if (quantity > 1) {
+														setQuantity(quantity - 1);
+													}
+												}}
 											>
-												-
+												<svg
+													style={{ height: '1.5rem', width: '1.5rem' }}
+													fill='currentColor'
+													viewBox='0 0 20 20'
+													xmlns='http://www.w3.org/2000/svg'
+												>
+													<path
+														fillRule='evenodd'
+														d='M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z'
+														clipRule='evenodd'
+													/>
+												</svg>
 											</Button>
 											<Button
-												width='2.5rem'
-												height='2.5rem'
+												width='3rem'
+												height='3rem'
 												color={Theme.colors.white}
 												backgroundColor={Theme.colors.green}
+												onClick={() => setQuantity(quantity + 1)}
 											>
-												+
+												<svg
+													style={{ height: '2rem', width: '2rem' }}
+													fill='currentColor'
+													viewBox='0 0 20 20'
+													xmlns='http://www.w3.org/2000/svg'
+												>
+													<path
+														fillRule='evenodd'
+														d='M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z'
+														clipRule='evenodd'
+													/>
+												</svg>
 											</Button>
 										</>
 									</ButtonsContainer>
@@ -144,7 +219,11 @@ const Product: React.FC = () => {
 												</svg>
 												Adicionar ao carrinho
 											</span>
-											<span className='info'>R$ 5,59</span>
+											<span className='info'>
+												{`R$ ${(product.priceProduct * quantity)
+													.toFixed(2)
+													.replace('.', ',')}`}
+											</span>
 										</div>
 									</Button>
 								</FinishCard>
@@ -167,39 +246,5 @@ const Product: React.FC = () => {
 		</Container>
 	);
 };
-
-// make page static
-
-// export const getStaticPaths: GetStaticPaths = async () => {
-// 	request to api
-// 	const response = await api.get('/products')
-// 	const data = await response.json();
-
-//     const paths = data.map(product => {
-//         return {
-//             params: { productId: product.idProduct}
-//         }
-//     })
-
-// 	return {
-// 		// paths,
-// 		fallback: false,
-// 	};
-// };
-
-// export const getStaticProps: GetStaticProps = async context => {
-// 	const { productId } = context.params;
-
-// 	// request to api
-// 	// const response = await api.get(`/products/${productId}`)
-// 	// const data = await response.json();
-
-// 	return {
-// 		props: {
-// 			product: data,
-// 		},
-// 		revalidate: 10, // time in seconds
-// 	};
-// };
 
 export default Product;

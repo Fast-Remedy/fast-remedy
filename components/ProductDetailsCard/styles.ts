@@ -26,6 +26,7 @@ export const Line = styled.div`
 export const Image = styled.img`
 	width: 13rem;
 	height: 13rem;
+	border-radius: 0.8rem;
 `;
 
 export const Text = styled.span`
