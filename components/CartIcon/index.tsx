@@ -7,7 +7,7 @@ const CartIcon = () => {
 	const [items, setItems] = useState(0);
 
 	useEffect(() => {
-		const cart = JSON.parse(localStorage.getItem('cart'));
+		const cart = JSON.parse(localStorage.getItem('cart')) || [];
 		const totalQuantity = cart.map(product => product.quantity);
 		if (totalQuantity.length > 0) {
 			setItems(totalQuantity.reduce((a: number, b: number) => a + b));
