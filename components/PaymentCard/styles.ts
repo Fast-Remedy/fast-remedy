@@ -26,8 +26,13 @@ export const BoxCard = styled.div`
 	}
 
 	@media (max-width: 800px) {
-		&:hover {
+		&:hover,
+		&:focus {
 			filter: none;
+		}
+
+		&:active {
+			filter: brightness(0.85);
 		}
 	}
 `;

@@ -27,6 +27,10 @@ export const BoxCard = styled.div`
 			filter: none;
 			transform: none;
 		}
+
+		&:active {
+			filter: brightness(0.85);
+		}
 	}
 `;
 

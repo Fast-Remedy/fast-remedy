@@ -15,8 +15,13 @@ export const Box = styled.a`
 	}
 
 	@media (max-width: 800px) {
+		&:hover,
 		&:focus {
 			filter: none;
+		}
+
+		&:active {
+			filter: brightness(0.85);
 		}
 	}
 `;
@@ -41,8 +46,13 @@ export const Image = styled.svg`
 	}
 
 	@media (max-width: 800px) {
-		&:hover {
+		&:hover,
+		&:focus {
 			filter: none;
+		}
+
+		&:active {
+			filter: brightness(0.85);
 		}
 	}
 `;

@@ -42,8 +42,8 @@ const Edit: React.FC = () => {
 				setPersonalData(false);
 				setIsMessageVisible(false);
 			}, 2000);
-		} catch (err) {
-			console.log(err);
+		} catch (error) {
+			console.log(error);
 		}
 	};
 
@@ -56,8 +56,8 @@ const Edit: React.FC = () => {
 				setContactData(false);
 				setIsMessageVisible(false);
 			}, 2000);
-		} catch (err) {
-			console.log(err);
+		} catch (error) {
+			console.log(error);
 		}
 	};
 
@@ -70,8 +70,8 @@ const Edit: React.FC = () => {
 				setPasswordData(false);
 				setIsMessageVisible(false);
 			}, 2000);
-		} catch (err) {
-			console.log(err);
+		} catch (error) {
+			console.log(error);
 		}
 	};
 

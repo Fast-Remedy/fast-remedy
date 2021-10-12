@@ -109,7 +109,6 @@ const NewProduct: React.FC = () => {
 
 				setMessage('Produto cadastrado!');
 
-				console.log(data);
 				setTimeout(() => {
 					router.back();
 				}, 2000);

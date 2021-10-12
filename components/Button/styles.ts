@@ -49,6 +49,10 @@ export const Btn = styled.button<Props>`
 		&:focus {
 			filter: none;
 		}
+
+		&:active {
+			filter: brightness(0.85);
+		}
 	}
 
 	svg {

@@ -40,9 +40,9 @@ const CartCard: React.FC<Props> = ({ quantity, store, description, price, src })
 								stroke='currentColor'
 							>
 								<path
-									stroke-linecap='round'
-									stroke-linejoin='round'
-									stroke-width='3'
+									strokeLinecap='round'
+									strokeLinejoin='round'
+									strokeWidth='3'
 									d='M20 12H4'
 								/>
 							</svg>
@@ -60,9 +60,9 @@ const CartCard: React.FC<Props> = ({ quantity, store, description, price, src })
 								stroke='currentColor'
 							>
 								<path
-									stroke-linecap='round'
-									stroke-linejoin='round'
-									stroke-width='3'
+									strokeLinecap='round'
+									strokeLinejoin='round'
+									strokeWidth='3'
 									d='M12 4v16m8-8H4'
 								/>
 							</svg>
