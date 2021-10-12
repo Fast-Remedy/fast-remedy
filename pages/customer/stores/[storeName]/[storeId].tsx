@@ -37,7 +37,15 @@ const Store: React.FC = () => {
 		try {
 			const { data } = await api.get(`/api/products/stores/${query.storeId as string}`);
 
-			setProducts(data);
+			setProducts(
+				data.sort((a, b) =>
+					a.descriptionProduct > b.descriptionProduct
+						? 1
+						: b.descriptionProduct > a.descriptionProduct
+						? -1
+						: 0
+				)
+			);
 			setIsFetching(false);
 		} catch (error) {
 			console.log(error);
@@ -94,6 +102,7 @@ const Store: React.FC = () => {
 									storeName={query.storeName as string}
 									productId={product._id}
 									description={product.descriptionProduct}
+									composition={product.compositionProduct}
 									price={product.priceProduct}
 									src={product.imageProduct}
 									availability={product.availabilityProduct}

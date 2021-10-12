@@ -64,6 +64,7 @@ const Order: React.FC = () => {
 				{!isCancelMenuVisible ? (
 					<motion.div
 						initial={{ opacity: 0 }}
+						exit={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						transition={{ duration: 0.3 }}
 					>
@@ -259,6 +260,7 @@ const Order: React.FC = () => {
 					<AnimatePresence>
 						<motion.div
 							initial={{ opacity: 0 }}
+							exit={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{ duration: 0.3 }}
 						>
@@ -314,17 +316,18 @@ const Order: React.FC = () => {
 										</Button>
 									</div>
 								</CancelCard>
-								{isMessageVisible && (
-									<AnimatePresence>
+								<AnimatePresence>
+									{isMessageVisible && (
 										<motion.div
 											initial={{ opacity: 0 }}
+											exit={{ opacity: 0 }}
 											animate={{ opacity: 1 }}
 											transition={{ duration: 0.3 }}
 										>
 											<Message>Pedido cancelado!</Message>
 										</motion.div>
-									</AnimatePresence>
-								)}
+									)}
+								</AnimatePresence>
 							</Section>
 						</motion.div>
 					</AnimatePresence>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import router from 'next/router';
-import { motion, AnimatePresence } from 'framer-motion';
 import api from '../../../services/api';
 
 import Container from '../../../components/Container';
@@ -37,7 +36,15 @@ const Catalog: React.FC = () => {
 				`/api/products/stores/${JSON.parse(localStorage.getItem('storeData'))._id}`
 			);
 
-			setProducts(data);
+			setProducts(
+				data.sort((a, b) =>
+					a.descriptionProduct > b.descriptionProduct
+						? 1
+						: b.descriptionProduct > a.descriptionProduct
+						? -1
+						: 0
+				)
+			);
 			setIsFetching(false);
 		} catch (error) {
 			console.log(error);
@@ -91,6 +98,7 @@ const Catalog: React.FC = () => {
 									key={product._id}
 									productId={product._id}
 									description={product.descriptionProduct}
+									composition={product.compositionProduct}
 									price={product.priceProduct}
 									src={product.imageProduct}
 									availability={product.availabilityProduct}

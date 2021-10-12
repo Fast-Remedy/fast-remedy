@@ -89,6 +89,7 @@ const Payment: React.FC = () => {
 						<BoxCard style={{ marginTop: '0' }}>
 							<motion.div
 								initial={{ opacity: 0 }}
+								exit={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
 								transition={{ duration: 0.3 }}
 							>
@@ -139,6 +140,7 @@ const Payment: React.FC = () => {
 							<AnimatePresence>
 								<motion.div
 									initial={{ opacity: 0 }}
+									exit={{ opacity: 0 }}
 									animate={{ opacity: 1 }}
 									transition={{ duration: 0.3 }}
 								>

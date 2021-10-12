@@ -20,6 +20,7 @@ interface IProduct {
 	idStore: string;
 	categoryProduct: string;
 	descriptionProduct: string;
+	compositionProduct: string;
 	imageProduct: string;
 	priceProduct: number;
 	availabilityProduct: boolean;
@@ -34,6 +35,7 @@ const Product: React.FC = () => {
 		idStore: '',
 		categoryProduct: '',
 		descriptionProduct: '',
+		compositionProduct: '',
 		imageProduct: '',
 		priceProduct: 0,
 		availabilityProduct: false,
@@ -75,6 +77,7 @@ const Product: React.FC = () => {
 				idStore: '',
 				categoryProduct: '',
 				descriptionProduct: '',
+				compositionProduct: '',
 				imageProduct: '',
 				priceProduct: 0,
 				availabilityProduct: false,
@@ -115,6 +118,7 @@ const Product: React.FC = () => {
 				{!isRemoveMenuVisible ? (
 					<motion.div
 						initial={{ opacity: 0 }}
+						exit={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						transition={{ duration: 0.3 }}
 					>
@@ -153,6 +157,7 @@ const Product: React.FC = () => {
 									<BoxCard>
 										<ProductDetailsCard
 											description={product.descriptionProduct}
+											composition={product.compositionProduct}
 											src={product.imageProduct}
 											price={product.priceProduct}
 											availability={product.availabilityProduct}
@@ -255,6 +260,7 @@ const Product: React.FC = () => {
 					<AnimatePresence>
 						<motion.div
 							initial={{ opacity: 0 }}
+							exit={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{ duration: 0.3 }}
 						>
@@ -306,17 +312,18 @@ const Product: React.FC = () => {
 										</Button>
 									</div>
 								</CancelCard>
-								{isMessageVisible && (
-									<AnimatePresence>
+								<AnimatePresence>
+									{isMessageVisible && (
 										<motion.div
 											initial={{ opacity: 0 }}
+											exit={{ opacity: 0 }}
 											animate={{ opacity: 1 }}
 											transition={{ duration: 0.3 }}
 										>
 											<Message>Produto excluído!</Message>
 										</motion.div>
-									</AnimatePresence>
-								)}
+									)}
+								</AnimatePresence>
 							</Section>
 						</motion.div>
 					</AnimatePresence>

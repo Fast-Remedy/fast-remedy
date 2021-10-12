@@ -44,6 +44,7 @@ const NewProduct: React.FC = () => {
 	const [idStore] = useState(JSON.parse(localStorage.getItem('storeData'))._id);
 	const [categoryProduct, setCategoryProduct] = useState('medicines');
 	const [descriptionProduct, setDescriptionProduct] = useState('');
+	const [compositionProduct, setCompositionProduct] = useState('');
 	const [priceProduct, setPriceProduct] = useState('');
 	const [availabilityProduct, setAvailabilityProduct] = useState('available');
 	const [imageProduct, setImageProduct] = useState(defaultMedicineImage);
@@ -78,6 +79,7 @@ const NewProduct: React.FC = () => {
 			idStore,
 			categoryProduct,
 			descriptionProduct,
+			compositionProduct,
 			priceProduct: priceConverted[1].replace(/,/g, '.'),
 			availabilityProduct: availability,
 			imageProduct,
@@ -171,7 +173,7 @@ const NewProduct: React.FC = () => {
 							>
 								<option value='medicines'>Medicamentos</option>
 								<option value='cosmetics'>Cosméticos / beleza</option>
-								<option value='vitamins'>Suplementos / Vitaminas</option>
+								<option value='vitamins'>Suplementos / vitaminas</option>
 								<option value='food'>Biscoitos / balas / comestíveis</option>
 								<option value='hygiene'>Higiene pessoal</option>
 								<option value='babies'>Cuidados com bebê</option>
@@ -179,11 +181,17 @@ const NewProduct: React.FC = () => {
 							</SelectField>
 							<InputField
 								label='Descrição'
-								placeholder='Dipirona Sódica 500mg Genérico 10 Comprimidos'
+								placeholder='Dorflex 36 comprimidos'
 								required
 								value={descriptionProduct}
 								onChange={e => setDescriptionProduct(e.target.value)}
 								isIncorrect={isDescriptionIncorrect}
+							/>
+							<InputField
+								label='Composição (opcional)'
+								placeholder='Dipirona monoidratada 300mg, citrato de orfenadrina 35mg, cafeína anidra 50mg'
+								value={compositionProduct}
+								onChange={e => setCompositionProduct(e.target.value)}
 							/>
 							<InputField
 								className='file'
@@ -229,10 +237,11 @@ const NewProduct: React.FC = () => {
 									{isFetching ? 'Carregando...' : 'Cadastrar'}
 								</Button>
 							</ButtonsContainer>
-							{isMessageVisible && (
-								<AnimatePresence>
+							<AnimatePresence>
+								{isMessageVisible && (
 									<motion.div
 										initial={{ opacity: 0 }}
+										exit={{ opacity: 0 }}
 										animate={{ opacity: 1 }}
 										transition={{ duration: 0.3 }}
 									>
@@ -242,8 +251,8 @@ const NewProduct: React.FC = () => {
 											<IncorrectMessage>{message}</IncorrectMessage>
 										)}
 									</motion.div>
-								</AnimatePresence>
-							)}
+								)}
+							</AnimatePresence>
 						</>
 					</Form>
 				</Section>

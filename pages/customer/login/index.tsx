@@ -201,6 +201,7 @@ const Login: React.FC = () => {
 				<Section style={{ marginBottom: '4rem' }}>
 					<motion.div
 						initial={{ opacity: 0 }}
+						exit={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						transition={{ duration: 0.3 }}
 					>
@@ -281,18 +282,19 @@ const Login: React.FC = () => {
 								<Link href='/customer/recover'>
 									<PasswordRecover>Esqueci minha senha</PasswordRecover>
 								</Link>
-								{isMessageVisible && (
-									<AnimatePresence>
+								<AnimatePresence>
+									{isMessageVisible && (
 										<motion.div
 											initial={{ opacity: 0 }}
+											exit={{ opacity: 0 }}
 											animate={{ opacity: 1 }}
 											transition={{ duration: 0.3 }}
 											style={{ marginTop: '1.2rem' }}
 										>
 											<Message>{message}</Message>
 										</motion.div>
-									</AnimatePresence>
-								)}
+									)}
+								</AnimatePresence>
 							</>
 						</Form>
 					</motion.div>
@@ -302,6 +304,7 @@ const Login: React.FC = () => {
 					<AnimatePresence>
 						<motion.div
 							initial={{ opacity: 0 }}
+							exit={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{ duration: 0.3 }}
 						>
@@ -417,17 +420,18 @@ const Login: React.FC = () => {
 											{isFetching ? 'Carregando...' : 'Cadastrar'}
 										</Button>
 									</ButtonsContainer>
-									{isMessageVisible && (
-										<AnimatePresence>
+									<AnimatePresence>
+										{isMessageVisible && (
 											<motion.div
 												initial={{ opacity: 0 }}
+												exit={{ opacity: 0 }}
 												animate={{ opacity: 1 }}
 												transition={{ duration: 0.3 }}
 											>
 												<Message>{message}</Message>
 											</motion.div>
-										</AnimatePresence>
-									)}
+										)}
+									</AnimatePresence>
 								</>
 							</Form>
 						</motion.div>

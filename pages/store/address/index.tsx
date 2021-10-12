@@ -117,6 +117,7 @@ const Address: React.FC = () => {
 					<AnimatePresence>
 						<motion.div
 							initial={{ opacity: 0 }}
+							exit={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{ duration: 0.3 }}
 						>
@@ -195,17 +196,18 @@ const Address: React.FC = () => {
 											Salvar
 										</Button>
 									</ButtonsContainer>
-									{isMessageVisible && (
-										<AnimatePresence>
+									<AnimatePresence>
+										{isMessageVisible && (
 											<motion.div
 												initial={{ opacity: 0 }}
+												exit={{ opacity: 0 }}
 												animate={{ opacity: 1 }}
 												transition={{ duration: 0.3 }}
 											>
 												<Message>Endereço salvo!</Message>
 											</motion.div>
-										</AnimatePresence>
-									)}
+										)}
+									</AnimatePresence>
 								</>
 							</Form>
 						</motion.div>

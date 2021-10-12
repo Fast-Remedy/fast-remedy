@@ -100,6 +100,7 @@ const Edit: React.FC = () => {
 				<Section>
 					<motion.div
 						initial={{ opacity: 0 }}
+						exit={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						transition={{ duration: 0.3 }}
 					>
@@ -154,6 +155,7 @@ const Edit: React.FC = () => {
 					<AnimatePresence>
 						<motion.div
 							initial={{ opacity: 0 }}
+							exit={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{ duration: 0.3 }}
 						>
@@ -238,17 +240,18 @@ const Edit: React.FC = () => {
 											Salvar
 										</Button>
 									</ButtonsContainer>
-									{isMessageVisible && (
-										<AnimatePresence>
+									<AnimatePresence>
+										{isMessageVisible && (
 											<motion.div
 												initial={{ opacity: 0 }}
+												exit={{ opacity: 0 }}
 												animate={{ opacity: 1 }}
 												transition={{ duration: 0.3 }}
 											>
 												<Message>Cadastro atualizado!</Message>
 											</motion.div>
-										</AnimatePresence>
-									)}
+										)}
+									</AnimatePresence>
 								</>
 							</Form>
 						</motion.div>
@@ -260,6 +263,7 @@ const Edit: React.FC = () => {
 					<AnimatePresence>
 						<motion.div
 							initial={{ opacity: 0 }}
+							exit={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{ duration: 0.3 }}
 						>
@@ -316,17 +320,18 @@ const Edit: React.FC = () => {
 											Salvar
 										</Button>
 									</ButtonsContainer>
-									{isMessageVisible && (
-										<AnimatePresence>
+									<AnimatePresence>
+										{isMessageVisible && (
 											<motion.div
 												initial={{ opacity: 0 }}
+												exit={{ opacity: 0 }}
 												animate={{ opacity: 1 }}
 												transition={{ duration: 0.3 }}
 											>
 												<Message>Cadastro atualizado!</Message>
 											</motion.div>
-										</AnimatePresence>
-									)}
+										)}
+									</AnimatePresence>
 								</>
 							</Form>
 						</motion.div>
@@ -338,6 +343,7 @@ const Edit: React.FC = () => {
 					<AnimatePresence>
 						<motion.div
 							initial={{ opacity: 0 }}
+							exit={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{ duration: 0.3 }}
 						>
@@ -396,17 +402,18 @@ const Edit: React.FC = () => {
 											Salvar
 										</Button>
 									</ButtonsContainer>
-									{isMessageVisible && (
-										<AnimatePresence>
+									<AnimatePresence>
+										{isMessageVisible && (
 											<motion.div
 												initial={{ opacity: 0 }}
+												exit={{ opacity: 0 }}
 												animate={{ opacity: 1 }}
 												transition={{ duration: 0.3 }}
 											>
 												<Message>Cadastro atualizado!</Message>
 											</motion.div>
-										</AnimatePresence>
-									)}
+										)}
+									</AnimatePresence>
 								</>
 							</Form>
 						</motion.div>

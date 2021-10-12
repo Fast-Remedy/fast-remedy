@@ -78,6 +78,7 @@ const Payment: React.FC = () => {
 					<AnimatePresence>
 						<motion.div
 							initial={{ opacity: 0 }}
+							exit={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{ duration: 0.3 }}
 						>
@@ -132,17 +133,18 @@ const Payment: React.FC = () => {
 											Salvar
 										</Button>
 									</ButtonsContainer>
-									{isMessageVisible && (
-										<AnimatePresence>
+									<AnimatePresence>
+										{isMessageVisible && (
 											<motion.div
 												initial={{ opacity: 0 }}
+												exit={{ opacity: 0 }}
 												animate={{ opacity: 1 }}
 												transition={{ duration: 0.3 }}
 											>
 												<Message>Conta salva!</Message>
 											</motion.div>
-										</AnimatePresence>
-									)}
+										)}
+									</AnimatePresence>
 								</>
 							</Form>
 						</motion.div>

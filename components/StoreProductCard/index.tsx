@@ -1,10 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-import { BoxCard, Image, Text, Description, Price, Availability } from './styles';
+import { BoxCard, Image, Text, Description, Composition, Price, Availability } from './styles';
 
 interface Props {
 	productId: string;
 	description: string;
+	composition?: string;
 	price: number;
 	src: string;
 	availability: boolean;
@@ -13,6 +14,7 @@ interface Props {
 const StoreProductCard: React.FC<Props> = ({
 	productId,
 	description,
+	composition,
 	price,
 	src,
 	availability,
@@ -25,6 +27,7 @@ const StoreProductCard: React.FC<Props> = ({
 			<BoxCard>
 				<Text>
 					<Description>{description}</Description>
+					{composition && <Composition>{composition}</Composition>}
 					<Price>R$ {priceConverted}</Price>
 					{!availability && <Availability>Esgotado!</Availability>}
 				</Text>
