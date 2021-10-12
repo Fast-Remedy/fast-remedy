@@ -11,6 +11,7 @@ import ProductDetailsCard from '../../../../components/ProductDetailsCard';
 import ButtonsContainer from '../../../../components/ButtonsContainer';
 import Button from '../../../../components/Button';
 import LoadingMessage from '../../../../components/LoadingMessage';
+import Modal from '../../../../components/Modal';
 
 import { Section, BoxCard, FinishCard, Message } from '../../../../styles/customer/product';
 import Theme from '../../../../styles/theme';
@@ -22,6 +23,7 @@ interface IProduct {
 	idStore: string;
 	categoryProduct: string;
 	descriptionProduct: string;
+	compositionProduct: string;
 	imageProduct: string;
 	priceProduct: number;
 	availabilityProduct: boolean;
@@ -47,12 +49,14 @@ const Product: React.FC = () => {
 		idStore: '',
 		categoryProduct: '',
 		descriptionProduct: '',
+		compositionProduct: '',
 		imageProduct: '',
 		priceProduct: 0,
 		availabilityProduct: false,
 		registrationDateProduct: '',
 	});
 	const [quantity, setQuantity] = useState(1);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isFetching, setIsFetching] = useState(true);
 
 	const { query } = useRouter();
@@ -76,6 +80,7 @@ const Product: React.FC = () => {
 				idStore: '',
 				categoryProduct: '',
 				descriptionProduct: '',
+				compositionProduct: '',
 				imageProduct: '',
 				priceProduct: 0,
 				availabilityProduct: false,
@@ -87,10 +92,52 @@ const Product: React.FC = () => {
 	const [isMessageVisible, setIsMessageVisible] = useState(false);
 
 	const handleAddToCart = () => {
+		const cart = JSON.parse(localStorage.getItem('cart')) || [];
+		const newProduct = {
+			...product,
+			storeName: query.storeName as string,
+			quantity,
+		};
+
+		const checkStore = cart.map(product => {
+			return product.storeName;
+		});
+
+		if (cart.length === 0 || checkStore.includes(newProduct.storeName)) {
+			if (cart.length === 0) {
+				cart.push(newProduct);
+			} else {
+				const checkProduct = cart.findIndex(product => product._id === newProduct._id);
+				if (checkProduct !== -1) {
+					cart[checkProduct].quantity = cart[checkProduct].quantity + newProduct.quantity;
+				} else {
+					cart.push(newProduct);
+				}
+			}
+
+			localStorage.setItem('cart', JSON.stringify(cart));
+			scroll.scrollToBottom();
+			setIsMessageVisible(!isMessageVisible);
+			setTimeout(() => {
+				router.push('/customer/cart');
+			}, 2000);
+		} else {
+			setIsModalOpen(true);
+		}
+	};
+
+	const handleAddToCartAnyway = () => {
+		setIsModalOpen(false);
+		const cart = [];
+		const newProduct = {
+			...product,
+			storeName: query.storeName as string,
+			quantity,
+		};
+		cart.push(newProduct);
+		localStorage.setItem('cart', JSON.stringify(cart));
 		scroll.scrollToBottom();
-
 		setIsMessageVisible(!isMessageVisible);
-
 		setTimeout(() => {
 			router.push('/customer/cart');
 		}, 2000);
@@ -100,6 +147,24 @@ const Product: React.FC = () => {
 		<Container>
 			<>
 				<Section>
+					<AnimatePresence>
+						{isModalOpen && (
+							<motion.div
+								key='modal'
+								initial={{ opacity: 0 }}
+								exit={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								transition={{ duration: 0.3 }}
+								style={{ zIndex: 1200 }}
+							>
+								<Modal
+									modalType='storeError'
+									mainFunction={handleAddToCartAnyway}
+									backFunction={() => setIsModalOpen(false)}
+								/>
+							</motion.div>
+						)}
+					</AnimatePresence>
 					<TitleBox title={query.storeName as string} fontSize='2rem' />
 					<ButtonsContainer>
 						<>
@@ -135,6 +200,7 @@ const Product: React.FC = () => {
 							<BoxCard>
 								<ProductDetailsCard
 									description={product.descriptionProduct}
+									composition={product.compositionProduct}
 									src={product.imageProduct}
 									price={product.priceProduct}
 									availability={product.availabilityProduct}
@@ -228,17 +294,18 @@ const Product: React.FC = () => {
 									</Button>
 								</FinishCard>
 							</BoxCard>
-							{isMessageVisible && (
-								<AnimatePresence>
+							<AnimatePresence>
+								{isMessageVisible && (
 									<motion.div
 										initial={{ opacity: 0 }}
+										exit={{ opacity: 0 }}
 										animate={{ opacity: 1 }}
 										transition={{ duration: 0.3 }}
 									>
 										<Message>Produto adicionado ao carrinho!</Message>
 									</motion.div>
-								</AnimatePresence>
-							)}
+								)}
+							</AnimatePresence>
 						</>
 					)}
 				</Section>

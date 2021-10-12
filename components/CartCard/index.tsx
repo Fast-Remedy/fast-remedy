@@ -1,26 +1,54 @@
 import React from 'react';
 import ButtonsContainer from '../ButtonsContainer';
 import Button from '../Button';
-import { BoxCard, Line, Image, Text, Quantity, Store, Description, Price } from './styles';
+import {
+	BoxCard,
+	Line,
+	Image,
+	Text,
+	Quantity,
+	Store,
+	Description,
+	Composition,
+	Price,
+} from './styles';
 import Theme from '../../styles/theme';
 
 interface Props {
 	quantity: number;
 	store: string;
 	description: string;
+	composition?: string;
 	price: number;
 	src: string;
+	decreaseQuantity: (item: any) => void;
+	increaseQuantity: (item: any) => void;
+	removeItem: (item: any) => void;
 }
 
-const CartCard: React.FC<Props> = ({ quantity, store, description, price, src }) => {
+const CartCard: React.FC<Props> = ({
+	quantity,
+	store,
+	description,
+	composition,
+	price,
+	src,
+	decreaseQuantity,
+	increaseQuantity,
+	removeItem,
+}) => {
+	const priceString = price.toFixed(2);
+	const priceConverted = priceString.replace('.', ',');
+
 	return (
 		<BoxCard>
 			<Line>
 				<Text>
 					<Quantity>{quantity}x</Quantity>
 					<Description>{description}</Description>
+					{composition && <Composition>{composition}</Composition>}
 					<Store>{store}</Store>
-					<Price>R$ {price.toString().replace('.', ',')}</Price>
+					<Price>R$ {priceConverted}</Price>
 				</Text>
 				<Image src={src} alt={description} />
 			</Line>
@@ -32,6 +60,7 @@ const CartCard: React.FC<Props> = ({ quantity, store, description, price, src })
 							height='3rem'
 							color={Theme.colors.white}
 							backgroundColor={Theme.colors.green}
+							onClick={decreaseQuantity}
 						>
 							<svg
 								xmlns='http://www.w3.org/2000/svg'
@@ -52,6 +81,7 @@ const CartCard: React.FC<Props> = ({ quantity, store, description, price, src })
 							height='3rem'
 							color={Theme.colors.white}
 							backgroundColor={Theme.colors.green}
+							onClick={increaseQuantity}
 						>
 							<svg
 								xmlns='http://www.w3.org/2000/svg'
@@ -76,6 +106,7 @@ const CartCard: React.FC<Props> = ({ quantity, store, description, price, src })
 						height='3rem'
 						color={Theme.colors.white}
 						backgroundColor={Theme.colors.red}
+						onClick={removeItem}
 					>
 						<svg
 							className='w-6 h-6'
