@@ -1,16 +1,17 @@
 import React from 'react';
 import Button from '../Button';
-import { BoxCard, Text, Description } from './styles';
+import { BoxCard, Text, Description, LeftDiv } from './styles';
 
 interface Props {
 	isActive?: boolean;
-	postalCode: string;
 	street: string;
 	houseNumber: string;
 	complement?: string;
 	neighborhood: string;
 	city: string;
 	state: string;
+	onClick: (item: any) => void;
+	deleteFunction: (item: any) => void;
 }
 
 const AddressCard: React.FC<Props> = ({
@@ -21,20 +22,24 @@ const AddressCard: React.FC<Props> = ({
 	neighborhood,
 	city,
 	state,
+	onClick,
+	deleteFunction,
 }) => (
 	<BoxCard className={isActive && 'active'}>
-		<img src='/images/icons/location.png' alt='Endereço' />
-		<Text>
-			<Description>
-				{street}, {houseNumber}
-			</Description>
-			{complement && <Description>{complement}</Description>}
-			<Description>{neighborhood}</Description>
-			<Description>
-				{city} - {state}
-			</Description>
-		</Text>
-		<Button width='3rem'>
+		<LeftDiv onClick={onClick}>
+			<img src='/images/icons/location.png' alt='Endereço' />
+			<Text>
+				<Description>
+					{street}, {houseNumber}
+				</Description>
+				{complement && <Description>{complement}</Description>}
+				<Description>{neighborhood}</Description>
+				<Description>
+					{city} - {state}
+				</Description>
+			</Text>
+		</LeftDiv>
+		<Button className='button' width='3rem' onClick={deleteFunction} style={{ width: '20%' }}>
 			<img src='/images/icons/trash.png' alt='Excluir' />
 		</Button>
 	</BoxCard>

@@ -1,6 +1,8 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import router from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
+import { animateScroll as scroll } from 'react-scroll';
+import api from '../../../services/api';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
@@ -10,32 +12,132 @@ import Button from '../../../components/Button';
 import Form from '../../../components/Form';
 import InputField from '../../../components/InputField';
 import SelectField from '../../../components/SelectField';
+import LoadingMessage from '../../../components/LoadingMessage';
 
-import { Section, BoxCard } from '../../../styles/customer/address';
+import { Section, BoxCard, Message, IncorrectMessage } from '../../../styles/customer/address';
 import Theme from '../../../styles/theme';
 
 import { useNavigation } from '../../../contexts/NavigationContext';
 
+interface IAddresses {
+	_id: string;
+	idCustomer: string;
+	streetNameCustomer: string;
+	streetNumberCustomer: string;
+	complementCustomer: string;
+	neighborhoodCustomer: string;
+	stateCustomer: string;
+	cityCustomer: string;
+	mainAddressCustomer: boolean;
+}
+
 const Address: React.FC = () => {
 	const { setNavigationState } = useNavigation();
 
-	useEffect(
-		() =>
-			setNavigationState({
-				home: false,
-				search: false,
-				orders: false,
-				profile: true,
-			}),
-		[]
-	);
+	const [addresses, setAddresses] = useState<IAddresses[]>([]);
+
+	const [isMessageVisible, setIsMessageVisible] = useState(false);
+	const [message, setMessage] = useState('');
+	const [isStreetNameCustomerIncorrect, setIsStreetNameCustomerIncorrect] = useState(false);
+	const [isNeighborhoodCustomerIncorrect, setIsNeighborhoodCustomerIncorrect] = useState(false);
+	const [isStateCustomerIncorrect, setIsStateCustomerIncorrect] = useState(false);
+	const [isCityCustomerIncorrect, setIsCityCustomerIncorrect] = useState(false);
+
+	const [isFetching, setIsFetching] = useState(false);
 
 	const [newAddressVisible, setNewAddressVisible] = useState(false);
 	const [listUf, setListUf] = useState([]);
 	const [isCityFieldDisabled, setIsCityFieldDisabled] = useState(true);
 	const [listCity, setListCity] = useState([]);
-	const [state, setState] = useState('');
-	const [city, setCity] = useState('');
+
+	const [streetNameCustomer, setStreetNameCustomer] = useState('');
+	const [streetNumberCustomer, setStreetNumberCustomer] = useState('');
+	const [complementCustomer, setComplementCustomer] = useState('');
+	const [neighborhoodCustomer, setNeighborhoodCustomer] = useState('');
+	const [stateCustomer, setStateCustomer] = useState('');
+	const [cityCustomer, setCityCustomer] = useState('');
+
+	useEffect(() => {
+		setNavigationState({
+			home: false,
+			search: false,
+			orders: false,
+			profile: true,
+		});
+		loadUf();
+		getAddresses();
+		return () => {
+			setAddresses([]);
+		};
+	}, []);
+
+	useEffect(() => {
+		loadCity(stateCustomer);
+	}, [stateCustomer]);
+
+	const getAddresses = async () => {
+		setIsFetching(true);
+		try {
+			const { data } = await api.get(
+				`/api/address/customers/${JSON.parse(localStorage.getItem('userData'))._id}`,
+				{
+					headers: {
+						authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+					},
+				}
+			);
+			setAddresses(data);
+			setIsFetching(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const setAsMainAddress = async (index: number) => {
+		const allAddresses = [...addresses];
+		const addressToEdit = addresses[index];
+		const newAddress = { ...addressToEdit, mainAddressCustomer: true };
+		const editedAddresses = allAddresses.map(address => ({
+			_id: address._id,
+			idCustomer: address.idCustomer,
+			streetNameCustomer: address.streetNameCustomer,
+			streetNumberCustomer: address.streetNumberCustomer,
+			complementCustomer: address.complementCustomer,
+			neighborhoodCustomer: address.neighborhoodCustomer,
+			stateCustomer: address.stateCustomer,
+			cityCustomer: address.cityCustomer,
+			mainAddressCustomer: false,
+		}));
+		editedAddresses[index] = newAddress;
+		try {
+			setAddresses(editedAddresses);
+			editedAddresses.forEach(async address => {
+				await api.put(`/api/register/address/customers/${address._id}`, address, {
+					headers: {
+						authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+					},
+				});
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const handleDeleteAddress = async (index: number) => {
+		const allAddresses = [...addresses];
+		const addressToDelete = addresses[index];
+		allAddresses.splice(index, 1);
+		try {
+			setAddresses(allAddresses);
+			await api.delete(`/api/delete/address/customers/${addressToDelete._id}`, {
+				headers: {
+					authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+				},
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const loadUf = () => {
 		fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
@@ -45,10 +147,6 @@ const Address: React.FC = () => {
 				setListUf([{ sigla: 'Selecione uma opção' }, ...data]);
 			});
 	};
-
-	useEffect(() => {
-		loadUf();
-	}, []);
 
 	const loadCity = async id => {
 		if (id.length > 2) {
@@ -63,19 +161,101 @@ const Address: React.FC = () => {
 					setListCity([{ nome: 'Selecione uma opção' }, ...data]);
 				});
 
-			if (state !== '') {
+			if (stateCustomer !== '') {
 				setIsCityFieldDisabled(false);
 			}
 		}
 	};
 
-	useEffect(() => {
-		loadCity(state);
-	}, [state]);
+	const handleSaveAddress = async (e: FormEvent) => {
+		e.preventDefault();
 
-	const handleSaveAddress = (e: FormEvent) => {
-		setNewAddressVisible(!newAddressVisible);
+		const newAddress = {
+			streetNameCustomer,
+			streetNumberCustomer,
+			complementCustomer,
+			neighborhoodCustomer,
+			cityCustomer,
+			stateCustomer,
+			mainAddressCustomer: false,
+			idCustomer: JSON.parse(localStorage.getItem('userData'))._id,
+		};
+
+		let isIncorrect = false;
+
+		if (newAddress.cityCustomer.length < 1) {
+			setIsCityCustomerIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Selecione uma cidade!');
+			isIncorrect = true;
+		}
+		if (newAddress.stateCustomer.length < 1) {
+			setIsStateCustomerIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Selecione um estado!');
+			isIncorrect = true;
+		}
+		if (newAddress.neighborhoodCustomer.length < 2) {
+			setIsNeighborhoodCustomerIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Insira um bairro válido!');
+			isIncorrect = true;
+		}
+		if (newAddress.streetNameCustomer.length < 2) {
+			setIsStreetNameCustomerIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Insira um logradouro válido!');
+			isIncorrect = true;
+		}
+		if (!isIncorrect) {
+			try {
+				setIsFetching(true);
+				await api.post('/api/register/address/customers', newAddress, {
+					headers: {
+						authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+					},
+				});
+				setIsFetching(false);
+				clearForm();
+				setNewAddressVisible(!newAddressVisible);
+				getAddresses();
+			} catch (error) {
+				setIsFetching(false);
+				setIsMessageVisible(true);
+				setMessage('Verifique os campos e tente novamente!');
+			}
+		}
+		scroll.scrollToBottom();
 	};
+
+	const clearForm = () => {
+		setStreetNameCustomer('');
+		setStreetNumberCustomer('');
+		setComplementCustomer('');
+		setNeighborhoodCustomer('');
+		setCityCustomer('');
+		setStateCustomer('');
+	};
+
+	useEffect(() => {
+		setIsStreetNameCustomerIncorrect(false);
+		setIsMessageVisible(false);
+	}, [streetNameCustomer]);
+
+	useEffect(() => {
+		setIsNeighborhoodCustomerIncorrect(false);
+		setIsMessageVisible(false);
+	}, [neighborhoodCustomer]);
+
+	useEffect(() => {
+		setIsStateCustomerIncorrect(false);
+		setIsMessageVisible(false);
+	}, [stateCustomer]);
+
+	useEffect(() => {
+		setIsCityCustomerIncorrect(false);
+		setIsMessageVisible(false);
+	}, [cityCustomer]);
 
 	return (
 		<Container>
@@ -109,7 +289,10 @@ const Address: React.FC = () => {
 									className='icon margin'
 									color={Theme.colors.black}
 									backgroundColor={Theme.colors.white}
-									onClick={() => setNewAddressVisible(!newAddressVisible)}
+									onClick={() => {
+										clearForm();
+										setNewAddressVisible(!newAddressVisible);
+									}}
 								>
 									<svg
 										fill='currentColor'
@@ -126,35 +309,47 @@ const Address: React.FC = () => {
 								</Button>
 							</>
 						</ButtonsContainer>
-						<BoxCard style={{ marginTop: '0' }}>
-							<motion.div
-								initial={{ opacity: 0 }}
-								exit={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								transition={{ duration: 0.3 }}
-							>
-								<BoxCard>
-									<AddressCard
-										isActive={true}
-										postalCode='27250-620'
-										street='Rua Trinta e Três'
-										houseNumber='46'
-										complement='Ap. 101'
-										neighborhood='Vila Santa Cecília'
-										city='Volta Redonda'
-										state='RJ'
-									/>
-									<AddressCard
-										postalCode='27250-620'
-										street='Rua Soldado Francisco Alves Rocha'
-										houseNumber='46'
-										neighborhood='Santo Agostinho'
-										city='Volta Redonda'
-										state='RJ'
-									/>
-								</BoxCard>
-							</motion.div>
-						</BoxCard>
+						{isFetching ? (
+							<BoxCard>
+								<LoadingMessage />
+							</BoxCard>
+						) : (
+							<BoxCard style={{ marginTop: '0' }}>
+								<motion.div
+									initial={{ opacity: 0 }}
+									exit={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									transition={{ duration: 0.3 }}
+								>
+									<BoxCard>
+										{addresses.length === 0 ? (
+											<Message>Nenhum endereço cadastrado!</Message>
+										) : (
+											addresses.map((address, index) => (
+												<AddressCard
+													key={address._id}
+													isActive={address.mainAddressCustomer}
+													street={address.streetNameCustomer}
+													houseNumber={address.streetNumberCustomer}
+													complement={address.complementCustomer}
+													neighborhood={address.neighborhoodCustomer}
+													city={address.cityCustomer}
+													state={address.stateCustomer}
+													onClick={() => {
+														if (!address.mainAddressCustomer) {
+															setAsMainAddress(index);
+														}
+													}}
+													deleteFunction={() => {
+														handleDeleteAddress(index);
+													}}
+												/>
+											))
+										)}
+									</BoxCard>
+								</motion.div>
+							</BoxCard>
+						)}
 					</Section>
 				) : (
 					<Section>
@@ -165,7 +360,10 @@ const Address: React.FC = () => {
 									className='icon back'
 									color={Theme.colors.black}
 									backgroundColor={Theme.colors.white}
-									onClick={() => setNewAddressVisible(!newAddressVisible)}
+									onClick={() => {
+										clearForm();
+										setNewAddressVisible(!newAddressVisible);
+									}}
 								>
 									<svg
 										className='icon'
@@ -196,20 +394,44 @@ const Address: React.FC = () => {
 											<InputField
 												label='Logradouro'
 												placeholder='Ex. Rua Trinta e Três'
+												required
+												value={streetNameCustomer}
+												onChange={e =>
+													setStreetNameCustomer(e.target.value)
+												}
+												isIncorrect={isStreetNameCustomerIncorrect}
 											/>
-											<InputField label='Número' placeholder='Ex. 42' />
+											<InputField
+												label='Número'
+												placeholder='Ex. 42'
+												required
+												value={streetNumberCustomer}
+												onChange={e =>
+													setStreetNumberCustomer(e.target.value)
+												}
+											/>
 											<InputField
 												label='Complemento'
 												placeholder='Ex. Ap. 101'
+												value={complementCustomer}
+												onChange={e =>
+													setComplementCustomer(e.target.value)
+												}
 											/>
 											<InputField
 												label='Bairro'
 												placeholder='Ex. Vila Santa Cecília'
+												value={neighborhoodCustomer}
+												onChange={e =>
+													setNeighborhoodCustomer(e.target.value)
+												}
+												isIncorrect={isNeighborhoodCustomerIncorrect}
 											/>
 											<SelectField
 												label='Estado'
-												value={state}
-												onChange={e => setState(e.target.value)}
+												value={stateCustomer}
+												onChange={e => setStateCustomer(e.target.value)}
+												isIncorrect={isStateCustomerIncorrect}
 											>
 												{listUf.map((a, index) => (
 													<option key={index} value={a.sigla}>
@@ -220,8 +442,10 @@ const Address: React.FC = () => {
 											<SelectField
 												disabled={isCityFieldDisabled}
 												label='Cidade'
-												value={city}
-												onChange={e => setCity(e.target.value)}
+												value={cityCustomer}
+												required
+												onChange={e => setCityCustomer(e.target.value)}
+												isIncorrect={isCityCustomerIncorrect}
 											>
 												{listCity.map((a, index) => (
 													<option key={index} value={a.nome}>
@@ -242,15 +466,32 @@ const Address: React.FC = () => {
 														type='submit'
 														color={Theme.colors.white}
 														backgroundColor={Theme.colors.green}
+														isLoading={isFetching}
 													>
-														<img
-															src='/images/icons/save.svg'
-															alt='Salvar'
-														/>
-														Salvar
+														{!isFetching && (
+															<img
+																src='/images/icons/save.svg'
+																alt='Salvar'
+															/>
+														)}
+														{isFetching ? 'Carregando...' : 'Salvar'}
 													</Button>
 												</>
 											</ButtonsContainer>
+											<AnimatePresence>
+												{isMessageVisible && (
+													<motion.div
+														initial={{ opacity: 0 }}
+														exit={{ opacity: 0 }}
+														animate={{ opacity: 1 }}
+														transition={{ duration: 0.3 }}
+													>
+														<IncorrectMessage>
+															{message}
+														</IncorrectMessage>
+													</motion.div>
+												)}
+											</AnimatePresence>
 										</>
 									</Form>
 								</motion.div>
