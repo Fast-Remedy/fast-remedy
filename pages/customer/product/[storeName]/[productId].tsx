@@ -119,7 +119,7 @@ const Product: React.FC = () => {
 			scroll.scrollToBottom();
 			setIsMessageVisible(!isMessageVisible);
 			setTimeout(() => {
-				router.push('/customer/cart');
+				router.back();
 			}, 2000);
 		} else {
 			setIsModalOpen(true);
