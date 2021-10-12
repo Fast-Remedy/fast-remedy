@@ -104,6 +104,10 @@ const Cart: React.FC = () => {
 
 	useEffect(() => {
 		setTotal(subtotal + store.deliveryFeeStore);
+	}, [store]);
+
+	useEffect(() => {
+		setTotal(subtotal + store.deliveryFeeStore);
 	}, [subtotal]);
 
 	const handleDecreaseQuantity = (index: number) => {
