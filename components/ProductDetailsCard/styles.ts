@@ -45,6 +45,12 @@ export const Description = styled.span`
 	text-align: center;
 `;
 
+export const Composition = styled.span`
+	font-size: 0.8rem;
+	font-weight: 400;
+	text-align: center;
+`;
+
 export const Price = styled.span`
 	font-size: 1.6rem;
 	font-weight: 600;

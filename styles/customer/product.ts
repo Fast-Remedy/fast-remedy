@@ -53,6 +53,7 @@ export const FinishCard = styled.div`
 		padding: 0 1rem;
 
 		.info {
+			font-size: 1.2rem;
 			font-weight: 400;
 		}
 	}
