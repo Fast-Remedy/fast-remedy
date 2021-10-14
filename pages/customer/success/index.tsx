@@ -1,14 +1,18 @@
 import React from 'react';
-import Link from 'next/link';
+import router from 'next/router';
 import Button from '../../../components/Button';
 import { Section, Text } from '../../../styles/customer/success';
 
-const Success: React.FC = () => {
+const Success = () => {
 	return (
 		<Section>
-			<Text>Compra concluída!</Text>
-			<Link href='/customer/orders'>
-				<Button className='icon back right' width='22rem'>
+			<>
+				<Text>Compra concluída!</Text>
+				<Button
+					className='icon back right'
+					width='22rem'
+					onClick={() => router.push('/customer/orders')}
+				>
 					<img
 						src='/images/icons/orders.png'
 						alt='Pedidos'
@@ -16,9 +20,11 @@ const Success: React.FC = () => {
 					/>
 					Ver pedidos
 				</Button>
-			</Link>
-			<Link href='/customer/home'>
-				<Button className='icon back' width='22rem'>
+				<Button
+					className='icon back'
+					width='22rem'
+					onClick={() => router.push('/customer/home')}
+				>
 					<svg
 						className='icon'
 						fill='currentColor'
@@ -33,7 +39,7 @@ const Success: React.FC = () => {
 					</svg>
 					Voltar
 				</Button>
-			</Link>
+			</>
 		</Section>
 	);
 };

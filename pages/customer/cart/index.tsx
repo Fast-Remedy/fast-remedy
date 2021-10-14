@@ -109,6 +109,7 @@ const Cart: React.FC = () => {
 	const [total, setTotal] = useState(0);
 
 	const [isFetching, setIsFetching] = useState(true);
+	const [isBuying, setIsBuying] = useState(false);
 
 	useEffect(() => {
 		setNavigationState({
@@ -239,6 +240,7 @@ const Cart: React.FC = () => {
 			const subtotal = pricePerProduct.reduce((a: number, b: number) => a + b);
 			setSubtotal(subtotal);
 		}
+		localStorage.setItem('cart', JSON.stringify(cartItems));
 	}, [cartItems]);
 
 	useEffect(() => {
@@ -273,7 +275,7 @@ const Cart: React.FC = () => {
 		setCartItems(allItems);
 	};
 
-	const handleBuy = () => {
+	const handleBuy = async () => {
 		if (!isFetching) {
 			if (subtotal < 15) {
 				setIsMessageVisible(true);
@@ -281,7 +283,31 @@ const Cart: React.FC = () => {
 					setIsMessageVisible(false);
 				}, 5000);
 			} else {
-				router.push('/customer/success');
+				setIsBuying(true);
+				const newOrder = {
+					idCustomer: JSON.parse(localStorage.getItem('userData'))._id,
+					idStore: store._id,
+					orderProducts: cartItems,
+					dateOrder: new Date(),
+					statusOrder: 'pendingAcceptance',
+					subTotalOrder: subtotal.toFixed(2),
+					totalOrder: total.toFixed(2),
+					deliveryFeeOrder: store.deliveryFeeStore,
+					deliveryEstimatedOrder: store.deliveryEstimatedTimeStore,
+					paymentOrder: card,
+					addressCostumer: address,
+				};
+				try {
+					await api.post('/api/create/orders', newOrder, {
+						headers: {
+							authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+						},
+					});
+					router.push('/customer/success');
+					localStorage.removeItem('cart');
+				} catch (error) {
+					console.log(error);
+				}
 			}
 		}
 		scroll.scrollToBottom();
@@ -422,31 +448,36 @@ const Cart: React.FC = () => {
 										className={`icon margin ${
 											(cartItems.length === 0 || address._id === '') &&
 											'disabled'
-										}`}
+										} ${isBuying && 'right'}`}
 										width='100%'
 										height='80px'
 										color={Theme.colors.white}
 										backgroundColor={Theme.colors.green}
 										onClick={handleBuy}
 										disabled={cartItems.length === 0 || address._id === ''}
+										isLoading={isBuying}
 									>
-										<div>
-											<span>
-												<svg
-													className='w-6 h-6'
-													fill='currentColor'
-													viewBox='0 0 20 20'
-													xmlns='http://www.w3.org/2000/svg'
-													style={{ marginRight: '0.6rem' }}
-												>
-													<path d='M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z' />
-												</svg>
-												Finalizar compra
-											</span>
-											<span className='info'>
-												R$ {total.toFixed(2).replace('.', ',')}
-											</span>
-										</div>
+										{isBuying ? (
+											'Finalizando compra...'
+										) : (
+											<div>
+												<span>
+													<svg
+														className='w-6 h-6'
+														fill='currentColor'
+														viewBox='0 0 20 20'
+														xmlns='http://www.w3.org/2000/svg'
+														style={{ marginRight: '0.6rem' }}
+													>
+														<path d='M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z' />
+													</svg>
+													Finalizar compra
+												</span>
+												<span className='info'>
+													R$ {total.toFixed(2).replace('.', ',')}
+												</span>
+											</div>
+										)}
 									</Button>
 								</FinishCard>
 							</BoxCard>

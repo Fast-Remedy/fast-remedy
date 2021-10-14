@@ -1,27 +1,51 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import api from '../../../services/api';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
 import CartIcon from '../../../components/CartIcon';
 import OrdersCard from '../../../components/OrdersCard';
+import LoadingMessage from '../../../components/LoadingMessage';
 
-import { Section, BoxCard } from '../../../styles/customer/orders';
+import { Section, BoxCard, Message } from '../../../styles/customer/orders';
 
 import { useNavigation } from '../../../contexts/NavigationContext';
 
 const Orders: React.FC = () => {
 	const { setNavigationState } = useNavigation();
 
-	useEffect(
-		() =>
-			setNavigationState({
-				home: false,
-				search: false,
-				orders: true,
-				profile: false,
-			}),
-		[]
-	);
+	const [orders, setOrders] = useState([]);
+
+	const [isFetching, setIsFetching] = useState(true);
+
+	useEffect(() => {
+		setNavigationState({
+			home: false,
+			search: false,
+			orders: true,
+			profile: false,
+		});
+		getOrders();
+	}, []);
+
+	const getOrders = async () => {
+		try {
+			const { data } = await api.get(
+				`/api/orders/customer/${JSON.parse(localStorage.getItem('userData'))._id}`,
+				{
+					headers: {
+						authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+					},
+				}
+			);
+			console.log(data);
+			setOrders(data);
+			setIsFetching(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<Container>
@@ -31,71 +55,38 @@ const Orders: React.FC = () => {
 						<TitleBox title='Pedidos' />
 						<CartIcon />
 					</div>
-					<BoxCard>
-						<OrdersCard
-							orderId='1'
-							imageSrc='/images/logos/drogaria-moderna.png'
-							storeName='Drogaria Moderna'
-							status='inProgress'
-							time='Quarta-feira, 11/08/2021 às 19h41'
-							items={[
-								{
-									quantity: 1,
-									description:
-										'Dipirona Sódica 500mg Genérico Medley 10 Comprimidos',
-								},
-								{
-									quantity: 1,
-									description:
-										'Maleato de Dexclorfeniramina 2mg/5ml Cimed Solução Oral Sabor Laranja com 120ml',
-								},
-								{
-									quantity: 1,
-									description: 'Aparelho de Barbear MACH3 Gillette - 1 Unidade',
-								},
-							]}
-						/>
-						<OrdersCard
-							orderId='2'
-							imageSrc='/images/logos/drogaria-moderna.png'
-							storeName='Drogaria Moderna'
-							status='finished'
-							time='Quarta-feira, 11/08/2021 às 19h41'
-							items={[
-								{
-									quantity: 1,
-									description:
-										'Dipirona Sódica 500mg Genérico Medley 10 Comprimidos',
-								},
-								{
-									quantity: 1,
-									description: 'Bromoprida Xarope Medley 100mL',
-								},
-								{
-									quantity: 2,
-									description: 'Paracetamol Cartela Teuto 10 Comprimidos',
-								},
-								{
-									quantity: 2,
-									description: 'Dorflex Caixa Com 50 Comprimidos',
-								},
-							]}
-						/>
-						<OrdersCard
-							orderId='3'
-							imageSrc='/images/logos/drogaria-moderna.png'
-							storeName='Drogaria Moderna'
-							status='canceled'
-							time='Quarta-feira, 11/08/2021 às 19h41'
-							items={[
-								{
-									quantity: 1,
-									description:
-										'Dipirona Sódica 500mg Genérico Medley 10 Comprimidos',
-								},
-							]}
-						/>
-					</BoxCard>
+					{isFetching ? (
+						<BoxCard>
+							<LoadingMessage />
+						</BoxCard>
+					) : (
+						<BoxCard style={{ marginTop: '0' }}>
+							<motion.div
+								initial={{ opacity: 0 }}
+								exit={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								transition={{ duration: 0.3 }}
+							>
+								<BoxCard>
+									{orders.length === 0 ? (
+										<Message>Nenhum endereço cadastrado!</Message>
+									) : (
+										orders.map((order, index) => (
+											<OrdersCard
+												key={order._id}
+												orderId={order._id}
+												imageSrc={order.imageStore}
+												storeName={order.tradingNameStore}
+												status={order.statusOrder}
+												time={order.dateOrder}
+												items={order.orderProducts}
+											/>
+										))
+									)}
+								</BoxCard>
+							</motion.div>
+						</BoxCard>
+					)}
 				</Section>
 			</>
 		</Container>

@@ -75,6 +75,7 @@ export const Item = styled.span`
 	align-items: center;
 	justify-content: flex-start;
 	gap: 0.5rem;
+	margin-bottom: 0.5rem;
 `;
 
 export const Quantity = styled.span`
@@ -90,7 +91,7 @@ export const Status = styled.span`
 	align-items: flex-end;
 	justify-content: flex-start;
 	gap: 0.5rem;
-	margin-top: 1rem;
+	margin-top: 0.5rem;
 `;
 
 export const Description = styled.span`
