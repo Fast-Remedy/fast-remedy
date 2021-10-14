@@ -19,7 +19,7 @@ import Theme from '../../../styles/theme';
 
 import { useNavigation } from '../../../contexts/NavigationContext';
 
-interface IAddresses {
+interface IAddress {
 	_id: string;
 	idCustomer: string;
 	streetNameCustomer: string;
@@ -34,7 +34,7 @@ interface IAddresses {
 const Address: React.FC = () => {
 	const { setNavigationState } = useNavigation();
 
-	const [addresses, setAddresses] = useState<IAddresses[]>([]);
+	const [addresses, setAddresses] = useState<IAddress[]>([]);
 
 	const [isMessageVisible, setIsMessageVisible] = useState(false);
 	const [message, setMessage] = useState('');
@@ -112,7 +112,7 @@ const Address: React.FC = () => {
 		try {
 			setAddresses(editedAddresses);
 			editedAddresses.forEach(async address => {
-				await api.put(`/api/register/address/customers/${address._id}`, address, {
+				await api.put(`/api/update/address/customers/${address._id}`, address, {
 					headers: {
 						authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
 					},

@@ -1,6 +1,8 @@
 import React, { FormEvent, useState, useEffect } from 'react';
 import router from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
+import { animateScroll as scroll } from 'react-scroll';
+import api from '../../../services/api';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
@@ -10,32 +12,259 @@ import Button from '../../../components/Button';
 import Form from '../../../components/Form';
 import InputField from '../../../components/InputField';
 import SelectField from '../../../components/SelectField';
+import LoadingMessage from '../../../components/LoadingMessage';
 
-import { Section, BoxCard, Line } from '../../../styles/customer/payment';
+import {
+	Section,
+	BoxCard,
+	Line,
+	Message,
+	IncorrectMessage,
+} from '../../../styles/customer/payment';
 import Theme from '../../../styles/theme';
 
 import { useNavigation } from '../../../contexts/NavigationContext';
 
+interface ICard {
+	_id: string;
+	idCustomer: string;
+	cardTypeCustomers: string;
+	cardNumberCustomers: string;
+	cardExpirationDateCustomers: string;
+	cardCvvCustomer: string;
+	cardOwnerNameCustomer: string;
+	cardOwnerCpfCustomer: string;
+	mainCardCustomer: boolean;
+}
+
 const Payment: React.FC = () => {
 	const { setNavigationState } = useNavigation();
 
-	useEffect(
-		() =>
-			setNavigationState({
-				home: false,
-				search: false,
-				orders: false,
-				profile: true,
-			}),
-		[]
-	);
+	const [cards, setCards] = useState<ICard[]>([]);
+
+	const [isMessageVisible, setIsMessageVisible] = useState(false);
+	const [message, setMessage] = useState('');
+	const [isCardNumberCustomersIncorrect, setIsCardNumberCustomersIncorrect] = useState(false);
+	const [isCardExpirationMonthCustomersIncorrect, setIsCardExpirationMonthCustomersIncorrect] =
+		useState(false);
+	const [isCardExpirationYearCustomersIncorrect, setIsCardExpirationYearCustomersIncorrect] =
+		useState(false);
+	const [isCardCvvCustomerIncorrect, setIsCardCvvCustomerIncorrect] = useState(false);
+	const [isCardOwnerNameCustomerIncorrect, setIsCardOwnerNameCustomerIncorrect] = useState(false);
+	const [isCardOwnerCpfCustomerIncorrect, setIsCardOwnerCpfCustomerIncorrect] = useState(false);
+
+	const [isFetching, setIsFetching] = useState(false);
 
 	const [newPaymentVisible, setNewPaymentVisible] = useState(false);
-	const [paymentType, setPaymentType] = useState('');
 
-	const handleSavePayment = (e: FormEvent) => {
-		setNewPaymentVisible(!newPaymentVisible);
+	const [cardTypeCustomers, setCardTypeCustomers] = useState('Crédito');
+	const [cardNumberCustomers, setCardNumberCustomers] = useState('');
+	const [cardExpirationMonthCustomers, setCardExpirationMonthCustomers] = useState('');
+	const [cardExpirationYearCustomers, setCardExpirationYearCustomers] = useState('');
+	const [cardCvvCustomer, setCardCvvCustomer] = useState('');
+	const [cardOwnerNameCustomer, setCardOwnerNameCustomer] = useState('');
+	const [cardOwnerCpfCustomer, setCardOwnerCpfCustomer] = useState('');
+
+	useEffect(() => {
+		setNavigationState({
+			home: false,
+			search: false,
+			orders: false,
+			profile: true,
+		});
+		getCards();
+		return () => {
+			setCards([]);
+		};
+	}, []);
+
+	const getCards = async () => {
+		setIsFetching(true);
+		try {
+			const { data } = await api.get(
+				`/api/card/customers/${JSON.parse(localStorage.getItem('userData'))._id}`,
+				{
+					headers: {
+						authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+					},
+				}
+			);
+			setCards(data);
+			setIsFetching(false);
+		} catch (error) {
+			console.log(error);
+		}
 	};
+
+	const setAsMainCard = async (index: number) => {
+		const allCards = [...cards];
+		const cardToEdit = cards[index];
+		const newAddress = { ...cardToEdit, mainCardCustomer: true };
+		const editedCards = allCards.map(card => ({
+			_id: card._id,
+			idCustomer: card.idCustomer,
+			cardTypeCustomers: card.cardTypeCustomers,
+			cardNumberCustomers: card.cardNumberCustomers,
+			cardExpirationDateCustomers: card.cardExpirationDateCustomers,
+			cardCvvCustomer: card.cardCvvCustomer,
+			cardOwnerNameCustomer: card.cardOwnerNameCustomer,
+			cardOwnerCpfCustomer: card.cardOwnerCpfCustomer,
+			mainCardCustomer: false,
+		}));
+		editedCards[index] = newAddress;
+		try {
+			setCards(editedCards);
+			editedCards.forEach(async card => {
+				await api.put(`/api/update/card/customers/${card._id}`, card, {
+					headers: {
+						authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+					},
+				});
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const handleDeleteCard = async (index: number) => {
+		const allCards = [...cards];
+		const cardToDelete = cards[index];
+		allCards.splice(index, 1);
+		try {
+			setCards(allCards);
+			await api.delete(`/api/delete/card/customers/${cardToDelete._id}`, {
+				headers: {
+					authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+				},
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const handleSaveCard = async (e: FormEvent) => {
+		e.preventDefault();
+
+		const newCard = {
+			cardTypeCustomers,
+			cardNumberCustomers,
+			cardExpirationDateCustomers: `${cardExpirationMonthCustomers}/${cardExpirationYearCustomers}`,
+			cardCvvCustomer,
+			cardOwnerNameCustomer,
+			cardOwnerCpfCustomer: cardOwnerCpfCustomer.replace(/[^0-9]+/g, ''),
+			mainCardCustomer: false,
+			idCustomer: JSON.parse(localStorage.getItem('userData'))._id,
+		};
+
+		let isIncorrect = false;
+
+		if (newCard.cardOwnerCpfCustomer.trim().length < 11) {
+			setIsCardOwnerCpfCustomerIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('O CPF deve conter 11 dígitos!');
+			isIncorrect = true;
+		}
+		if (newCard.cardOwnerNameCustomer.trim().length < 3) {
+			setIsCardOwnerNameCustomerIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Insira um nome válido!');
+			isIncorrect = true;
+		}
+		if (newCard.cardCvvCustomer.length !== 3) {
+			setIsCardCvvCustomerIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('O código de segurança deve conter 3 dígitos!');
+			isIncorrect = true;
+		}
+		if (cardExpirationYearCustomers.length < 2) {
+			setIsCardExpirationYearCustomersIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('O ano deve conter 2 dígitos!');
+			isIncorrect = true;
+		}
+		if (Number(cardExpirationYearCustomers) < 20) {
+			setIsCardExpirationYearCustomersIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Insira um ano válido!');
+			isIncorrect = true;
+		}
+		if (cardExpirationMonthCustomers.length < 2) {
+			setIsCardExpirationMonthCustomersIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('O mês deve conter 2 dígitos!');
+			isIncorrect = true;
+		}
+		if (Number(cardExpirationMonthCustomers) > 12) {
+			setIsCardExpirationMonthCustomersIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Insira um mês válido!');
+			isIncorrect = true;
+		}
+		if (newCard.cardNumberCustomers.length < 16) {
+			setIsCardNumberCustomersIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('O número do cartão deve conter 16 dígitos!');
+			isIncorrect = true;
+		}
+		if (!isIncorrect) {
+			try {
+				setIsFetching(true);
+				await api.post('/api/register/card/customers', newCard, {
+					headers: {
+						authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+					},
+				});
+				setIsFetching(false);
+				clearForm();
+				setNewPaymentVisible(!newPaymentVisible);
+				getCards();
+			} catch (error) {
+				setIsFetching(false);
+				setIsMessageVisible(true);
+				setMessage('Verifique os campos e tente novamente!');
+			}
+		}
+		scroll.scrollToBottom();
+	};
+
+	const clearForm = () => {
+		setCardNumberCustomers('');
+		setCardExpirationMonthCustomers('');
+		setCardExpirationYearCustomers('');
+		setCardCvvCustomer('');
+		setCardOwnerNameCustomer('');
+		setCardOwnerCpfCustomer('');
+	};
+
+	useEffect(() => {
+		setIsCardNumberCustomersIncorrect(false);
+		setIsMessageVisible(false);
+	}, [cardNumberCustomers]);
+
+	useEffect(() => {
+		setIsCardExpirationMonthCustomersIncorrect(false);
+		setIsMessageVisible(false);
+	}, [cardExpirationMonthCustomers]);
+
+	useEffect(() => {
+		setIsCardExpirationYearCustomersIncorrect(false);
+		setIsMessageVisible(false);
+	}, [cardExpirationYearCustomers]);
+
+	useEffect(() => {
+		setIsCardCvvCustomerIncorrect(false);
+		setIsMessageVisible(false);
+	}, [cardCvvCustomer]);
+
+	useEffect(() => {
+		setIsCardOwnerNameCustomerIncorrect(false);
+		setIsMessageVisible(false);
+	}, [cardOwnerNameCustomer]);
+
+	useEffect(() => {
+		setIsCardOwnerCpfCustomerIncorrect(false);
+		setIsMessageVisible(false);
+	}, [cardOwnerCpfCustomer]);
 
 	return (
 		<Container>
@@ -69,7 +298,10 @@ const Payment: React.FC = () => {
 									className='icon margin'
 									color={Theme.colors.black}
 									backgroundColor={Theme.colors.white}
-									onClick={() => setNewPaymentVisible(!newPaymentVisible)}
+									onClick={() => {
+										clearForm();
+										setNewPaymentVisible(!newPaymentVisible);
+									}}
 								>
 									<svg
 										fill='currentColor'
@@ -86,28 +318,45 @@ const Payment: React.FC = () => {
 								</Button>
 							</>
 						</ButtonsContainer>
-						<BoxCard style={{ marginTop: '0' }}>
-							<motion.div
-								initial={{ opacity: 0 }}
-								exit={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								transition={{ duration: 0.3 }}
-							>
-								<BoxCard>
-									<PaymentCard
-										className='active'
-										type='Crédito'
-										processor='MasterCard'
-										finalCardNumbers='9115'
-									/>
-									<PaymentCard
-										type='Crédito'
-										processor='Visa'
-										finalCardNumbers='1457'
-									/>
-								</BoxCard>
-							</motion.div>
-						</BoxCard>
+						{isFetching ? (
+							<BoxCard>
+								<LoadingMessage />
+							</BoxCard>
+						) : (
+							<BoxCard style={{ marginTop: '0' }}>
+								<motion.div
+									initial={{ opacity: 0 }}
+									exit={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									transition={{ duration: 0.3 }}
+								>
+									{cards.length === 0 ? (
+										<Message style={{ marginTop: '1.1rem' }}>
+											Nenhum cartão cadastrado!
+										</Message>
+									) : (
+										<BoxCard>
+											{cards.map((card, index) => (
+												<PaymentCard
+													key={card._id}
+													isActive={card.mainCardCustomer}
+													type={card.cardTypeCustomers}
+													cardNumber={card.cardNumberCustomers}
+													onClick={() => {
+														if (!card.mainCardCustomer) {
+															setAsMainCard(index);
+														}
+													}}
+													deleteFunction={() => {
+														handleDeleteCard(index);
+													}}
+												/>
+											))}
+										</BoxCard>
+									)}
+								</motion.div>
+							</BoxCard>
+						)}
 					</Section>
 				) : (
 					<Section>
@@ -144,41 +393,88 @@ const Payment: React.FC = () => {
 									animate={{ opacity: 1 }}
 									transition={{ duration: 0.3 }}
 								>
-									<Form onSubmit={handleSavePayment}>
+									<Form onSubmit={handleSaveCard}>
 										<>
 											<SelectField
 												label='Tipo'
-												value={paymentType}
-												onChange={e => setPaymentType(e.target.value)}
+												value={cardTypeCustomers}
+												onChange={e => setCardTypeCustomers(e.target.value)}
 											>
 												<option value='Crédito'>Crédito</option>
 												<option value='Débito'>Débito</option>
 											</SelectField>
 											<InputField
 												label='Número do Cartão'
-												placeholder='Ex. 9999-9999-9999-9999'
+												mask='9999 9999 9999 9999'
+												placeholder='Ex. 9999 9999 9999 9999'
+												required
+												value={cardNumberCustomers}
+												onChange={e =>
+													setCardNumberCustomers(e.target.value)
+												}
+												isIncorrect={isCardNumberCustomersIncorrect}
 											/>
 											<Line>
 												<InputField
 													label='Mês de Validade'
+													mask='99'
 													placeholder='Ex. 12'
+													required
+													value={cardExpirationMonthCustomers}
+													onChange={e =>
+														setCardExpirationMonthCustomers(
+															e.target.value
+														)
+													}
+													isIncorrect={
+														isCardExpirationMonthCustomersIncorrect
+													}
 												/>
 												<InputField
 													label='Ano de Validade'
+													mask='99'
 													placeholder='Ex. 22'
+													required
+													value={cardExpirationYearCustomers}
+													onChange={e =>
+														setCardExpirationYearCustomers(
+															e.target.value
+														)
+													}
+													isIncorrect={
+														isCardExpirationYearCustomersIncorrect
+													}
 												/>
 											</Line>
 											<InputField
 												label='Código de Segurança (Número de trás do cartão)'
+												mask='999'
 												placeholder='Ex. 123'
+												required
+												value={cardCvvCustomer}
+												onChange={e => setCardCvvCustomer(e.target.value)}
+												isIncorrect={isCardCvvCustomerIncorrect}
 											/>
 											<InputField
 												label='Nome do Titular'
 												placeholder='Ex. Antônio Rocha'
+												required
+												value={cardOwnerNameCustomer}
+												onChange={e =>
+													setCardOwnerNameCustomer(e.target.value)
+												}
+												isIncorrect={isCardOwnerNameCustomerIncorrect}
 											/>
 											<InputField
 												label='CPF do Titular'
+												mask='999.999.999-99'
 												placeholder='Ex. 123.456.789-10'
+												required
+												value={cardOwnerCpfCustomer}
+												onChange={e =>
+													setCardOwnerCpfCustomer(e.target.value)
+												}
+												isIncorrect={isCardOwnerCpfCustomerIncorrect}
 											/>
 											<ButtonsContainer
 												style={{
@@ -193,15 +489,32 @@ const Payment: React.FC = () => {
 														type='submit'
 														color={Theme.colors.white}
 														backgroundColor={Theme.colors.green}
+														isLoading={isFetching}
 													>
-														<img
-															src='/images/icons/save.svg'
-															alt='Salvar'
-														/>
-														Salvar
+														{!isFetching && (
+															<img
+																src='/images/icons/save.svg'
+																alt='Salvar'
+															/>
+														)}
+														{isFetching ? 'Carregando...' : 'Salvar'}
 													</Button>
 												</>
 											</ButtonsContainer>
+											<AnimatePresence>
+												{isMessageVisible && (
+													<motion.div
+														initial={{ opacity: 0 }}
+														exit={{ opacity: 0 }}
+														animate={{ opacity: 1 }}
+														transition={{ duration: 0.3 }}
+													>
+														<IncorrectMessage>
+															{message}
+														</IncorrectMessage>
+													</motion.div>
+												)}
+											</AnimatePresence>
 										</>
 									</Form>
 								</motion.div>

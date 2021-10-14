@@ -11,6 +11,7 @@ import {
 	Description,
 	Composition,
 	Price,
+	TotalPrice,
 } from './styles';
 import Theme from '../../styles/theme';
 
@@ -20,6 +21,7 @@ interface Props {
 	description: string;
 	composition?: string;
 	price: number;
+	totalPrice: number;
 	src: string;
 	decreaseQuantity: (item: any) => void;
 	increaseQuantity: (item: any) => void;
@@ -32,6 +34,7 @@ const CartCard: React.FC<Props> = ({
 	description,
 	composition,
 	price,
+	totalPrice,
 	src,
 	decreaseQuantity,
 	increaseQuantity,
@@ -39,16 +42,21 @@ const CartCard: React.FC<Props> = ({
 }) => {
 	const priceString = price.toFixed(2);
 	const priceConverted = priceString.replace('.', ',');
+	const totalPriceString = totalPrice.toFixed(2);
+	const totalPriceConverted = totalPriceString.replace('.', ',');
 
 	return (
 		<BoxCard>
 			<Line>
 				<Text>
-					<Quantity>{quantity}x</Quantity>
+					<Line style={{ justifyContent: 'flex-start', gap: '0.7rem' }}>
+						<Quantity>{quantity}x</Quantity>
+						<Price>R$ {priceConverted}</Price>
+					</Line>
 					<Description>{description}</Description>
 					{composition && <Composition>{composition}</Composition>}
 					<Store>{store}</Store>
-					<Price>R$ {priceConverted}</Price>
+					<TotalPrice>R$ {totalPriceConverted}</TotalPrice>
 				</Text>
 				<Image src={src} alt={description} />
 			</Line>

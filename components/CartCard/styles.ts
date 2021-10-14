@@ -60,6 +60,11 @@ export const Composition = styled.span`
 `;
 
 export const Price = styled.span`
+	font-size: 1rem;
+	font-weight: 400;
+`;
+
+export const TotalPrice = styled.span`
 	font-size: 1.4rem;
 	font-weight: 600;
 `;

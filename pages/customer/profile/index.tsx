@@ -47,6 +47,7 @@ const Profile: React.FC = () => {
 							onClick={() => {
 								localStorage.removeItem('token');
 								localStorage.removeItem('userData');
+								localStorage.removeItem('cart');
 							}}
 						/>
 					</BoxCard>

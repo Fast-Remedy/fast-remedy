@@ -44,6 +44,32 @@ interface IStore {
 	deliveryEstimatedTimeStore: number;
 }
 
+interface IAddress {
+	_id: string;
+	idCustomer: string;
+	streetNameCustomer: string;
+	streetNumberCustomer: string;
+	complementCustomer: string;
+	neighborhoodCustomer: string;
+	stateCustomer: string;
+	cityCustomer: string;
+	mainAddressCustomer: boolean;
+}
+
+interface ICard {
+	_id: string;
+	idCustomer: string;
+	cardTypeCustomers: string;
+	cardNumberCustomers: string;
+	cardExpirationDateCustomers: string;
+	cardCvvCustomer: string;
+	cardOwnerNameCustomer: string;
+	cardOwnerCpfCustomer: string;
+	mainCardCustomer: boolean;
+	finalNumber: string;
+	processor: string;
+}
+
 const Cart: React.FC = () => {
 	const { setNavigationState } = useNavigation();
 
@@ -53,6 +79,30 @@ const Cart: React.FC = () => {
 		tradingNameStore: '',
 		deliveryFeeStore: 0,
 		deliveryEstimatedTimeStore: 0,
+	});
+	const [address, setAddress] = useState<IAddress>({
+		_id: '',
+		idCustomer: '',
+		streetNameCustomer: '',
+		streetNumberCustomer: '',
+		complementCustomer: '',
+		neighborhoodCustomer: '',
+		stateCustomer: '',
+		cityCustomer: '',
+		mainAddressCustomer: true,
+	});
+	const [card, setCard] = useState<ICard>({
+		_id: '',
+		idCustomer: '',
+		cardTypeCustomers: '',
+		cardNumberCustomers: '',
+		cardExpirationDateCustomers: '',
+		cardCvvCustomer: '',
+		cardOwnerNameCustomer: '',
+		cardOwnerCpfCustomer: '',
+		mainCardCustomer: true,
+		finalNumber: '',
+		processor: '',
 	});
 	const [cartItems, setCartItems] = useState<ICartItems[]>([]);
 	const [subtotal, setSubtotal] = useState(0);
@@ -67,15 +117,45 @@ const Cart: React.FC = () => {
 			orders: false,
 			profile: false,
 		});
-		const cart = JSON.parse(localStorage.getItem('cart'));
+		const cart = JSON.parse(localStorage.getItem('cart')) || [];
 		setCartItems(cart);
-		getStore(cart[0].idStore);
+		if (cart.length > 0) {
+			getStore(cart[0].idStore);
+		} else {
+			setIsFetching(false);
+		}
+		getAddress();
+		getCard();
 		return () => {
 			setStore({
 				_id: '',
 				tradingNameStore: '',
 				deliveryFeeStore: 0,
 				deliveryEstimatedTimeStore: 0,
+			});
+			setAddress({
+				_id: '',
+				idCustomer: '',
+				streetNameCustomer: '',
+				streetNumberCustomer: '',
+				complementCustomer: '',
+				neighborhoodCustomer: '',
+				stateCustomer: '',
+				cityCustomer: '',
+				mainAddressCustomer: true,
+			});
+			setCard({
+				_id: '',
+				idCustomer: '',
+				cardTypeCustomers: '',
+				cardNumberCustomers: '',
+				cardExpirationDateCustomers: '',
+				cardCvvCustomer: '',
+				cardOwnerNameCustomer: '',
+				cardOwnerCpfCustomer: '',
+				mainCardCustomer: true,
+				finalNumber: '',
+				processor: '',
 			});
 		};
 	}, []);
@@ -88,6 +168,65 @@ const Cart: React.FC = () => {
 				},
 			});
 			setStore(data);
+			setIsFetching(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const getAddress = async () => {
+		setIsFetching(true);
+		try {
+			const { data } = await api.get(
+				`/api/address/customers/${JSON.parse(localStorage.getItem('userData'))._id}`,
+				{
+					headers: {
+						authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+					},
+				}
+			);
+			const address = data.find(item => item.mainAddressCustomer === true);
+			setAddress(address);
+			setIsFetching(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const getCard = async () => {
+		setIsFetching(true);
+		try {
+			const { data } = await api.get(
+				`/api/card/customers/${JSON.parse(localStorage.getItem('userData'))._id}`,
+				{
+					headers: {
+						authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+					},
+				}
+			);
+			let card = data.find(item => item.mainCardCustomer === true);
+
+			const cardNumber = card.cardNumberCustomers.split(' ');
+			const finalNumber = cardNumber[3];
+			let processor = '';
+			if (cardNumber[0].startsWith('4')) {
+				processor = 'Visa';
+			} else if (cardNumber[0].startsWith('5')) {
+				processor = 'Mastercard';
+			} else if (cardNumber[0].startsWith('36') || cardNumber[0].startsWith('38')) {
+				processor = 'Dinners Club';
+			} else if (cardNumber[0].startsWith('6')) {
+				processor = 'Discover';
+			} else if (cardNumber[0].startsWith('35')) {
+				processor = 'JCB';
+			} else if (cardNumber[0].startsWith('34') || cardNumber[0].startsWith('37')) {
+				processor = 'American Express';
+			} else {
+				processor = 'Outro';
+			}
+
+			card = { ...card, finalNumber, processor };
+			setCard(card);
 			setIsFetching(false);
 		} catch (error) {
 			console.log(error);
@@ -194,7 +333,8 @@ const Cart: React.FC = () => {
 											store={item.storeName}
 											description={item.descriptionProduct}
 											composition={item.compositionProduct}
-											price={item.priceProduct * item.quantity}
+											price={item.priceProduct}
+											totalPrice={item.priceProduct * item.quantity}
 											src={item.imageProduct}
 											decreaseQuantity={() => handleDecreaseQuantity(index)}
 											increaseQuantity={() => handleIncreaseQuantity(index)}
@@ -229,10 +369,24 @@ const Cart: React.FC = () => {
 											>
 												<div>
 													<span>Entregar em:</span>
-													<span className='info'>
-														Avenida Amaral Peixoto, Nº 45, Centro, Volta
-														Redonda - RJ
-													</span>
+													{address._id === '' ? (
+														<span className='info'>
+															Selecione um endereço
+														</span>
+													) : (
+														<span className='info'>
+															{`${address.streetNameCustomer}, Nº ${
+																address.streetNumberCustomer
+															}, ${
+																address.complementCustomer !== ''
+																	? address.complementCustomer +
+																	  ', '
+																	: ''
+															}${address.neighborhoodCustomer}, ${
+																address.cityCustomer
+															} - ${address.stateCustomer}`}
+														</span>
+													)}
 												</div>
 											</Button>
 										</a>
@@ -249,9 +403,15 @@ const Cart: React.FC = () => {
 											>
 												<div>
 													<span>Forma de Pagamento:</span>
-													<span className='info'>
-														Crédito - Mastercard (final 9115)
-													</span>
+													{card._id === '' ? (
+														<span className='info'>
+															Selecione um cartão
+														</span>
+													) : (
+														<span className='info'>
+															{`${card.cardTypeCustomers} - ${card.processor} (final ${card.finalNumber})`}
+														</span>
+													)}
 												</div>
 											</Button>
 										</a>
@@ -260,14 +420,15 @@ const Cart: React.FC = () => {
 								<FinishCard>
 									<Button
 										className={`icon margin ${
-											cartItems.length === 0 && 'disabled'
+											(cartItems.length === 0 || address._id === '') &&
+											'disabled'
 										}`}
 										width='100%'
 										height='80px'
 										color={Theme.colors.white}
 										backgroundColor={Theme.colors.green}
 										onClick={handleBuy}
-										disabled={cartItems.length === 0}
+										disabled={cartItems.length === 0 || address._id === ''}
 									>
 										<div>
 											<span>
