@@ -38,7 +38,7 @@ const Orders: React.FC = () => {
 							items={[
 								{
 									quantity: 1,
-									description:
+									descriptionProduct:
 										'Dipirona Sódica 500mg Genérico Medley 10 Comprimidos',
 								},
 							]}
@@ -53,17 +53,18 @@ const Orders: React.FC = () => {
 							items={[
 								{
 									quantity: 1,
-									description:
+									descriptionProduct:
 										'Dipirona Sódica 500mg Genérico Medley 10 Comprimidos',
 								},
 								{
 									quantity: 1,
-									description:
+									descriptionProduct:
 										'Maleato de Dexclorfeniramina 2mg/5ml Cimed Solução Oral Sabor Laranja com 120ml',
 								},
 								{
 									quantity: 1,
-									description: 'Aparelho de Barbear MACH3 Gillette - 1 Unidade',
+									descriptionProduct:
+										'Aparelho de Barbear MACH3 Gillette - 1 Unidade',
 								},
 							]}
 						/>
@@ -77,20 +78,20 @@ const Orders: React.FC = () => {
 							items={[
 								{
 									quantity: 1,
-									description:
+									descriptionProduct:
 										'Dipirona Sódica 500mg Genérico Medley 10 Comprimidos',
 								},
 								{
 									quantity: 1,
-									description: 'Bromoprida Xarope Medley 100mL',
+									descriptionProduct: 'Bromoprida Xarope Medley 100mL',
 								},
 								{
 									quantity: 2,
-									description: 'Paracetamol Cartela Teuto 10 Comprimidos',
+									descriptionProduct: 'Paracetamol Cartela Teuto 10 Comprimidos',
 								},
 								{
 									quantity: 2,
-									description: 'Dorflex Caixa Com 50 Comprimidos',
+									descriptionProduct: 'Dorflex Caixa Com 50 Comprimidos',
 								},
 							]}
 						/>
@@ -104,7 +105,7 @@ const Orders: React.FC = () => {
 							items={[
 								{
 									quantity: 1,
-									description:
+									descriptionProduct:
 										'Dipirona Sódica 500mg Genérico Medley 10 Comprimidos',
 								},
 							]}
