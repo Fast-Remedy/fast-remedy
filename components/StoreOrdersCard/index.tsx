@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import { format, parseISO } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 import { FiChevronRight } from 'react-icons/fi';
 import {
 	BoxCard,
@@ -12,6 +14,8 @@ import {
 	Description,
 	Status,
 	Span,
+	Total,
+	Line,
 	Date,
 } from './styles';
 
@@ -20,14 +24,26 @@ interface Items {
 	descriptionProduct: string;
 }
 
+interface IAddressCustomer {
+	_id: string;
+	streetNameCustomer: string;
+	streetNumberCustomer: string;
+	complementCustomer: string;
+	neighborhoodCustomer: string;
+	cityCustomer: string;
+	stateCustomer: string;
+	mainAddressCustomer: boolean;
+	idCustomer: string;
+}
+
 interface Props {
 	orderId: string;
 	customerName: string;
-	customerAddress: string;
+	customerAddress: IAddressCustomer[];
 	status: string;
 	time: string;
+	total: number;
 	items: Items[];
-	itemsQuantity: number;
 }
 
 const StoreOrdersCard: React.FC<Props> = ({
@@ -37,24 +53,36 @@ const StoreOrdersCard: React.FC<Props> = ({
 	status,
 	time,
 	items,
-	itemsQuantity,
+	total,
 }) => {
+	const timeConverted = format(parseISO(time), 'iiiiii, dd MMM yy - HH:mm', { locale: ptBR });
+	const totalString = total.toFixed(2);
+	const totalConverted = totalString.replace('.', ',');
+
 	return (
 		<Link href={`/store/order/${orderId}`}>
 			<BoxCard>
 				<Text>
 					<Customer>
 						<Name>{customerName}</Name>
-						<Details>
-							{itemsQuantity} item(s) - {customerAddress}
-						</Details>
+						<Date>{timeConverted}</Date>
+						<Details>{`${customerAddress[0].streetNameCustomer}, Nº ${
+							customerAddress[0].streetNumberCustomer
+						}, ${
+							customerAddress[0].complementCustomer &&
+							customerAddress[0].complementCustomer + ', '
+						}${customerAddress[0].neighborhoodCustomer}, ${
+							customerAddress[0].cityCustomer
+						}`}</Details>
 					</Customer>
-					{items.map((item, index) => (
-						<Item key={index}>
-							<Quantity>{item.quantity}x</Quantity>
-							<Description>{item.descriptionProduct}</Description>
-						</Item>
-					))}
+					<Text style={{ gap: '0.2rem' }}>
+						{items.map((item, index) => (
+							<Item key={index}>
+								<Quantity>{item.quantity}x</Quantity>
+								<Description>{item.descriptionProduct}</Description>
+							</Item>
+						))}
+					</Text>
 					<Status>
 						<Description>
 							Status:
@@ -132,7 +160,7 @@ const StoreOrdersCard: React.FC<Props> = ({
 							)}
 						</Description>
 					</Status>
-					<Date>{time}</Date>
+					<Total>R$ {totalConverted}</Total>
 				</Text>
 				<FiChevronRight size={30} style={{ color: '#212121' }} />
 			</BoxCard>

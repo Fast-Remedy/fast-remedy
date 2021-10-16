@@ -295,7 +295,7 @@ const Cart: React.FC = () => {
 					deliveryFeeOrder: store.deliveryFeeStore,
 					deliveryEstimatedOrder: store.deliveryEstimatedTimeStore,
 					paymentOrder: card,
-					addressCostumer: address,
+					addressCustomer: address,
 				};
 				try {
 					await api.post('/api/create/orders', newOrder, {

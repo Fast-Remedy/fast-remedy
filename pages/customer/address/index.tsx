@@ -310,7 +310,7 @@ const Address: React.FC = () => {
 							</>
 						</ButtonsContainer>
 						{isFetching ? (
-							<BoxCard>
+							<BoxCard style={{ backgroundColor: '#fff' }}>
 								<LoadingMessage />
 							</BoxCard>
 						) : (

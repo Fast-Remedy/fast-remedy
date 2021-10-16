@@ -1,15 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import api from '../../../services/api';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
 import StoreOrdersCard from '../../../components/StoreOrdersCard';
+import LoadingMessage from '../../../components/LoadingMessage';
 
-import { Section, BoxCard } from '../../../styles/store/orders';
+import { Section, BoxCard, Message } from '../../../styles/store/orders';
 
 import { useNavigation } from '../../../contexts/NavigationContext';
 
 const Orders: React.FC = () => {
 	const { setStoreNavigationState } = useNavigation();
+
+	const [orders, setOrders] = useState([]);
+
+	const [isFetching, setIsFetching] = useState(true);
 
 	useEffect(() => {
 		setStoreNavigationState({
@@ -18,7 +25,38 @@ const Orders: React.FC = () => {
 			catalog: false,
 			profile: false,
 		});
+		getOrders();
+		return () => {
+			setOrders([]);
+		};
 	}, []);
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			getOrders();
+		}, 10000);
+		return () => clearInterval(interval);
+	}, []);
+
+	const getOrders = async () => {
+		try {
+			const { data } = await api.get(
+				`/api/orders/store/${JSON.parse(localStorage.getItem('storeData'))._id}`,
+				{
+					headers: {
+						authorization: `Bearer ${JSON.parse(localStorage.getItem('storeToken'))}`,
+					},
+				}
+			);
+			const orders = data.sort((a, b) =>
+				b.dateOrder > a.dateOrder ? 1 : a.dateOrder > b.dateOrder ? -1 : 0
+			);
+			setOrders(orders);
+			setIsFetching(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<Container>
@@ -27,90 +65,39 @@ const Orders: React.FC = () => {
 					<div className='title'>
 						<TitleBox title='Pedidos' />
 					</div>
-					<BoxCard>
-						<StoreOrdersCard
-							orderId='4'
-							customerName='Fulano de Tal'
-							customerAddress='Retiro, Volta Redonda - RJ'
-							itemsQuantity={1}
-							status='pendingAcceptance'
-							time='Quarta-feira, 11/08/2021 às 19h41'
-							items={[
-								{
-									quantity: 1,
-									descriptionProduct:
-										'Dipirona Sódica 500mg Genérico Medley 10 Comprimidos',
-								},
-							]}
-						/>
-						<StoreOrdersCard
-							orderId='1'
-							customerName='Fulano de Tal'
-							customerAddress='Retiro, Volta Redonda - RJ'
-							itemsQuantity={3}
-							status='inProgress'
-							time='Quarta-feira, 11/08/2021 às 19h41'
-							items={[
-								{
-									quantity: 1,
-									descriptionProduct:
-										'Dipirona Sódica 500mg Genérico Medley 10 Comprimidos',
-								},
-								{
-									quantity: 1,
-									descriptionProduct:
-										'Maleato de Dexclorfeniramina 2mg/5ml Cimed Solução Oral Sabor Laranja com 120ml',
-								},
-								{
-									quantity: 1,
-									descriptionProduct:
-										'Aparelho de Barbear MACH3 Gillette - 1 Unidade',
-								},
-							]}
-						/>
-						<StoreOrdersCard
-							orderId='2'
-							customerName='Fulano de Tal'
-							customerAddress='Retiro, Volta Redonda - RJ'
-							itemsQuantity={6}
-							status='finished'
-							time='Quarta-feira, 11/08/2021 às 19h41'
-							items={[
-								{
-									quantity: 1,
-									descriptionProduct:
-										'Dipirona Sódica 500mg Genérico Medley 10 Comprimidos',
-								},
-								{
-									quantity: 1,
-									descriptionProduct: 'Bromoprida Xarope Medley 100mL',
-								},
-								{
-									quantity: 2,
-									descriptionProduct: 'Paracetamol Cartela Teuto 10 Comprimidos',
-								},
-								{
-									quantity: 2,
-									descriptionProduct: 'Dorflex Caixa Com 50 Comprimidos',
-								},
-							]}
-						/>
-						<StoreOrdersCard
-							orderId='3'
-							customerName='Fulano de Tal'
-							customerAddress='Retiro, Volta Redonda - RJ'
-							itemsQuantity={1}
-							status='canceled'
-							time='Quarta-feira, 11/08/2021 às 19h41'
-							items={[
-								{
-									quantity: 1,
-									descriptionProduct:
-										'Dipirona Sódica 500mg Genérico Medley 10 Comprimidos',
-								},
-							]}
-						/>
-					</BoxCard>
+					{isFetching ? (
+						<BoxCard style={{ backgroundColor: '#fff' }}>
+							<LoadingMessage />
+						</BoxCard>
+					) : (
+						<BoxCard style={{ marginTop: '0' }}>
+							<motion.div
+								initial={{ opacity: 0 }}
+								exit={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								transition={{ duration: 0.3 }}
+							>
+								<BoxCard>
+									{orders.length === 0 ? (
+										<Message>Nenhum pedido realizado!</Message>
+									) : (
+										orders.map(order => (
+											<StoreOrdersCard
+												key={order._id}
+												orderId={order._id}
+												customerName={order.nameCustomer}
+												customerAddress={order.addressCustomer}
+												status={order.statusOrder}
+												time={order.dateOrder}
+												total={order.totalOrder}
+												items={order.orderProducts}
+											/>
+										))
+									)}
+								</BoxCard>
+							</motion.div>
+						</BoxCard>
+					)}
 				</Section>
 			</>
 		</Container>

@@ -7,8 +7,10 @@ export const ContainerBox = styled.main`
 	top: 0;
 	left: 0;
 	right: 0;
+	margin-top: 7rem;
 
 	@media (max-width: 800px) {
 		flex-direction: column-reverse;
+		margin-top: 0;
 	}
 `;

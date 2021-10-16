@@ -65,8 +65,8 @@ export const Store = styled.span`
 	img {
 		border: 1px solid ${props => props.theme.colors.darkGray};
 		border-radius: 50%;
-		height: 3rem;
-		width: 3rem;
+		height: 3.2rem;
+		width: 3.2rem;
 	}
 `;
 
@@ -85,7 +85,7 @@ export const Status = styled.span`
 	align-items: flex-end;
 	justify-content: flex-start;
 	gap: 0.5rem;
-	margin-top: 1rem;
+	margin-top: 0.5rem;
 `;
 
 export const Description = styled.span`
@@ -108,6 +108,10 @@ export const Span = styled.span`
 	svg {
 		height: 1.5rem;
 		width: 1.5rem;
+	}
+
+	&.pending-acceptance {
+		color: ${props => props.theme.colors.yellow};
 	}
 
 	&.in-progress {

@@ -35,3 +35,13 @@ export const BoxCard = styled.div`
 		width: 100%;
 	}
 `;
+
+export const Message = styled.span`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	color: ${props => props.theme.colors.green};
+	margin-top: 0.5rem;
+`;

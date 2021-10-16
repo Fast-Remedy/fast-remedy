@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import { format, parseISO } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 import { FiChevronRight } from 'react-icons/fi';
 import {
 	BoxCard,
@@ -11,6 +13,8 @@ import {
 	Description,
 	Status,
 	Span,
+	Total,
+	Line,
 	Date,
 } from './styles';
 
@@ -25,24 +29,42 @@ interface Props {
 	storeName: string;
 	status: string;
 	time: string;
+	total: number;
 	items: Items[];
 }
 
-const OrdersCard: React.FC<Props> = ({ orderId, imageSrc, storeName, status, time, items }) => {
+const OrdersCard: React.FC<Props> = ({
+	orderId,
+	imageSrc,
+	storeName,
+	status,
+	time,
+	total,
+	items,
+}) => {
+	const timeConverted = format(parseISO(time), 'iiiiii, dd MMM yy - HH:mm', { locale: ptBR });
+	const totalString = total.toFixed(2);
+	const totalConverted = totalString.replace('.', ',');
+
 	return (
 		<Link href={`/customer/order/${orderId}`}>
 			<BoxCard>
 				<Text>
 					<Store>
 						<img src={imageSrc} alt={storeName} />
-						<Name>{storeName}</Name>
+						<Line>
+							<Name>{storeName}</Name>
+							<Date>{timeConverted}</Date>
+						</Line>
 					</Store>
-					{items.map((item, index) => (
-						<Item key={index}>
-							<Quantity>{item.quantity}x</Quantity>
-							<Description>{item.descriptionProduct}</Description>
-						</Item>
-					))}
+					<Text style={{ gap: '0.2rem' }}>
+						{items.map((item, index) => (
+							<Item key={index}>
+								<Quantity>{item.quantity}x</Quantity>
+								<Description>{item.descriptionProduct}</Description>
+							</Item>
+						))}
+					</Text>
 					<Status>
 						<Description>
 							Status:
@@ -120,7 +142,7 @@ const OrdersCard: React.FC<Props> = ({ orderId, imageSrc, storeName, status, tim
 							)}
 						</Description>
 					</Status>
-					<Date>{time}</Date>
+					<Total>R$ {totalConverted}</Total>
 				</Text>
 				<FiChevronRight size={30} style={{ color: '#212121' }} />
 			</BoxCard>

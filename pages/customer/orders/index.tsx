@@ -27,6 +27,16 @@ const Orders: React.FC = () => {
 			profile: false,
 		});
 		getOrders();
+		return () => {
+			setOrders([]);
+		};
+	}, []);
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			getOrders();
+		}, 10000);
+		return () => clearInterval(interval);
 	}, []);
 
 	const getOrders = async () => {
@@ -39,8 +49,10 @@ const Orders: React.FC = () => {
 					},
 				}
 			);
-			console.log(data);
-			setOrders(data);
+			const orders = data.sort((a, b) =>
+				b.dateOrder > a.dateOrder ? 1 : a.dateOrder > b.dateOrder ? -1 : 0
+			);
+			setOrders(orders);
 			setIsFetching(false);
 		} catch (error) {
 			console.log(error);
@@ -56,7 +68,7 @@ const Orders: React.FC = () => {
 						<CartIcon />
 					</div>
 					{isFetching ? (
-						<BoxCard>
+						<BoxCard style={{ backgroundColor: '#fff' }}>
 							<LoadingMessage />
 						</BoxCard>
 					) : (
@@ -69,9 +81,9 @@ const Orders: React.FC = () => {
 							>
 								<BoxCard>
 									{orders.length === 0 ? (
-										<Message>Nenhum endereço cadastrado!</Message>
+										<Message>Nenhum pedido realizado!</Message>
 									) : (
-										orders.map((order, index) => (
+										orders.map(order => (
 											<OrdersCard
 												key={order._id}
 												orderId={order._id}
@@ -79,6 +91,7 @@ const Orders: React.FC = () => {
 												storeName={order.tradingNameStore}
 												status={order.statusOrder}
 												time={order.dateOrder}
+												total={order.totalOrder}
 												items={order.orderProducts}
 											/>
 										))

@@ -40,23 +40,21 @@ export const Text = styled.span`
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: flex-start;
-	gap: 0.2rem;
+	gap: 0.8rem;
 `;
 
 export const Customer = styled.span`
-	width: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: flex-start;
-	gap: 0.5rem;
-	margin-bottom: 1rem;
+	gap: 0.2rem;
 
 	img {
 		border: 1px solid ${props => props.theme.colors.darkGray};
 		border-radius: 50%;
-		height: 3rem;
-		width: 3rem;
+		height: 3.2rem;
+		width: 3.2rem;
 	}
 `;
 
@@ -83,7 +81,6 @@ export const Item = styled.span`
 	align-items: center;
 	justify-content: flex-start;
 	gap: 0.5rem;
-	margin-bottom: 0.5rem;
 `;
 
 export const Quantity = styled.span`
@@ -99,7 +96,6 @@ export const Status = styled.span`
 	align-items: flex-end;
 	justify-content: flex-start;
 	gap: 0.5rem;
-	margin-top: 0.5rem;
 `;
 
 export const Description = styled.span`
@@ -141,10 +137,25 @@ export const Span = styled.span`
 	}
 `;
 
+export const Line = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 0.1rem;
+	font-size: 1rem;
+	font-weight: 600;
+`;
+
+export const Total = styled.span`
+	display: flex;
+	flex-direction: column;
+	font-size: 1.2rem;
+	font-weight: 600;
+`;
+
 export const Date = styled.span`
 	display: flex;
 	flex-direction: column;
 	font-size: 0.9rem;
 	font-weight: 400;
-	margin-top: 1rem;
 `;
