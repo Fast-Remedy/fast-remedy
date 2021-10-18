@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { GetStaticProps } from 'next';
+import api from '../../../services/api';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
 import StoreNewOrderCard from '../../../components/StoreNewOrderCard';
+import LoadingMessage from '../../../components/LoadingMessage';
 
 import {
 	Section,
@@ -14,6 +15,7 @@ import {
 	Info,
 	NewOrders,
 	NewOrdersCard,
+	Message,
 } from '../../../styles/store/home';
 
 import { useNavigation } from '../../../contexts/NavigationContext';
@@ -58,6 +60,11 @@ const Home: React.FC = () => {
 		registrationDateStore: '',
 	});
 	const [storeName, setStoreName] = useState('');
+	const [newOrders, setNewOrders] = useState([]);
+	const [ordersInProgress, setOrdersInProgress] = useState([]);
+	const [finishedOrders, setFinishedOrders] = useState(0);
+
+	const [isFetching, setIsFetching] = useState(true);
 
 	useEffect(() => {
 		setStoreNavigationState({
@@ -67,6 +74,7 @@ const Home: React.FC = () => {
 			profile: false,
 		});
 		setStore(JSON.parse(localStorage.getItem('storeData')));
+		getOrders();
 	}, []);
 
 	useEffect(() => {
@@ -79,6 +87,48 @@ const Home: React.FC = () => {
 		}, 60000);
 		return () => clearInterval(interval);
 	}, []);
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			getOrders();
+		}, 10000);
+		return () => clearInterval(interval);
+	}, []);
+
+	const getOrders = async () => {
+		try {
+			const { data } = await api.get(
+				`/api/orders/store/${JSON.parse(localStorage.getItem('storeData'))._id}`,
+				{
+					headers: {
+						authorization: `Bearer ${JSON.parse(localStorage.getItem('storeToken'))}`,
+					},
+				}
+			);
+			const newOrders = data
+				.filter(order => order.statusOrder === 'pendingAcceptance')
+				.sort((a, b) =>
+					b.dateOrder > a.dateOrder ? 1 : a.dateOrder > b.dateOrder ? -1 : 0
+				);
+			const ordersInProgress = data
+				.filter(order => order.statusOrder === 'inProgress')
+				.sort((a, b) =>
+					b.dateOrder > a.dateOrder ? 1 : a.dateOrder > b.dateOrder ? -1 : 0
+				);
+			const finishedOrders = data.filter(order => {
+				return (
+					order.statusOrder === 'finished' &&
+					order.dateOrder.split('-')[2].split('T')[0] === new Date().getDate().toString()
+				);
+			});
+			setNewOrders(newOrders);
+			setOrdersInProgress(ordersInProgress);
+			setFinishedOrders(finishedOrders.length);
+			setIsFetching(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<Container>
@@ -93,61 +143,93 @@ const Home: React.FC = () => {
 						{timeNow >= 12 && timeNow <= 17 && 'Boa tarde'}
 						{timeNow >= 18 && timeNow <= 24 && 'Boa noite'}, {storeName}!
 					</Greeting>
-					<BoxCard>
-						<InfoCard>
-							<h1>Hoje</h1>
-							<InfoBox>
-								<Info>
-									<span>Pedidos em andamento:</span>
-									<span>11</span>
-								</Info>
-								<Info>
-									<span>Pedidos concluídos:</span>
-									<span>57</span>
-								</Info>
-								<Info>
-									<span>Total vendido:</span>
-									<span>R$ 753,34</span>
-								</Info>
-							</InfoBox>
-						</InfoCard>
-						<InfoCard>
-							<h1>Total</h1>
-							<InfoBox>
-								<Info>
-									<span>Pedidos concluídos:</span>
-									<span>1346</span>
-								</Info>
-								<Info>
-									<span>Clientes atendidos:</span>
-									<span>642</span>
-								</Info>
-								<Info>
-									<span>Total vendido:</span>
-									<span>R$ 75.453,34</span>
-								</Info>
-							</InfoBox>
-						</InfoCard>
-					</BoxCard>
-					<NewOrders>
-						<NewOrdersCard>
-							<h1>Você possui novos pedidos!</h1>
-							<StoreNewOrderCard
-								orderId='1'
-								customerName='Antônio Silva de Abreu Rodrigues Paulino'
-								customerAddress='Retiro, Volta Redonda - RJ'
-								items={2}
-								time='Quarta-feira, 11/08/2021 às 19h41'
-							/>
-							<StoreNewOrderCard
-								orderId='2'
-								customerName='Ricardo Souza da Costa Santos'
-								customerAddress='Retiro, Volta Redonda - RJ'
-								items={1}
-								time='Quarta-feira, 11/08/2021 às 19h41'
-							/>
-						</NewOrdersCard>
-					</NewOrders>
+					{isFetching ? (
+						<BoxCard
+							style={{
+								backgroundColor: '#fff',
+							}}
+						>
+							<LoadingMessage />
+						</BoxCard>
+					) : (
+						<>
+							<BoxCard>
+								<InfoCard>
+									<h1>Hoje</h1>
+									<InfoBox>
+										<Info>
+											<span>Novos pedidos:</span>
+											<span>{newOrders.length}</span>
+										</Info>
+										<Info>
+											<span>Pedidos em andamento:</span>
+											<span>{ordersInProgress.length}</span>
+										</Info>
+										<Info>
+											<span>Pedidos concluídos:</span>
+											<span>{finishedOrders}</span>
+										</Info>
+									</InfoBox>
+								</InfoCard>
+							</BoxCard>
+							<NewOrders style={{ marginBottom: '1rem' }}>
+								{newOrders.length === 0 ? (
+									<BoxCard
+										style={{
+											backgroundColor: '#fff',
+											margin: 0,
+										}}
+									>
+										<Message style={{ marginTop: 0 }}>
+											Nenhum novo pedido!
+										</Message>
+									</BoxCard>
+								) : (
+									<NewOrdersCard>
+										<h1>Você possui novos pedidos!</h1>
+										{newOrders.map(order => (
+											<StoreNewOrderCard
+												key={order._id}
+												orderId={order._id}
+												customerName={order.nameCustomer}
+												customerAddress={order.addressCustomer}
+												items={order.orderProducts}
+												time={order.dateOrder}
+											/>
+										))}
+									</NewOrdersCard>
+								)}
+							</NewOrders>
+							<NewOrders>
+								{ordersInProgress.length === 0 ? (
+									<BoxCard
+										style={{
+											backgroundColor: '#fff',
+											margin: 0,
+										}}
+									>
+										<Message style={{ marginTop: 0 }}>
+											Nenhum pedido em andamento!
+										</Message>
+									</BoxCard>
+								) : (
+									<NewOrdersCard>
+										<h1>Pedidos em andamento</h1>
+										{ordersInProgress.map(order => (
+											<StoreNewOrderCard
+												key={order._id}
+												orderId={order._id}
+												customerName={order.nameCustomer}
+												customerAddress={order.addressCustomer}
+												items={order.orderProducts}
+												time={order.dateOrder}
+											/>
+										))}
+									</NewOrdersCard>
+								)}
+							</NewOrders>
+						</>
+					)}
 				</Section>
 			</>
 		</Container>

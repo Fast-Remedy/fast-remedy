@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import router, { useRouter } from 'next/router';
 import api from '../../../../services/api';
 
@@ -16,11 +17,9 @@ import Theme from '../../../../styles/theme';
 
 import { useNavigation } from '../../../../contexts/NavigationContext';
 
-const Store: React.FC = () => {
+const Store = ({ products }) => {
+	const { isFallback } = useRouter();
 	const { setNavigationState } = useNavigation();
-
-	const [products, setProducts] = useState([]);
-	const [isFetching, setIsFetching] = useState(true);
 
 	useEffect(() => {
 		setNavigationState({
@@ -32,32 +31,6 @@ const Store: React.FC = () => {
 	}, []);
 
 	const { query } = useRouter();
-
-	const getAllProducts = async () => {
-		try {
-			const { data } = await api.get(`/api/products/stores/${query.storeId as string}`);
-
-			setProducts(
-				data.sort((a, b) =>
-					a.descriptionProduct > b.descriptionProduct
-						? 1
-						: b.descriptionProduct > a.descriptionProduct
-						? -1
-						: 0
-				)
-			);
-			setIsFetching(false);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	useEffect(() => {
-		getAllProducts();
-		return () => {
-			setProducts([]);
-		};
-	}, []);
 
 	return (
 		<Container>
@@ -90,7 +63,7 @@ const Store: React.FC = () => {
 						</>
 					</ButtonsContainer>
 					<SearchField />
-					{isFetching ? (
+					{isFallback ? (
 						<BoxCard>
 							<LoadingMessage />
 						</BoxCard>
@@ -116,6 +89,40 @@ const Store: React.FC = () => {
 			</>
 		</Container>
 	);
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+	const { data } = await api.get('/api/stores');
+
+	const paths = data.map(store => {
+		return {
+			params: { storeId: store._id, storeName: store.tradingNameStore },
+		};
+	});
+
+	return {
+		paths,
+		fallback: true,
+	};
+};
+
+export const getStaticProps: GetStaticProps = async context => {
+	const { storeId } = context.params;
+
+	const { data } = await api.get(`/api/products/stores/${storeId as string}`);
+
+	return {
+		props: {
+			products: data.sort((a, b) =>
+				a.descriptionProduct > b.descriptionProduct
+					? 1
+					: b.descriptionProduct > a.descriptionProduct
+					? -1
+					: 0
+			),
+		},
+		revalidate: 60, // time in seconds
+	};
 };
 
 export default Store;

@@ -24,8 +24,11 @@ export const BoxCard = styled.div`
 	max-width: 800px;
 	width: 100%;
 	margin: 1.1rem auto 1.1rem auto;
-	display: grid;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	grid-template-columns: 1fr 1fr;
+	border-radius: 0.8rem;
 	gap: 1rem;
 `;
 
@@ -65,7 +68,7 @@ export const InfoBox = styled.div`
 	h1 {
 		width: 100%;
 		text-align: center;
-		font-size: 1.5rem;
+		font-size: 1.3rem;
 		margin-bottom: 0;
 	}
 `;
@@ -80,11 +83,6 @@ export const Info = styled.div`
 	gap: 0.4rem;
 	line-height: 1.2rem;
 	font-size: 0.9rem;
-
-	@media (max-width: 620px) {
-		flex-direction: column;
-		gap: 0.2rem;
-	}
 `;
 
 export const NewOrders = styled.div`
@@ -112,4 +110,15 @@ export const NewOrdersCard = styled.div`
 		font-size: 1.5rem;
 		margin-bottom: 1rem;
 	}
+`;
+
+export const Message = styled.span`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	color: ${props => props.theme.colors.black};
+	margin-top: 0.5rem;
+	padding: 2rem;
 `;
