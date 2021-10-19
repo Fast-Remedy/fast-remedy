@@ -61,8 +61,15 @@ export const SelectBox = styled.select`
 
 export const Span = styled.span`
 	position: absolute;
-	top: 4.3rem;
 	right: 1rem;
+
+	&.withLabel {
+		top: 4rem;
+	}
+
+	&.withoutLabel {
+		top: 1rem;
+	}
 
 	svg {
 		height: 1.3rem;

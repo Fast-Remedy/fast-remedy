@@ -14,7 +14,7 @@ export const Section = styled.section`
 export const BoxCard = styled.div`
 	max-width: 800px;
 	width: 100%;
-	margin: 1.1rem auto 8rem auto;
+	margin: 0 auto 8rem auto;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

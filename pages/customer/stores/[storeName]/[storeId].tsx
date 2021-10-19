@@ -11,6 +11,7 @@ import ButtonsContainer from '../../../../components/ButtonsContainer';
 import Button from '../../../../components/Button';
 import SearchField from '../../../../components/SearchField';
 import LoadingMessage from '../../../../components/LoadingMessage';
+import SelectField from '../../../../components/SelectField';
 
 import { Section, BoxCard, Message } from '../../../../styles/customer/store';
 import Theme from '../../../../styles/theme';
@@ -23,6 +24,7 @@ const Store = ({ products }) => {
 
 	const [searchProducts, setSearchProducts] = useState([]);
 	const [searchInput, setSearchInput] = useState('');
+	const [searchCategory, setSearchCategory] = useState('');
 
 	useEffect(() => {
 		setNavigationState({
@@ -77,50 +79,83 @@ const Store = ({ products }) => {
 					<SearchField
 						value={searchInput}
 						onChange={e => setSearchInput(e.target.value)}
+						style={{ marginBottom: '1rem' }}
 					/>
+					<SelectField
+						value={searchCategory}
+						onChange={e => setSearchCategory(e.target.value)}
+					>
+						<option value=''>Todas as categorias</option>
+						<option value='medicines'>Medicamentos</option>
+						<option value='cosmetics'>Cosméticos / beleza</option>
+						<option value='vitamins'>Suplementos / vitaminas</option>
+						<option value='food'>Biscoitos / balas / comestíveis</option>
+						<option value='hygiene'>Higiene pessoal</option>
+						<option value='babies'>Cuidados com bebê</option>
+						<option value='devices'>Aparelhos</option>
+					</SelectField>
 					{isFallback ? (
 						<BoxCard>
 							<LoadingMessage />
 						</BoxCard>
 					) : (
 						<>
-							{searchInput.trim() !== '' ? (
-								searchProducts.length > 0 ? (
+							{searchInput.trim() !== '' &&
+								(searchProducts.filter(product =>
+									product.categoryProduct
+										.toLowerCase()
+										.includes(searchCategory.toLowerCase())
+								).length > 0 ? (
 									<BoxCard>
-										{searchProducts.map(product => (
-											<ProductCard
-												key={product._id}
-												storeName={query.storeName as string}
-												productId={product._id}
-												description={product.descriptionProduct}
-												composition={product.compositionProduct}
-												price={product.priceProduct}
-												src={product.imageProduct}
-												availability={product.availabilityProduct}
-											/>
-										))}
+										{searchProducts
+											.filter(product =>
+												product.categoryProduct
+													.toLowerCase()
+													.includes(searchCategory.toLowerCase())
+											)
+											.map(product => (
+												<ProductCard
+													key={product._id}
+													productId={product._id}
+													description={product.descriptionProduct}
+													composition={product.compositionProduct}
+													price={product.priceProduct}
+													src={product.imageProduct}
+													availability={product.availabilityProduct}
+												/>
+											))}
 									</BoxCard>
 								) : (
 									<Message>Nenhum produto encontrado!</Message>
-								)
-							) : products.length > 0 ? (
-								<BoxCard>
-									{products.map(product => (
-										<ProductCard
-											key={product._id}
-											storeName={query.storeName as string}
-											productId={product._id}
-											description={product.descriptionProduct}
-											composition={product.compositionProduct}
-											price={product.priceProduct}
-											src={product.imageProduct}
-											availability={product.availabilityProduct}
-										/>
-									))}
-								</BoxCard>
-							) : (
-								<Message>Nenhum produto encontrado!</Message>
-							)}
+								))}
+							{searchInput.trim() === '' &&
+								(products.filter(product =>
+									product.categoryProduct
+										.toLowerCase()
+										.includes(searchCategory.toLowerCase())
+								).length > 0 ? (
+									<BoxCard>
+										{products
+											.filter(product =>
+												product.categoryProduct
+													.toLowerCase()
+													.includes(searchCategory.toLowerCase())
+											)
+											.map(product => (
+												<ProductCard
+													key={product._id}
+													productId={product._id}
+													description={product.descriptionProduct}
+													composition={product.compositionProduct}
+													price={product.priceProduct}
+													src={product.imageProduct}
+													availability={product.availabilityProduct}
+												/>
+											))}
+									</BoxCard>
+								) : (
+									<Message>Nenhum produto encontrado!</Message>
+								))}
 						</>
 					)}
 				</Section>

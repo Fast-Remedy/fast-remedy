@@ -9,7 +9,7 @@ interface Props {
 	price: number;
 	src: string;
 	availability?: boolean;
-	storeName: string;
+	storeName?: string;
 }
 
 const ProductCard: React.FC<Props> = ({
