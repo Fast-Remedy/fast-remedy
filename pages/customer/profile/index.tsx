@@ -12,16 +12,14 @@ import { useNavigation } from '../../../contexts/NavigationContext';
 const Profile: React.FC = () => {
 	const { setNavigationState } = useNavigation();
 
-	useEffect(
-		() =>
-			setNavigationState({
-				home: false,
-				search: false,
-				orders: false,
-				profile: true,
-			}),
-		[]
-	);
+	useEffect(() => {
+		setNavigationState({
+			home: false,
+			search: false,
+			orders: false,
+			profile: true,
+		});
+	}, []);
 
 	return (
 		<Container>

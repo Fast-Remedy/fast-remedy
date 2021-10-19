@@ -27,6 +27,7 @@ export const BoxCard = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	gap: 2rem;
+	border-radius: 0.8rem;
 
 	@media (max-width: 800px) {
 		display: flex;
@@ -46,4 +47,15 @@ export const BoxCard2 = styled.div`
 	justify-content: center;
 	background-color: ${props => props.theme.colors.white};
 	border-radius: 0.8rem;
+`;
+
+export const Message = styled.span`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	color: ${props => props.theme.colors.black};
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
 `;

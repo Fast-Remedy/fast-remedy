@@ -21,6 +21,9 @@ const Store = ({ products }) => {
 	const { isFallback } = useRouter();
 	const { setNavigationState } = useNavigation();
 
+	const [searchProducts, setSearchProducts] = useState([]);
+	const [searchInput, setSearchInput] = useState('');
+
 	useEffect(() => {
 		setNavigationState({
 			home: true,
@@ -29,6 +32,15 @@ const Store = ({ products }) => {
 			profile: false,
 		});
 	}, []);
+
+	useEffect(() => {
+		const filteredProducts = products.filter(
+			product =>
+				product.descriptionProduct.toLowerCase().includes(searchInput.toLowerCase()) ||
+				product.compositionProduct?.toLowerCase().includes(searchInput.toLowerCase())
+		);
+		setSearchProducts(filteredProducts.slice(0, 3));
+	}, [searchInput]);
 
 	const { query } = useRouter();
 
@@ -62,28 +74,54 @@ const Store = ({ products }) => {
 							<CartIcon />
 						</>
 					</ButtonsContainer>
-					<SearchField />
+					<SearchField
+						value={searchInput}
+						onChange={e => setSearchInput(e.target.value)}
+					/>
 					{isFallback ? (
 						<BoxCard>
 							<LoadingMessage />
 						</BoxCard>
-					) : products.length > 0 ? (
-						<BoxCard>
-							{products.map(product => (
-								<ProductCard
-									key={product._id}
-									storeName={query.storeName as string}
-									productId={product._id}
-									description={product.descriptionProduct}
-									composition={product.compositionProduct}
-									price={product.priceProduct}
-									src={product.imageProduct}
-									availability={product.availabilityProduct}
-								/>
-							))}
-						</BoxCard>
 					) : (
-						<Message>Nenhum produto cadastrado!</Message>
+						<>
+							{searchInput.trim() !== '' ? (
+								searchProducts.length > 0 ? (
+									<BoxCard>
+										{searchProducts.map(product => (
+											<ProductCard
+												key={product._id}
+												storeName={query.storeName as string}
+												productId={product._id}
+												description={product.descriptionProduct}
+												composition={product.compositionProduct}
+												price={product.priceProduct}
+												src={product.imageProduct}
+												availability={product.availabilityProduct}
+											/>
+										))}
+									</BoxCard>
+								) : (
+									<Message>Nenhum produto encontrado!</Message>
+								)
+							) : products.length > 0 ? (
+								<BoxCard>
+									{products.map(product => (
+										<ProductCard
+											key={product._id}
+											storeName={query.storeName as string}
+											productId={product._id}
+											description={product.descriptionProduct}
+											composition={product.compositionProduct}
+											price={product.priceProduct}
+											src={product.imageProduct}
+											availability={product.availabilityProduct}
+										/>
+									))}
+								</BoxCard>
+							) : (
+								<Message>Nenhum produto encontrado!</Message>
+							)}
+						</>
 					)}
 				</Section>
 			</>

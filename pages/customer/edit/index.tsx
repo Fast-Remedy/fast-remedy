@@ -17,16 +17,14 @@ import { useNavigation } from '../../../contexts/NavigationContext';
 const Edit: React.FC = () => {
 	const { setNavigationState } = useNavigation();
 
-	useEffect(
-		() =>
-			setNavigationState({
-				home: false,
-				search: false,
-				orders: false,
-				profile: true,
-			}),
-		[]
-	);
+	useEffect(() => {
+		setNavigationState({
+			home: false,
+			search: false,
+			orders: false,
+			profile: true,
+		});
+	}, []);
 
 	const [personalData, setPersonalData] = useState(false);
 	const [contactData, setContactData] = useState(false);
