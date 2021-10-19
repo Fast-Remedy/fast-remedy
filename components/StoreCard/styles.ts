@@ -38,7 +38,8 @@ export const Image = styled.img`
 	width: 6rem;
 	height: 6rem;
 	border-radius: 50%;
-	object-fit: cover;
+	object-fit: contain;
+	background-color: ${props => props.theme.colors.white};
 `;
 
 export const Text = styled.span`

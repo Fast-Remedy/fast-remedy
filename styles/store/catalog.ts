@@ -42,3 +42,19 @@ export const IncorrectMessage = styled.span`
 	color: ${props => props.theme.colors.red};
 	margin-top: 1.5rem;
 `;
+
+export const Image = styled.img`
+	margin-top: 1.7rem;
+	width: 6rem;
+	height: 6rem;
+	object-fit: contain;
+	border-radius: 0.8rem;
+	background-color: ${props => props.theme.colors.white};
+`;
+
+export const ImageContainer = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+`;

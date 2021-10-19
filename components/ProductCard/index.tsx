@@ -10,6 +10,7 @@ interface Props {
 	src: string;
 	availability?: boolean;
 	storeName?: string;
+	showStoreName?: boolean;
 }
 
 const ProductCard: React.FC<Props> = ({
@@ -20,6 +21,7 @@ const ProductCard: React.FC<Props> = ({
 	src,
 	availability,
 	storeName,
+	showStoreName,
 }) => {
 	const priceString = price.toFixed(2);
 	const priceConverted = priceString.replace('.', ',');
@@ -33,7 +35,7 @@ const ProductCard: React.FC<Props> = ({
 							<Description style={{ opacity: '40%' }}>{description}</Description>
 							{composition && <Composition>{composition}</Composition>}
 							<Price style={{ opacity: '40%' }}>R$ {priceConverted}</Price>
-							<Composition>{storeName}</Composition>
+							{showStoreName && <Composition>{storeName}</Composition>}
 							<Availability>Esgotado!</Availability>
 						</Text>
 						<Image style={{ opacity: '40%' }} src={src} alt={description} />
@@ -45,7 +47,7 @@ const ProductCard: React.FC<Props> = ({
 						<Text>
 							<Description>{description}</Description>
 							{composition && <Composition>{composition}</Composition>}
-							<Composition>{storeName}</Composition>
+							{showStoreName && <Composition>{storeName}</Composition>}
 							<Price>R$ {priceConverted}</Price>
 						</Text>
 						<Image src={src} alt={description} />

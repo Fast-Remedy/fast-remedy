@@ -1,5 +1,5 @@
 import React, { FormEvent, useState, useEffect } from 'react';
-import router from 'next/router';
+import router, { useRouter } from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { animateScroll as scroll } from 'react-scroll';
 import api from '../../../../services/api';
@@ -15,12 +15,18 @@ import CurrencyField from '../../../../components/CurrencyField';
 import SelectField from '../../../../components/SelectField';
 import Button from '../../../../components/Button';
 
-import { Section, Message, IncorrectMessage } from '../../../../styles/store/catalog';
+import {
+	Section,
+	Message,
+	IncorrectMessage,
+	Image,
+	ImageContainer,
+} from '../../../../styles/store/catalog';
 import Theme from '../../../../styles/theme';
 
 import { useNavigation } from '../../../../contexts/NavigationContext';
 
-const NewProduct: React.FC = () => {
+const EditProduct: React.FC = () => {
 	const { setStoreNavigationState } = useNavigation();
 
 	const [isMessageVisible, setIsMessageVisible] = useState(false);
@@ -32,7 +38,11 @@ const NewProduct: React.FC = () => {
 			catalog: true,
 			profile: false,
 		});
+		getProduct();
+		return () => {};
 	}, []);
+
+	const { query } = useRouter();
 
 	const [message, setMessage] = useState('');
 	const [isDescriptionIncorrect, setIsDescriptionIncorrect] = useState(false);
@@ -41,6 +51,7 @@ const NewProduct: React.FC = () => {
 	const [isImageLoading, setIsImageLoading] = useState(false);
 	const [isFetching, setIsFetching] = useState(false);
 
+	const [id, setId] = useState('');
 	const [idStore] = useState(JSON.parse(localStorage.getItem('storeData'))._id);
 	const [categoryProduct, setCategoryProduct] = useState('medicines');
 	const [descriptionProduct, setDescriptionProduct] = useState('');
@@ -49,6 +60,29 @@ const NewProduct: React.FC = () => {
 	const [availabilityProduct, setAvailabilityProduct] = useState('available');
 	const [imageProduct, setImageProduct] = useState(defaultMedicineImage);
 	const [imageName, setImageName] = useState('');
+
+	const getProduct = async () => {
+		try {
+			const { data } = await api.get(`/api/products/${query.productId}`);
+
+			setId(data._id);
+			setCategoryProduct(data.categoryProduct);
+			setDescriptionProduct(data.descriptionProduct);
+			if (data.compositionProduct) {
+				setCompositionProduct(data.compositionProduct);
+			}
+			setPriceProduct(data.priceProduct);
+			if (data.availabilityProduct) {
+				setAvailabilityProduct('available');
+			} else {
+				setAvailabilityProduct('soldOff');
+			}
+			setImageProduct(data.imageProduct);
+			setIsFetching(false);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const changeImage = async e => {
 		setIsImageLoading(true);
@@ -71,7 +105,7 @@ const NewProduct: React.FC = () => {
 
 		setIsMessageVisible(true);
 
-		const priceConverted = priceProduct.split(' ', 2);
+		const priceConverted = priceProduct.toString().split(' ', 2);
 
 		const availability = availabilityProduct === 'available' ? true : false;
 
@@ -80,10 +114,12 @@ const NewProduct: React.FC = () => {
 			categoryProduct,
 			descriptionProduct,
 			compositionProduct,
-			priceProduct: priceConverted[1].replace(/,/g, '.'),
+			priceProduct:
+				priceConverted.length > 1
+					? priceConverted[1].replace(/,/g, '.')
+					: priceConverted[0].replace(/,/g, '.'),
 			availabilityProduct: availability,
 			imageProduct,
-			registrationDateProduct: new Date(),
 		};
 
 		let isIncorrect = false;
@@ -103,13 +139,13 @@ const NewProduct: React.FC = () => {
 		if (!isIncorrect) {
 			try {
 				setIsFetching(true);
-				await api.post('/api/register/product/stores', newProduct, {
+				await api.put(`/api/update/product/stores/${query.productId}`, newProduct, {
 					headers: {
 						authorization: `Bearer ${JSON.parse(localStorage.getItem('storeToken'))}`,
 					},
 				});
 
-				setMessage('Produto cadastrado!');
+				setMessage('Produto alterado!');
 
 				setTimeout(() => {
 					router.back();
@@ -139,7 +175,7 @@ const NewProduct: React.FC = () => {
 		<Container>
 			<>
 				<Section style={{ marginBottom: '8rem' }}>
-					<TitleBox title='Novo Produto' />
+					<TitleBox title='Editar Produto' />
 					<ButtonsContainer>
 						<>
 							<Button
@@ -193,16 +229,20 @@ const NewProduct: React.FC = () => {
 								value={compositionProduct}
 								onChange={e => setCompositionProduct(e.target.value)}
 							/>
-							<InputField
-								className='file'
-								label='Imagem (JPG ou PNG até 5 MB)'
-								type='file'
-								accept='.png, .jpg, .jpeg'
-								value={imageName}
-								disabled={isImageLoading}
-								onChange={e => changeImage(e)}
-								isIncorrect={isImageIncorrect}
-							/>
+
+							<ImageContainer>
+								<InputField
+									className='file'
+									label='Imagem (JPG ou PNG até 5 MB)'
+									type='file'
+									accept='.png, .jpg, .jpeg'
+									value={imageName}
+									disabled={isImageLoading}
+									onChange={e => changeImage(e)}
+									isIncorrect={isImageIncorrect}
+								/>
+								<Image src={imageProduct} alt={descriptionProduct} />
+							</ImageContainer>
 							<CurrencyField
 								label='Preço'
 								placeholder='R$ 5,69'
@@ -261,4 +301,4 @@ const NewProduct: React.FC = () => {
 	);
 };
 
-export default NewProduct;
+export default EditProduct;

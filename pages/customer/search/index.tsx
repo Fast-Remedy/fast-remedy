@@ -93,6 +93,7 @@ const Search = ({ stores, products }) => {
 													store => store._id === product.idStore
 												)[0].tradingNameStore
 											}
+											showStoreName={true}
 											productId={product._id}
 											description={product.descriptionProduct}
 											composition={product.compositionProduct}

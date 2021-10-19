@@ -117,6 +117,7 @@ const Store = ({ products }) => {
 												<ProductCard
 													key={product._id}
 													productId={product._id}
+													storeName={query.storeName as string}
 													description={product.descriptionProduct}
 													composition={product.compositionProduct}
 													price={product.priceProduct}
@@ -145,6 +146,8 @@ const Store = ({ products }) => {
 												<ProductCard
 													key={product._id}
 													productId={product._id}
+													storeName={query.storeName as string}
+													showStoreName={false}
 													description={product.descriptionProduct}
 													composition={product.compositionProduct}
 													price={product.priceProduct}

@@ -43,7 +43,6 @@ const Product: React.FC = () => {
 	});
 	const [isFetching, setIsFetching] = useState(true);
 
-	const [availability, setAvailability] = useState('soldOff');
 	const [isRemoveMenuVisible, setIsRemoveMenuVisible] = useState(false);
 	const [isMessageVisible, setIsMessageVisible] = useState(false);
 
@@ -54,22 +53,6 @@ const Product: React.FC = () => {
 			catalog: true,
 			profile: false,
 		});
-	}, []);
-
-	const { query } = useRouter();
-
-	const getProduct = async () => {
-		try {
-			const { data } = await api.get(`/api/products/${query.productId}`);
-
-			setProduct(data);
-			setIsFetching(false);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	useEffect(() => {
 		getProduct();
 		return () => {
 			setProduct({
@@ -86,26 +69,60 @@ const Product: React.FC = () => {
 		};
 	}, []);
 
-	const handleMakeAvailable = () => {
-		setTimeout(() => {
-			router.back();
-		}, 2000);
+	const { query } = useRouter();
+
+	const getProduct = async () => {
+		try {
+			const { data } = await api.get(`/api/products/${query.productId}`);
+
+			setProduct(data);
+			setIsFetching(false);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
-	const handleMakeUnavailable = () => {
-		setTimeout(() => {
-			router.back();
-		}, 2000);
+	const handleMakeAvailable = async () => {
+		let newProduct = { ...product };
+		newProduct = { ...product, availabilityProduct: true };
+		setProduct(newProduct);
+		await api.patch(
+			`/api/change/product/stores/${query.productId}`,
+			{ availabilityProduct: true },
+			{
+				headers: {
+					authorization: `Bearer ${JSON.parse(localStorage.getItem('storeToken'))}`,
+				},
+			}
+		);
+	};
+
+	const handleMakeUnavailable = async () => {
+		let newProduct = { ...product };
+		newProduct = { ...product, availabilityProduct: false };
+		setProduct(newProduct);
+		await api.patch(
+			`/api/change/product/stores/${query.productId}`,
+			{ availabilityProduct: false },
+			{
+				headers: {
+					authorization: `Bearer ${JSON.parse(localStorage.getItem('storeToken'))}`,
+				},
+			}
+		);
 	};
 
 	const handleEdit = () => {
-		setTimeout(() => {
-			router.back();
-		}, 2000);
+		router.push(`/store/catalog/edit/${query.productId}`);
 	};
 
-	const handleRemove = () => {
+	const handleRemove = async () => {
 		setIsMessageVisible(true);
+		await api.delete(`/api/delete/product/stores/${query.productId}`, {
+			headers: {
+				authorization: `Bearer ${JSON.parse(localStorage.getItem('storeToken'))}`,
+			},
+		});
 
 		setTimeout(() => {
 			router.back();
@@ -165,7 +182,7 @@ const Product: React.FC = () => {
 									</BoxCard>
 									<BoxCard>
 										<FinishCard>
-											{availability === 'soldOff' ? (
+											{product.availabilityProduct === false ? (
 												<Button
 													className='icon right'
 													width='100%'

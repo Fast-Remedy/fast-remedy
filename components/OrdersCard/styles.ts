@@ -55,6 +55,8 @@ export const Store = styled.span`
 		border-radius: 50%;
 		height: 3.2rem;
 		width: 3.2rem;
+		color: ${props => props.theme.colors.white};
+		object-fit: contain;
 	}
 `;
 

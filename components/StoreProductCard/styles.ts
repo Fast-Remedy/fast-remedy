@@ -36,6 +36,7 @@ export const Image = styled.img`
 	width: 6rem;
 	height: 6rem;
 	border-radius: 0.8rem;
+	object-fit: contain;
 `;
 
 export const Text = styled.span`
