@@ -55,7 +55,6 @@ export const Description = styled.span`
 export const Composition = styled.span`
 	font-size: 0.8rem;
 	font-weight: 400;
-	width: 90%;
 `;
 
 export const Price = styled.span`

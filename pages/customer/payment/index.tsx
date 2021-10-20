@@ -99,7 +99,7 @@ const Payment: React.FC = () => {
 	const setAsMainCard = async (index: number) => {
 		const allCards = [...cards];
 		const cardToEdit = cards[index];
-		const newAddress = { ...cardToEdit, mainCardCustomer: true };
+		const newCard = { ...cardToEdit, mainCardCustomer: true };
 		const editedCards = allCards.map(card => ({
 			_id: card._id,
 			idCustomer: card.idCustomer,
@@ -111,7 +111,7 @@ const Payment: React.FC = () => {
 			cardOwnerCpfCustomer: card.cardOwnerCpfCustomer,
 			mainCardCustomer: false,
 		}));
-		editedCards[index] = newAddress;
+		editedCards[index] = newCard;
 		try {
 			setCards(editedCards);
 			editedCards.forEach(async card => {
@@ -152,7 +152,7 @@ const Payment: React.FC = () => {
 			cardCvvCustomer,
 			cardOwnerNameCustomer,
 			cardOwnerCpfCustomer: cardOwnerCpfCustomer.replace(/[^0-9]+/g, ''),
-			mainCardCustomer: false,
+			mainCardCustomer: true,
 			idCustomer: JSON.parse(localStorage.getItem('userData'))._id,
 		};
 
@@ -200,7 +200,7 @@ const Payment: React.FC = () => {
 			setMessage('Insira um mês válido!');
 			isIncorrect = true;
 		}
-		if (newCard.cardNumberCustomers.length < 16) {
+		if (newCard.cardNumberCustomers.replace(/ /g, '').length < 16) {
 			setIsCardNumberCustomersIncorrect(true);
 			setIsMessageVisible(true);
 			setMessage('O número do cartão deve conter 16 dígitos!');
@@ -209,6 +209,25 @@ const Payment: React.FC = () => {
 		if (!isIncorrect) {
 			try {
 				setIsFetching(true);
+				const allCards = [...cards];
+				const editedCards = allCards.map(card => ({
+					_id: card._id,
+					idCustomer: card.idCustomer,
+					cardTypeCustomers: card.cardTypeCustomers,
+					cardNumberCustomers: card.cardNumberCustomers,
+					cardExpirationDateCustomers: card.cardExpirationDateCustomers,
+					cardCvvCustomer: card.cardCvvCustomer,
+					cardOwnerNameCustomer: card.cardOwnerNameCustomer,
+					cardOwnerCpfCustomer: card.cardOwnerCpfCustomer,
+					mainCardCustomer: false,
+				}));
+				editedCards.forEach(async card => {
+					await api.put(`/api/update/card/customers/${card._id}`, card, {
+						headers: {
+							authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+						},
+					});
+				});
 				await api.post('/api/register/card/customers', newCard, {
 					headers: {
 						authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,

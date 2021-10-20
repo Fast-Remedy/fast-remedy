@@ -25,7 +25,7 @@ export const LeftDiv = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 1rem 2rem;
+	padding: 1rem 0 1rem 2rem;
 	gap: 1.5rem;
 	background-color: ${props => props.theme.colors.white};
 	transition: 0.2s;

@@ -187,7 +187,21 @@ const Cart: React.FC = () => {
 				}
 			);
 			const address = data.find(item => item.mainAddressCustomer === true);
-			setAddress(address);
+			if (!address) {
+				setAddress({
+					_id: '',
+					idCustomer: '',
+					streetNameCustomer: '',
+					streetNumberCustomer: '',
+					complementCustomer: '',
+					neighborhoodCustomer: '',
+					stateCustomer: '',
+					cityCustomer: '',
+					mainAddressCustomer: true,
+				});
+			} else {
+				setAddress(address);
+			}
 			setIsFetching(false);
 		} catch (error) {
 			console.log(error);
@@ -205,29 +219,44 @@ const Cart: React.FC = () => {
 					},
 				}
 			);
-			let card = data.find(item => item.mainCardCustomer === true);
-
-			const cardNumber = card.cardNumberCustomers.split(' ');
-			const finalNumber = cardNumber[3];
-			let processor = '';
-			if (cardNumber[0].startsWith('4')) {
-				processor = 'Visa';
-			} else if (cardNumber[0].startsWith('5')) {
-				processor = 'Mastercard';
-			} else if (cardNumber[0].startsWith('36') || cardNumber[0].startsWith('38')) {
-				processor = 'Dinners Club';
-			} else if (cardNumber[0].startsWith('6')) {
-				processor = 'Discover';
-			} else if (cardNumber[0].startsWith('35')) {
-				processor = 'JCB';
-			} else if (cardNumber[0].startsWith('34') || cardNumber[0].startsWith('37')) {
-				processor = 'American Express';
+			const card = data.find(item => item.mainCardCustomer === true);
+			if (!card) {
+				setCard({
+					_id: '',
+					idCustomer: '',
+					cardTypeCustomers: '',
+					cardNumberCustomers: '',
+					cardExpirationDateCustomers: '',
+					cardCvvCustomer: '',
+					cardOwnerNameCustomer: '',
+					cardOwnerCpfCustomer: '',
+					mainCardCustomer: true,
+					finalNumber: '',
+					processor: '',
+				});
 			} else {
-				processor = 'Outro';
-			}
+				const cardNumber = card.cardNumberCustomers.split(' ');
+				const finalNumber = cardNumber[3];
+				let processor = '';
+				if (cardNumber[0].startsWith('4')) {
+					processor = 'Visa';
+				} else if (cardNumber[0].startsWith('5')) {
+					processor = 'Mastercard';
+				} else if (cardNumber[0].startsWith('36') || cardNumber[0].startsWith('38')) {
+					processor = 'Dinners Club';
+				} else if (cardNumber[0].startsWith('6')) {
+					processor = 'Discover';
+				} else if (cardNumber[0].startsWith('35')) {
+					processor = 'JCB';
+				} else if (cardNumber[0].startsWith('34') || cardNumber[0].startsWith('37')) {
+					processor = 'American Express';
+				} else {
+					processor = 'Outro';
+				}
 
-			card = { ...card, finalNumber, processor };
-			setCard(card);
+				const mainCard = { ...card, finalNumber, processor };
+				setCard(mainCard);
+			}
 			setIsFetching(false);
 		} catch (error) {
 			console.log(error);
@@ -446,7 +475,9 @@ const Cart: React.FC = () => {
 								<FinishCard>
 									<Button
 										className={`icon margin ${
-											(cartItems.length === 0 || address._id === '') &&
+											(cartItems.length === 0 ||
+												address._id === '' ||
+												card._id === '') &&
 											'disabled'
 										} ${isBuying && 'right'}`}
 										width='100%'
@@ -454,7 +485,11 @@ const Cart: React.FC = () => {
 										color={Theme.colors.white}
 										backgroundColor={Theme.colors.green}
 										onClick={handleBuy}
-										disabled={cartItems.length === 0 || address._id === ''}
+										disabled={
+											cartItems.length === 0 ||
+											address._id === '' ||
+											card._id === ''
+										}
 										isLoading={isBuying}
 									>
 										{isBuying ? (

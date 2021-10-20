@@ -177,7 +177,7 @@ const Address: React.FC = () => {
 			neighborhoodCustomer,
 			cityCustomer,
 			stateCustomer,
-			mainAddressCustomer: false,
+			mainAddressCustomer: true,
 			idCustomer: JSON.parse(localStorage.getItem('userData'))._id,
 		};
 
@@ -210,6 +210,25 @@ const Address: React.FC = () => {
 		if (!isIncorrect) {
 			try {
 				setIsFetching(true);
+				const allAddresses = [...addresses];
+				const editedAddresses = allAddresses.map(address => ({
+					_id: address._id,
+					idCustomer: address.idCustomer,
+					streetNameCustomer: address.streetNameCustomer,
+					streetNumberCustomer: address.streetNumberCustomer,
+					complementCustomer: address.complementCustomer,
+					neighborhoodCustomer: address.neighborhoodCustomer,
+					stateCustomer: address.stateCustomer,
+					cityCustomer: address.cityCustomer,
+					mainAddressCustomer: false,
+				}));
+				editedAddresses.forEach(async address => {
+					await api.put(`/api/update/address/customers/${address._id}`, address, {
+						headers: {
+							authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+						},
+					});
+				});
 				await api.post('/api/register/address/customers', newAddress, {
 					headers: {
 						authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
@@ -421,6 +440,7 @@ const Address: React.FC = () => {
 											<InputField
 												label='Bairro'
 												placeholder='Ex. Vila Santa Cecília'
+												required
 												value={neighborhoodCustomer}
 												onChange={e =>
 													setNeighborhoodCustomer(e.target.value)
