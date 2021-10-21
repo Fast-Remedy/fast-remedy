@@ -77,6 +77,16 @@ export const Message = styled.span`
 	margin-top: 0.5rem;
 `;
 
+export const IncorrectMessage = styled.span`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	color: ${props => props.theme.colors.red};
+	margin-top: 0.5rem;
+`;
+
 export const Image = styled.img`
 	margin-top: 1.7rem;
 	width: 6rem;

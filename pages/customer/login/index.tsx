@@ -75,9 +75,9 @@ const Login: React.FC = () => {
 
 		try {
 			setIsFetching(true);
-			const response = await api.post('/api/login/customers', loginData);
-			localStorage.setItem('token', JSON.stringify(response.data.token));
-			localStorage.setItem('userData', JSON.stringify(response.data.userList));
+			const { data } = await api.post('/api/login/customers', loginData);
+			localStorage.setItem('token', JSON.stringify(data.token));
+			localStorage.setItem('userData', JSON.stringify(data.userList));
 			router.push('/customer/home');
 		} catch (error) {
 			setIsFetching(false);
