@@ -2,6 +2,7 @@ import React, { FormEvent, useState, useEffect } from 'react';
 import router from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { animateScroll as scroll } from 'react-scroll';
+import { validateCpf } from '../../../utils/validate';
 import api from '../../../services/api';
 
 import Container from '../../../components/Container';
@@ -158,6 +159,12 @@ const Payment: React.FC = () => {
 
 		let isIncorrect = false;
 
+		if (!validateCpf(newCard.cardOwnerCpfCustomer)) {
+			setIsCardOwnerCpfCustomerIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Insira um CPF válido!');
+			isIncorrect = true;
+		}
 		if (newCard.cardOwnerCpfCustomer.trim().length < 11) {
 			setIsCardOwnerCpfCustomerIncorrect(true);
 			setIsMessageVisible(true);
@@ -247,6 +254,7 @@ const Payment: React.FC = () => {
 	};
 
 	const clearForm = () => {
+		setCardTypeCustomers('Credit');
 		setCardNumberCustomers('');
 		setCardExpirationMonthCustomers('');
 		setCardExpirationYearCustomers('');

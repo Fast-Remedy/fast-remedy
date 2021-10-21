@@ -2,6 +2,7 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import Link from 'next/link';
 import router from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
+import { validateCpf } from '../../../utils/validate';
 import api from '../../../services/api';
 
 import TitleBox from '../../../components/TitleBox';
@@ -117,6 +118,12 @@ const Login: React.FC = () => {
 			setIsPhoneIncorrect(true);
 			setIsMessageVisible(true);
 			setMessage('Insira um número de celular válido!');
+			isIncorrect = true;
+		}
+		if (!validateCpf(registerData.cpfCustomer)) {
+			setIsCpfIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Insira um CPF válido!');
 			isIncorrect = true;
 		}
 		if (registerData.cpfCustomer.trim().length < 11) {

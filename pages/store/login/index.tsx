@@ -2,6 +2,7 @@ import React, { FormEvent, useState, useEffect } from 'react';
 import Link from 'next/link';
 import router from 'next/router';
 import { motion, AnimatePresence } from 'framer-motion';
+import { validateCnpj } from '../../../utils/validate';
 import api from '../../../services/api';
 import base64 from '../../../utils/base64';
 
@@ -87,6 +88,7 @@ const Login: React.FC = () => {
 		setPassword('');
 		setConfirmPassword('');
 		setLogo('');
+		setLogoName('');
 		setDeliveryMode('Own');
 		setDeliveryFee('');
 		setDeliveryEstimatedTime('');
@@ -185,6 +187,12 @@ const Login: React.FC = () => {
 			setIsPhoneIncorrect(true);
 			setIsMessageVisible(true);
 			setMessage('Insira um número de celular válido!');
+			isIncorrect = true;
+		}
+		if (!validateCnpj(registerData.cnpjStore)) {
+			setIsCnpjIncorrect(true);
+			setIsMessageVisible(true);
+			setMessage('Insira um CNPJ válido!');
 			isIncorrect = true;
 		}
 		if (registerData.cnpjStore.trim().length < 14) {
