@@ -84,7 +84,7 @@ export const Picture = styled.picture`
 	transition: filter 0.2s;
 
 	&:hover {
-		filter: brightness(0.7);
+		filter: brightness(0.85);
 	}
 
 	&.active:hover {
@@ -101,6 +101,15 @@ export const Picture = styled.picture`
 			filter: none;
 		}
 	}
+
+	@media (min-width: 801px) {
+		padding-top: 0.6rem;
+		padding-bottom: 0.3rem;
+
+		&.active {
+			border-bottom: 2px solid ${props => props.theme.colors.white};
+		}
+	}
 `;
 
 export const Image = styled.img`
@@ -113,7 +122,7 @@ export const Image = styled.img`
 	}
 
 	@media (min-width: 801px) {
-		filter: brightness(0) invert(1) brightness(0.82);
+		filter: brightness(0) invert(1);
 
 		&.active {
 			filter: brightness(0) invert(1);
@@ -124,13 +133,13 @@ export const Image = styled.img`
 export const Text = styled.span`
 	color: ${props => props.theme.colors.white};
 	font-size: 0.8rem;
-	filter: brightness(0) invert(1) brightness(0.8);
 
 	&.active {
 		filter: none;
 	}
 
 	@media (max-width: 800px) {
+		filter: brightness(0) invert(1) brightness(0.8);
 		color: ${props => props.theme.colors.green};
 	}
 `;

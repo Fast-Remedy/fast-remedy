@@ -16,6 +16,10 @@ export const Section = styled.section`
 	align-items: center;
 	justify-content: center;
 	margin: 0 auto;
+
+	.info {
+		font-size: 0.9rem;
+	}
 `;
 
 export const BoxCard = styled.div`

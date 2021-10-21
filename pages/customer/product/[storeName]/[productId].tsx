@@ -7,13 +7,19 @@ import api from '../../../../services/api';
 import Container from '../../../../components/Container';
 import TitleBox from '../../../../components/TitleBox';
 import CartIcon from '../../../../components/CartIcon';
-import ProductDetailsCard from '../../../../components/ProductDetailsCard';
 import ButtonsContainer from '../../../../components/ButtonsContainer';
+import ProductDetailsCard from '../../../../components/ProductDetailsCard';
 import Button from '../../../../components/Button';
 import LoadingMessage from '../../../../components/LoadingMessage';
 import Modal from '../../../../components/Modal';
 
-import { Section, BoxCard, FinishCard, Message } from '../../../../styles/customer/product';
+import {
+	Section,
+	BoxCard,
+	FinishCard,
+	Message,
+	Quantity,
+} from '../../../../styles/customer/product';
 import Theme from '../../../../styles/theme';
 
 import { useNavigation } from '../../../../contexts/NavigationContext';
@@ -214,54 +220,68 @@ const Product: React.FC = () => {
 									</div>
 								</FinishCard>
 								<FinishCard>
-									<ButtonsContainer width='40%'>
-										<>
-											<Button
-												width='3rem'
-												height='3rem'
-												color={Theme.colors.white}
-												backgroundColor={Theme.colors.green}
-												onClick={() => {
-													if (quantity > 1) {
-														setQuantity(quantity - 1);
-													}
-												}}
+									<Quantity>
+										<Button
+											width='3rem'
+											height='3rem'
+											color={Theme.colors.white}
+											backgroundColor={Theme.colors.green}
+											onClick={() => {
+												if (quantity > 1) {
+													setQuantity(quantity - 1);
+												}
+											}}
+										>
+											<svg
+												style={{ height: '1.5rem', width: '1.5rem' }}
+												fill='currentColor'
+												viewBox='0 0 20 20'
+												xmlns='http://www.w3.org/2000/svg'
 											>
-												<svg
-													style={{ height: '1.5rem', width: '1.5rem' }}
-													fill='currentColor'
-													viewBox='0 0 20 20'
-													xmlns='http://www.w3.org/2000/svg'
-												>
-													<path
-														fillRule='evenodd'
-														d='M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z'
-														clipRule='evenodd'
-													/>
-												</svg>
-											</Button>
-											<Button
-												width='3rem'
-												height='3rem'
-												color={Theme.colors.white}
-												backgroundColor={Theme.colors.green}
-												onClick={() => setQuantity(quantity + 1)}
+												<path
+													fillRule='evenodd'
+													d='M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z'
+													clipRule='evenodd'
+												/>
+											</svg>
+										</Button>
+										<div
+											style={{
+												display: 'flex',
+												flexDirection: 'column',
+												alignItems: 'center',
+												justifyContent: 'center',
+												textAlign: 'center',
+											}}
+										>
+											<span className='info'>Total:</span>
+											<span className='info-total'>
+												{`R$ ${(product.priceProduct * quantity)
+													.toFixed(2)
+													.replace('.', ',')}`}
+											</span>
+										</div>
+										<Button
+											width='3rem'
+											height='3rem'
+											color={Theme.colors.white}
+											backgroundColor={Theme.colors.green}
+											onClick={() => setQuantity(quantity + 1)}
+										>
+											<svg
+												style={{ height: '2rem', width: '2rem' }}
+												fill='currentColor'
+												viewBox='0 0 20 20'
+												xmlns='http://www.w3.org/2000/svg'
 											>
-												<svg
-													style={{ height: '2rem', width: '2rem' }}
-													fill='currentColor'
-													viewBox='0 0 20 20'
-													xmlns='http://www.w3.org/2000/svg'
-												>
-													<path
-														fillRule='evenodd'
-														d='M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z'
-														clipRule='evenodd'
-													/>
-												</svg>
-											</Button>
-										</>
-									</ButtonsContainer>
+												<path
+													fillRule='evenodd'
+													d='M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z'
+													clipRule='evenodd'
+												/>
+											</svg>
+										</Button>
+									</Quantity>
 								</FinishCard>
 								<FinishCard>
 									<Button
@@ -284,11 +304,6 @@ const Product: React.FC = () => {
 													<path d='M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z' />
 												</svg>
 												Adicionar ao carrinho
-											</span>
-											<span className='info'>
-												{`R$ ${(product.priceProduct * quantity)
-													.toFixed(2)
-													.replace('.', ',')}`}
 											</span>
 										</div>
 									</Button>

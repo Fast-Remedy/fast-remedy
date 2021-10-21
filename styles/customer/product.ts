@@ -51,11 +51,16 @@ export const FinishCard = styled.div`
 		font-size: 1rem;
 		font-weight: 600;
 		padding: 0 1rem;
+	}
 
-		.info {
-			font-size: 1.2rem;
-			font-weight: 400;
-		}
+	.info {
+		font-size: 0.9rem;
+		font-weight: 400;
+	}
+
+	.info-total {
+		font-size: 1.1rem;
+		font-weight: 400;
 	}
 `;
 
@@ -68,4 +73,14 @@ export const Message = styled.span`
 	color: ${props => props.theme.colors.green};
 	margin-top: 1.5rem;
 	margin-bottom: 8rem;
+`;
+
+export const Quantity = styled.div`
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem 0;
+	gap: 2rem;
 `;

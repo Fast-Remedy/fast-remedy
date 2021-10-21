@@ -337,6 +337,9 @@ const Payment: React.FC = () => {
 								</Button>
 							</>
 						</ButtonsContainer>
+						<span className='info'>
+							Clique em um cartão para defini-lo como principal
+						</span>
 						{isFetching ? (
 							<BoxCard style={{ backgroundColor: '#fff' }}>
 								<LoadingMessage />

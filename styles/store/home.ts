@@ -49,6 +49,17 @@ export const InfoCard = styled.div`
 	border: 2px solid ${props => props.theme.colors.white};
 	background-color: ${props => props.theme.colors.white};
 	border-radius: 0.8rem;
+
+	h1 {
+		width: 100%;
+		text-align: center;
+		font-size: 1.4rem;
+		margin-bottom: 0.4rem;
+
+		@media (max-width: 620px) {
+			margin-bottom: 0.7rem;
+		}
+	}
 `;
 
 export const InfoBox = styled.div`
@@ -62,7 +73,7 @@ export const InfoBox = styled.div`
 
 	@media (max-width: 620px) {
 		align-items: flex-start;
-		gap: 0.8rem;
+		gap: 0.7rem;
 	}
 
 	h1 {

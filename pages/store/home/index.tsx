@@ -75,6 +75,11 @@ const Home: React.FC = () => {
 		});
 		setStore(JSON.parse(localStorage.getItem('storeData')));
 		getOrders();
+		return () => {
+			setNewOrders([]);
+			setOrdersInProgress([]);
+			setFinishedOrders(0);
+		};
 	}, []);
 
 	useEffect(() => {
@@ -106,7 +111,12 @@ const Home: React.FC = () => {
 				}
 			);
 			const newOrders = data
-				.filter(order => order.statusOrder === 'pendingAcceptance')
+				.filter(
+					order =>
+						order.statusOrder === 'pendingAcceptance' &&
+						order.dateOrder.split('-')[2].split('T')[0] ===
+							new Date().getDate().toString()
+				)
 				.sort((a, b) =>
 					b.dateOrder > a.dateOrder ? 1 : a.dateOrder > b.dateOrder ? -1 : 0
 				);
@@ -166,7 +176,7 @@ const Home: React.FC = () => {
 											<span>{ordersInProgress.length}</span>
 										</Info>
 										<Info>
-											<span>Pedidos concluídos:</span>
+											<span>Pedidos finalizados:</span>
 											<span>{finishedOrders}</span>
 										</Info>
 									</InfoBox>
