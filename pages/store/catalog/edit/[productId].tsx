@@ -51,7 +51,8 @@ const EditProduct: React.FC = () => {
 	const [isImageIncorrect, setIsImageIncorrect] = useState(false);
 
 	const [isImageLoading, setIsImageLoading] = useState(false);
-	const [isFetching, setIsFetching] = useState(false);
+	const [isFetching, setIsFetching] = useState(true);
+	const [isUpdating, setIsUpdating] = useState(false);
 
 	const [id, setId] = useState('');
 	const [idStore] = useState(JSON.parse(localStorage.getItem('storeData'))._id);
@@ -140,7 +141,7 @@ const EditProduct: React.FC = () => {
 		}
 		if (!isIncorrect) {
 			try {
-				setIsFetching(true);
+				setIsUpdating(true);
 				await api.put(`/api/update/product/stores/${query.productId}`, newProduct, {
 					headers: {
 						authorization: `Bearer ${JSON.parse(localStorage.getItem('storeToken'))}`,
@@ -154,7 +155,7 @@ const EditProduct: React.FC = () => {
 				}, 2000);
 			} catch (error) {
 				console.log(error);
-				setIsFetching(false);
+				setIsUpdating(false);
 			}
 		}
 		scroll.scrollToBottom();
@@ -272,16 +273,16 @@ const EditProduct: React.FC = () => {
 										color={Theme.colors.white}
 										backgroundColor={Theme.colors.green}
 										type='submit'
-										isLoading={isFetching}
+										isLoading={isUpdating}
 									>
-										{!isFetching && (
+										{!isUpdating && (
 											<img
 												src='/images/icons/save.svg'
 												alt='Salvar'
 												style={{ filter: 'invert(1)' }}
 											/>
 										)}
-										{isFetching ? 'Carregando...' : 'Cadastrar'}
+										{isUpdating ? 'Carregando...' : 'Cadastrar'}
 									</Button>
 								</ButtonsContainer>
 								<AnimatePresence>
