@@ -14,9 +14,11 @@ import InputField from '../../../../components/InputField';
 import CurrencyField from '../../../../components/CurrencyField';
 import SelectField from '../../../../components/SelectField';
 import Button from '../../../../components/Button';
+import LoadingMessage from '../../../../components/LoadingMessage';
 
 import {
 	Section,
+	BoxCard,
 	Message,
 	IncorrectMessage,
 	Image,
@@ -200,101 +202,107 @@ const EditProduct: React.FC = () => {
 							</Button>
 						</>
 					</ButtonsContainer>
-					<Form onSubmit={handleSave}>
-						<>
-							<SelectField
-								label='Categoria'
-								value={categoryProduct}
-								onChange={e => setCategoryProduct(e.target.value)}
-							>
-								<option value='medicines'>Medicamentos</option>
-								<option value='cosmetics'>Cosméticos / beleza</option>
-								<option value='vitamins'>Suplementos / vitaminas</option>
-								<option value='food'>Biscoitos / balas / comestíveis</option>
-								<option value='hygiene'>Higiene pessoal</option>
-								<option value='babies'>Cuidados com bebê</option>
-								<option value='devices'>Aparelhos</option>
-							</SelectField>
-							<InputField
-								label='Descrição'
-								placeholder='Dorflex 36 comprimidos'
-								required
-								value={descriptionProduct}
-								onChange={e => setDescriptionProduct(e.target.value)}
-								isIncorrect={isDescriptionIncorrect}
-							/>
-							<InputField
-								label='Composição (opcional)'
-								placeholder='Dipirona monoidratada 300mg, citrato de orfenadrina 35mg, cafeína anidra 50mg'
-								value={compositionProduct}
-								onChange={e => setCompositionProduct(e.target.value)}
-							/>
-
-							<ImageContainer>
-								<InputField
-									className='file'
-									label='Imagem (JPG ou PNG até 5 MB)'
-									type='file'
-									accept='.png, .jpg, .jpeg'
-									value={imageName}
-									disabled={isImageLoading}
-									onChange={e => changeImage(e)}
-									isIncorrect={isImageIncorrect}
-								/>
-								<Image src={imageProduct} alt={descriptionProduct} />
-							</ImageContainer>
-							<CurrencyField
-								label='Preço'
-								placeholder='R$ 5,69'
-								required={true}
-								value={priceProduct}
-								onChange={e => setPriceProduct(e.target.value)}
-							/>
-							<SelectField
-								label='Disponibilidade'
-								value={availabilityProduct}
-								onChange={e => setAvailabilityProduct(e.target.value)}
-							>
-								<option value='available'>Disponível</option>
-								<option value='soldOff'>Esgotado</option>
-							</SelectField>
-							<ButtonsContainer style={{ marginTop: '1rem' }}>
-								<Button
-									className='icon right'
-									width='100%'
-									color={Theme.colors.white}
-									backgroundColor={Theme.colors.green}
-									type='submit'
-									isLoading={isFetching}
+					{isFetching ? (
+						<BoxCard>
+							<LoadingMessage />
+						</BoxCard>
+					) : (
+						<Form onSubmit={handleSave}>
+							<>
+								<SelectField
+									label='Categoria'
+									value={categoryProduct}
+									onChange={e => setCategoryProduct(e.target.value)}
 								>
-									{!isFetching && (
-										<img
-											src='/images/icons/save.svg'
-											alt='Salvar'
-											style={{ filter: 'invert(1)' }}
-										/>
-									)}
-									{isFetching ? 'Carregando...' : 'Cadastrar'}
-								</Button>
-							</ButtonsContainer>
-							<AnimatePresence>
-								{isMessageVisible && (
-									<motion.div
-										initial={{ opacity: 0 }}
-										exit={{ opacity: 0 }}
-										animate={{ opacity: 1 }}
-										transition={{ duration: 0.3 }}
+									<option value='medicines'>Medicamentos</option>
+									<option value='cosmetics'>Cosméticos / beleza</option>
+									<option value='vitamins'>Suplementos / vitaminas</option>
+									<option value='food'>Biscoitos / balas / comestíveis</option>
+									<option value='hygiene'>Higiene pessoal</option>
+									<option value='babies'>Cuidados com bebê</option>
+									<option value='devices'>Aparelhos</option>
+								</SelectField>
+								<InputField
+									label='Descrição'
+									placeholder='Dorflex 36 comprimidos'
+									required
+									value={descriptionProduct}
+									onChange={e => setDescriptionProduct(e.target.value)}
+									isIncorrect={isDescriptionIncorrect}
+								/>
+								<InputField
+									label='Composição (opcional)'
+									placeholder='Dipirona monoidratada 300mg, citrato de orfenadrina 35mg, cafeína anidra 50mg'
+									value={compositionProduct}
+									onChange={e => setCompositionProduct(e.target.value)}
+								/>
+
+								<ImageContainer>
+									<InputField
+										className='file'
+										label='Imagem (JPG ou PNG até 5 MB)'
+										type='file'
+										accept='.png, .jpg, .jpeg'
+										value={imageName}
+										disabled={isImageLoading}
+										onChange={e => changeImage(e)}
+										isIncorrect={isImageIncorrect}
+									/>
+									<Image src={imageProduct} alt={descriptionProduct} />
+								</ImageContainer>
+								<CurrencyField
+									label='Preço'
+									placeholder='R$ 5,69'
+									required={true}
+									value={priceProduct}
+									onChange={e => setPriceProduct(e.target.value)}
+								/>
+								<SelectField
+									label='Disponibilidade'
+									value={availabilityProduct}
+									onChange={e => setAvailabilityProduct(e.target.value)}
+								>
+									<option value='available'>Disponível</option>
+									<option value='soldOff'>Esgotado</option>
+								</SelectField>
+								<ButtonsContainer style={{ marginTop: '1rem' }}>
+									<Button
+										className='icon right'
+										width='100%'
+										color={Theme.colors.white}
+										backgroundColor={Theme.colors.green}
+										type='submit'
+										isLoading={isFetching}
 									>
-										{!isDescriptionIncorrect && !isImageIncorrect ? (
-											<Message>{message}</Message>
-										) : (
-											<IncorrectMessage>{message}</IncorrectMessage>
+										{!isFetching && (
+											<img
+												src='/images/icons/save.svg'
+												alt='Salvar'
+												style={{ filter: 'invert(1)' }}
+											/>
 										)}
-									</motion.div>
-								)}
-							</AnimatePresence>
-						</>
-					</Form>
+										{isFetching ? 'Carregando...' : 'Cadastrar'}
+									</Button>
+								</ButtonsContainer>
+								<AnimatePresence>
+									{isMessageVisible && (
+										<motion.div
+											initial={{ opacity: 0 }}
+											exit={{ opacity: 0 }}
+											animate={{ opacity: 1 }}
+											transition={{ duration: 0.3 }}
+										>
+											{!isDescriptionIncorrect && !isImageIncorrect ? (
+												<Message>{message}</Message>
+											) : (
+												<IncorrectMessage>{message}</IncorrectMessage>
+											)}
+										</motion.div>
+									)}
+								</AnimatePresence>
+							</>
+						</Form>
+					)}
 				</Section>
 			</>
 		</Container>
