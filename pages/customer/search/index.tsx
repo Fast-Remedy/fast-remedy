@@ -33,13 +33,13 @@ const Search = ({ stores, products }) => {
 		const filteredStores = stores.filter(store =>
 			store.tradingNameStore.toLowerCase().includes(searchInput.toLowerCase())
 		);
-		setSearchStores(filteredStores.slice(0, 3));
+		setSearchStores(filteredStores.slice(0, 5));
 		const filteredProducts = products.filter(
 			product =>
 				product.descriptionProduct.toLowerCase().includes(searchInput.toLowerCase()) ||
 				product.compositionProduct?.toLowerCase().includes(searchInput.toLowerCase())
 		);
-		setSearchProducts(filteredProducts.slice(0, 3));
+		setSearchProducts(filteredProducts);
 	}, [searchInput]);
 
 	return (
