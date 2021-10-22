@@ -10,7 +10,7 @@ interface Props {
 	neighborhood: string;
 	city: string;
 	state: string;
-	onClick: (item: any) => void;
+	onClick?: (item: any) => void;
 	deleteFunction: (item: any) => void;
 }
 

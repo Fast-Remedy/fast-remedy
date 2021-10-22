@@ -211,7 +211,7 @@ const Payment: React.FC = () => {
 						style={{ width: '100%' }}
 					>
 						<div className='title'>
-							<TitleBox title='Dados' />
+							<TitleBox title='Conta Bancária' />
 						</div>
 						<BoxCard
 							style={{
