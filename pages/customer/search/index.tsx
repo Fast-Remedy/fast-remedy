@@ -91,7 +91,7 @@ const Search = ({ stores, products }) => {
 											storeName={
 												stores.filter(
 													store => store._id === product.idStore
-												)[0].tradingNameStore
+												)[0]?.tradingNameStore || ''
 											}
 											showStoreName={true}
 											productId={product._id}
