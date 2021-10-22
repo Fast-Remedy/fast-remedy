@@ -121,6 +121,9 @@ const Edit: React.FC = () => {
 		setCpfCustomer(user.cpfCustomer);
 		setEmailCustomer(user.emailCustomer);
 		setPhoneCustomer(user.phoneCustomer);
+		setActualPasswordCustomer('');
+		setPasswordCustomer('');
+		setConfirmPasswordCustomer('');
 	};
 
 	const handleUpdate = async (e: FormEvent) => {
@@ -128,7 +131,6 @@ const Edit: React.FC = () => {
 
 		const updateData = {
 			nameCustomer,
-			cpfCustomer: cpfCustomer.replace(/[^0-9]+/g, ''),
 			emailCustomer,
 			phoneCustomer: phoneCustomer.replace(/[^0-9]+/g, ''),
 			registrationDateCustomer: user.registrationDateCustomer,
@@ -138,7 +140,7 @@ const Edit: React.FC = () => {
 
 		if (updateData.phoneCustomer.trim().length < 10) {
 			setIsPhoneIncorrect(true);
-			setIsMessageVisible(true);
+			setIsIncorrectMessageVisible(true);
 			setMessage('Insira um número de celular válido!');
 			isIncorrect = true;
 		}
@@ -232,7 +234,7 @@ const Edit: React.FC = () => {
 					`/api/update/customers/password/${
 						JSON.parse(localStorage.getItem('userData'))._id
 					}`,
-					{ _id: user._id, passwordCustomer },
+					{ passwordCustomer },
 					{
 						headers: {
 							authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
