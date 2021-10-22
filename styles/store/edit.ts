@@ -101,4 +101,5 @@ export const ImageContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 	gap: 1rem;
+	width: 100%;
 `;
