@@ -48,6 +48,7 @@ export const Text = styled.span`
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
+	width: 100%;
 
 	@media (max-width: 800px) {
 		align-items: flex-start;
@@ -66,10 +67,47 @@ export const Title = styled.span`
 
 export const Subtitle = styled.span`
 	color: ${props => props.theme.colors.white};
-	font-size: 0.9rem;
-	font-weight: 400;
+	font-size: 0.8rem;
+	font-weight: 300;
+	width: 100%;
+	max-width: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 
 	@media (max-width: 800px) {
-		font-size: 1.1rem;
+		font-size: 1rem;
+	}
+
+	@media (max-width: 480px) {
+		max-width: 180px;
+	}
+
+	@media (max-width: 402px) {
+		font-size: 0.8rem;
+	}
+
+	@media (max-width: 350px) {
+		&:last-child {
+			margin-top: 0.2rem;
+		}
+	}
+
+	span {
+		font-size: 0.9rem;
+		font-weight: 400;
+		white-space: nowrap;
+
+		@media (max-width: 800px) {
+			font-size: 1.1rem;
+		}
+
+		@media (max-width: 402px) {
+			font-size: 1rem;
+		}
+
+		@media (max-width: 360px) {
+			margin-left: 0.2rem;
+		}
 	}
 `;

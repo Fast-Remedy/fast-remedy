@@ -22,7 +22,10 @@ const StoreCard: React.FC<Props> = ({ storeId, name, fee, estimatedTime, src }) 
 				<Text>
 					<Title>{name}</Title>
 					<Subtitle>
-						R$ {feeConverted} · {estimatedTime} min
+						Taxa de entrega: <span> R$ {feeConverted}</span>
+					</Subtitle>
+					<Subtitle>
+						Tempo estimado: <span>{estimatedTime} min</span>
 					</Subtitle>
 				</Text>
 				<FiChevronRight size={30} style={{ color: '#fff' }} />
