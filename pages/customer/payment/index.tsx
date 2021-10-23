@@ -254,7 +254,7 @@ const Payment: React.FC = () => {
 	};
 
 	const clearForm = () => {
-		setCardTypeCustomers('Credit');
+		setCardTypeCustomers('Crédito');
 		setCardNumberCustomers('');
 		setCardExpirationMonthCustomers('');
 		setCardExpirationYearCustomers('');
