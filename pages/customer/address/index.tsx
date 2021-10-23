@@ -238,6 +238,7 @@ const Address: React.FC = () => {
 				clearForm();
 				setNewAddressVisible(!newAddressVisible);
 				getAddresses();
+				window.location.reload();
 			} catch (error) {
 				setIsFetching(false);
 				setIsMessageVisible(true);

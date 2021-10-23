@@ -244,6 +244,7 @@ const Payment: React.FC = () => {
 				clearForm();
 				setNewPaymentVisible(!newPaymentVisible);
 				getCards();
+				window.location.reload();
 			} catch (error) {
 				setIsFetching(false);
 				setIsMessageVisible(true);
