@@ -7,9 +7,9 @@ import Container from '../../../components/Container';
 
 const Success = () => {
 	return (
-		<Container style={{ overflow: 'hidden' }}>
+		<Container style={{ overflow: 'hidden', marginTop: 0 }}>
 			<>
-				<Section>
+				<Section style={{ margin: 0, maxWidth: '100%' }}>
 					<Text>Compra concluída!</Text>
 					<Button
 						className='icon back right'

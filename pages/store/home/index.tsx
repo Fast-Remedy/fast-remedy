@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../../services/api';
+import { format, parseISO } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 
 import Container from '../../../components/Container';
 import TitleBox from '../../../components/TitleBox';
@@ -111,12 +113,7 @@ const Home: React.FC = () => {
 				}
 			);
 			const newOrders = data
-				.filter(
-					order =>
-						order.statusOrder === 'pendingAcceptance' &&
-						order.dateOrder.split('-')[2].split('T')[0] ===
-							new Date().getDate().toString()
-				)
+				.filter(order => order.statusOrder === 'pendingAcceptance')
 				.sort((a, b) =>
 					b.dateOrder > a.dateOrder ? 1 : a.dateOrder > b.dateOrder ? -1 : 0
 				);
@@ -128,7 +125,8 @@ const Home: React.FC = () => {
 			const finishedOrders = data.filter(order => {
 				return (
 					order.statusOrder === 'finished' &&
-					order.dateOrder.split('-')[2].split('T')[0] === new Date().getDate().toString()
+					format(parseISO(order.dateOrder), 'dd', { locale: ptBR }) ===
+						new Date().getDate().toString()
 				);
 			});
 			setNewOrders(newOrders);
